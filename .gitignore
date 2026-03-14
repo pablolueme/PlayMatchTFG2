@@ -2,6 +2,8 @@
 # Android Studio / Gradle
 # =========================
 .gradle/
+.gradle-user-home/
+.gradle-build-home/
 local.properties
 /build/
 /app/build/
@@ -46,4 +48,3 @@ obj/
 *.keystore
 *.p12
 *.pem
-
