@@ -1,15 +1,49 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+# =========================
+# Android Studio / Gradle
+# =========================
+.gradle/
 local.properties
+/build/
+/app/build/
+/*/build/
+
+# =========================
+# IntelliJ / Android Studio
+# =========================
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# =========================
+# Archivos generados / temporales
+# =========================
+captures/
+.externalNativeBuild/
+.cxx/
+out/
+.navigation/
+*.log
+*.tmp
+*.swp
+*~
+
+# =========================
+# Sistema operativo
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# NDK
+# =========================
+obj/
+
+# =========================
+# Keystores y claves sensibles
+# =========================
+*.jks
+*.keystore
+*.p12
+*.pem
+
