@@ -49,7 +49,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/txt_saludo_home"
+                        android:id="@+id/txt_alias_home"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/home_saludo"
@@ -98,6 +98,15 @@
                     android:src="@android:drawable/ic_dialog_info"
                     android:tint="@color/text_secondary" />
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_cerrar_sesion"
+                style="@style/Widget.PlayMatch.ButtonSecondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:text="@string/action_cerrar_sesion" />
 
             <!-- Accesos rapidos -->
             <TextView

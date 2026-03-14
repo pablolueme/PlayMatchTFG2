@@ -104,8 +104,15 @@
                 android:layout_marginTop="@dimen/spacing_16"
                 android:text="@string/action_iniciar_sesion" />
 
+            <ProgressBar
+                android:id="@+id/progress_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:visibility="gone" />
+
             <TextView
-                android:id="@+id/txt_olvide_contrasena"
+                android:id="@+id/txt_ir_recuperar_contrasena"
                 style="@style/Widget.PlayMatch.Link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

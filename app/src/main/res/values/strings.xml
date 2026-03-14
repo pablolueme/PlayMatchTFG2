@@ -25,9 +25,13 @@
     <string name="action_ver_mas">Ver mas</string>
 
     <string name="hint_nombre_completo">Nombre completo</string>
+    <string name="hint_alias">Alias</string>
     <string name="hint_correo">Correo electronico</string>
     <string name="hint_contrasena">Contrasena</string>
     <string name="hint_confirmar_contrasena">Confirmar contrasena</string>
+    <string name="hint_codigo_club">Codigo de club</string>
+    <string name="hint_nivel_padel">Selecciona nivel de padel</string>
+    <string name="hint_nivel_tenis">Selecciona nivel de tenis</string>
     <string name="hint_ciudad">Ciudad</string>
     <string name="hint_nivel_deportivo">Nivel deportivo</string>
     <string name="hint_fecha">Fecha</string>
@@ -45,6 +49,31 @@
     <string name="login_recordar_sesion">Recordar sesion</string>
     <string name="login_olvide_contrasena">Has olvidado tu contrasena?</string>
     <string name="login_no_tienes_cuenta">No tienes cuenta aun?</string>
+    <string name="msg_login_success">Inicio de sesion correcto</string>
+    <string name="msg_session_closed">Sesion cerrada</string>
+
+    <string name="error_name_required">Introduce tu nombre completo</string>
+    <string name="error_alias_required">El alias es obligatorio</string>
+    <string name="error_email_required">Introduce tu correo electronico</string>
+    <string name="error_password_required">Introduce tu contrasena</string>
+    <string name="error_confirm_password_required">Confirma tu contrasena</string>
+    <string name="error_club_code_required">Introduce el codigo de club</string>
+    <string name="error_club_code_invalid">Codigo de club incorrecto</string>
+    <string name="error_nivel_padel_required">Selecciona tu nivel de padel</string>
+    <string name="error_nivel_tenis_required">Selecciona tu nivel de tenis</string>
+    <string name="error_invalid_email_format">El correo no tiene un formato valido</string>
+    <string name="error_password_min_length">La contrasena debe tener al menos 6 caracteres</string>
+    <string name="error_passwords_do_not_match">Las contrasenas no coinciden</string>
+    <string name="msg_account_created_success">Cuenta creada correctamente</string>
+    <string name="msg_recovery_email_sent">Se ha enviado el correo de recuperacion</string>
+    <string name="msg_auth_invalid_credentials">Correo o contrasena incorrectos</string>
+    <string name="msg_auth_user_not_found">No existe una cuenta con ese correo</string>
+    <string name="msg_auth_user_disabled">Esta cuenta ha sido deshabilitada</string>
+    <string name="msg_auth_email_already_registered">Ese correo ya esta registrado</string>
+    <string name="msg_auth_network_error">Error de red. Revisa tu conexion</string>
+    <string name="msg_auth_too_many_requests">Demasiados intentos. Prueba de nuevo mas tarde</string>
+    <string name="msg_auth_generic_error">Ha ocurrido un error. Intentalo de nuevo</string>
+    <string name="msg_profile_not_found">No se pudo cargar el perfil del usuario</string>
 
     <string name="registro_titulo">Unete a PlayMatch</string>
     <string name="registro_subtitulo">Completa tus datos y empieza a jugar hoy mismo.</string>
@@ -67,6 +96,10 @@
     <string name="home_proximo_partido_plazas">1 plaza libre</string>
     <string name="home_partidos_disponibles">Partidos disponibles</string>
     <string name="home_eventos_destacados">Eventos destacados</string>
+    <string name="home_bienvenida_default">Hola, jugador</string>
+    <string name="home_bienvenida_with_email">Hola, %1$s</string>
+    <string name="home_profile_detail">%1$s | Rol: %2$s</string>
+    <string name="home_nombre_no_disponible">Jugador</string>
 
     <string name="partidos_titulo">Partidos</string>
     <string name="partidos_subtitulo">Encuentra y reserva tu siguiente partido.</string>
@@ -171,6 +204,9 @@
 
     <string name="label_deporte">Deporte</string>
     <string name="label_nivel">Nivel</string>
+    <string name="label_codigo_club">Codigo de club</string>
+    <string name="label_nivel_padel">Nivel de padel</string>
+    <string name="label_nivel_tenis">Nivel de tenis</string>
     <string name="label_fecha">Fecha</string>
     <string name="label_hora">Hora</string>
     <string name="label_ubicacion">Ubicacion</string>

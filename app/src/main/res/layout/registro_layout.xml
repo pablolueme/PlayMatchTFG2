@@ -88,7 +88,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btn_rol_user"
+                    android:id="@+id/btn_selector_user"
                     style="@style/Widget.PlayMatch.ButtonPrimary"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                     android:text="@string/rol_user" />
 
                 <Button
-                    android:id="@+id/btn_rol_club"
+                    android:id="@+id/btn_selector_club"
                     style="@style/Widget.PlayMatch.ButtonSecondary"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -116,6 +116,15 @@
                 android:inputType="textPersonName" />
 
             <EditText
+                android:id="@+id/edt_alias_registro"
+                style="@style/Widget.PlayMatch.Input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_height"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:hint="@string/hint_alias"
+                android:inputType="textPersonName" />
+
+            <EditText
                 android:id="@+id/edt_correo_registro"
                 style="@style/Widget.PlayMatch.Input"
                 android:layout_width="match_parent"
@@ -125,7 +134,7 @@
                 android:inputType="textEmailAddress" />
 
             <EditText
-                android:id="@+id/edt_contrasena_registro"
+                android:id="@+id/edt_password_registro"
                 style="@style/Widget.PlayMatch.Input"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/input_height"
@@ -134,7 +143,7 @@
                 android:inputType="textPassword" />
 
             <EditText
-                android:id="@+id/edt_confirmar_contrasena_registro"
+                android:id="@+id/edt_confirmar_password_registro"
                 style="@style/Widget.PlayMatch.Input"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/input_height"
@@ -142,23 +151,67 @@
                 android:hint="@string/hint_confirmar_contrasena"
                 android:inputType="textPassword" />
 
-            <EditText
-                android:id="@+id/edt_ciudad_registro"
-                style="@style/Widget.PlayMatch.Input"
+            <LinearLayout
+                android:id="@+id/layout_codigo_club"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/input_height"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_12"
-                android:hint="@string/hint_ciudad"
-                android:inputType="textCapWords" />
+                android:orientation="vertical"
+                android:visibility="gone">
 
-            <EditText
-                android:id="@+id/edt_nivel_registro"
+                <TextView
+                    style="@style/Text.PlayMatch.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_codigo_club"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edt_codigo_club"
+                    style="@style/Widget.PlayMatch.Input"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/input_height"
+                    android:layout_marginTop="@dimen/spacing_8"
+                    android:hint="@string/hint_codigo_club"
+                    android:inputType="textNoSuggestions" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/Text.PlayMatch.Body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:text="@string/label_nivel_padel"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold" />
+
+            <AutoCompleteTextView
+                android:id="@+id/actv_nivel_padel"
                 style="@style/Widget.PlayMatch.Input"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/input_height"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:hint="@string/hint_nivel_padel"
+                android:inputType="none" />
+
+            <TextView
+                style="@style/Text.PlayMatch.Body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_12"
-                android:hint="@string/hint_nivel_deportivo"
-                android:inputType="textCapWords" />
+                android:text="@string/label_nivel_tenis"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold" />
+
+            <AutoCompleteTextView
+                android:id="@+id/actv_nivel_tenis"
+                style="@style/Widget.PlayMatch.Input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_height"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:hint="@string/hint_nivel_tenis"
+                android:inputType="none" />
 
             <Button
                 android:id="@+id/btn_crear_cuenta"
@@ -167,6 +220,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_20"
                 android:text="@string/action_crear_cuenta" />
+
+            <ProgressBar
+                android:id="@+id/progress_registro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -182,7 +243,7 @@
                     android:text="@string/registro_ya_tienes_cuenta" />
 
                 <TextView
-                    android:id="@+id/txt_ir_login_desde_registro"
+                    android:id="@+id/txt_ir_login"
                     style="@style/Widget.PlayMatch.Link"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
