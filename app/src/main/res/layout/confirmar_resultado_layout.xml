@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_confirmar_resultado"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_app">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_confirmar_resultado"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingStart="@dimen/spacing_24"
+        android:paddingTop="@dimen/spacing_24"
+        android:paddingEnd="@dimen/spacing_24"
+        android:paddingBottom="@dimen/spacing_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/container_confirmar_resultado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_titulo_confirmar_resultado"
+                style="@style/Text.PlayMatch.ScreenTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/confirmar_resultado_titulo" />
+
+            <TextView
+                android:id="@+id/txt_subtitulo_confirmar_resultado"
+                style="@style/Text.PlayMatch.ScreenSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:text="@string/confirmar_resultado_subtitulo" />
+
+            <!-- Resumen del encuentro -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:background="@drawable/bg_card_blanca"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_16">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/confirmar_resultado_resumen"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_size_18"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/Text.PlayMatch.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_6"
+                    android:text="@string/sample_partido_titulo" />
+
+                <TextView
+                    style="@style/Text.PlayMatch.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_2"
+                    android:text="@string/sample_partido_fecha_hora" />
+            </LinearLayout>
+
+            <!-- Marcador visual -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:background="@drawable/bg_card_blanca"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_16">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/confirmar_resultado_set_1"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/text_size_12" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_8"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/confirmar_resultado_local"
+                        android:textColor="@color/text_primary"
+                        android:textSize="@dimen/text_size_14"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edt_set1_local"
+                        style="@style/Widget.PlayMatch.ScoreInput"
+                        android:layout_width="64dp"
+                        android:layout_height="@dimen/input_height"
+                        android:hint="@string/hint_marcador"
+                        android:inputType="number" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_12"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/confirmar_resultado_visitante"
+                        android:textColor="@color/text_primary"
+                        android:textSize="@dimen/text_size_14"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edt_set1_visitante"
+                        style="@style/Widget.PlayMatch.ScoreInput"
+                        android:layout_width="64dp"
+                        android:layout_height="@dimen/input_height"
+                        android:hint="@string/hint_marcador"
+                        android:inputType="number" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_16"
+                    android:text="@string/confirmar_resultado_set_2"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/text_size_12" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_8"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/confirmar_resultado_local"
+                        android:textColor="@color/text_primary"
+                        android:textSize="@dimen/text_size_14"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edt_set2_local"
+                        style="@style/Widget.PlayMatch.ScoreInput"
+                        android:layout_width="64dp"
+                        android:layout_height="@dimen/input_height"
+                        android:hint="@string/hint_marcador"
+                        android:inputType="number" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_12"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/confirmar_resultado_visitante"
+                        android:textColor="@color/text_primary"
+                        android:textSize="@dimen/text_size_14"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edt_set2_visitante"
+                        style="@style/Widget.PlayMatch.ScoreInput"
+                        android:layout_width="64dp"
+                        android:layout_height="@dimen/input_height"
+                        android:hint="@string/hint_marcador"
+                        android:inputType="number" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_16"
+                    android:text="@string/confirmar_resultado_set_3"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/text_size_12" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_8"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/confirmar_resultado_local"
+                        android:textColor="@color/text_primary"
+                        android:textSize="@dimen/text_size_14"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edt_set3_local"
+                        style="@style/Widget.PlayMatch.ScoreInput"
+                        android:layout_width="64dp"
+                        android:layout_height="@dimen/input_height"
+                        android:hint="@string/hint_marcador"
+                        android:inputType="number" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_12"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/confirmar_resultado_visitante"
+                        android:textColor="@color/text_primary"
+                        android:textSize="@dimen/text_size_14"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edt_set3_visitante"
+                        style="@style/Widget.PlayMatch.ScoreInput"
+                        android:layout_width="64dp"
+                        android:layout_height="@dimen/input_height"
+                        android:hint="@string/hint_marcador"
+                        android:inputType="number" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_guardar_resultado"
+                style="@style/Widget.PlayMatch.ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:text="@string/action_guardar_resultado" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

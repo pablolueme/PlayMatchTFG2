@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_home"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_app">
+
+    <include
+        android:id="@+id/include_bottom_nav_home"
+        layout="@layout/bottom_nav_visual_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_home"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/spacing_20"
+        android:paddingTop="@dimen/spacing_20"
+        android:paddingEnd="@dimen/spacing_20"
+        android:paddingBottom="@dimen/spacing_20"
+        app:layout_constraintBottom_toTopOf="@id/include_bottom_nav_home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/container_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_saludo_home"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_saludo"
+                        android:textColor="@color/text_primary"
+                        android:textSize="@dimen/text_size_24"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_estado_home"
+                        style="@style/Text.PlayMatch.ScreenSubtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_4"
+                        android:text="@string/home_estado" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/img_avatar_home"
+                    android:layout_width="@dimen/icon_size_40"
+                    android:layout_height="@dimen/icon_size_40"
+                    android:layout_marginEnd="@dimen/spacing_8"
+                    android:background="@drawable/bg_avatar_circular"
+                    android:contentDescription="@string/cd_avatar_usuario"
+                    android:padding="@dimen/spacing_8"
+                    android:src="@android:drawable/ic_menu_myplaces"
+                    android:tint="@color/primary_brand" />
+
+                <ImageView
+                    android:id="@+id/img_busqueda_home"
+                    android:layout_width="@dimen/icon_size_40"
+                    android:layout_height="@dimen/icon_size_40"
+                    android:layout_marginEnd="@dimen/spacing_8"
+                    android:background="@drawable/bg_icono_circulo_claro"
+                    android:contentDescription="@string/cd_icono_busqueda"
+                    android:padding="@dimen/spacing_10"
+                    android:src="@android:drawable/ic_menu_search"
+                    android:tint="@color/text_secondary" />
+
+                <ImageView
+                    android:id="@+id/img_notificacion_home"
+                    android:layout_width="@dimen/icon_size_40"
+                    android:layout_height="@dimen/icon_size_40"
+                    android:background="@drawable/bg_icono_circulo_claro"
+                    android:contentDescription="@string/cd_icono_notificacion"
+                    android:padding="@dimen/spacing_10"
+                    android:src="@android:drawable/ic_dialog_info"
+                    android:tint="@color/text_secondary" />
+            </LinearLayout>
+
+            <!-- Accesos rapidos -->
+            <TextView
+                android:id="@+id/txt_accesos_rapidos_home"
+                style="@style/Text.PlayMatch.SectionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_24"
+                android:text="@string/home_accesos_rapidos" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_8"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_card_blanca"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_16">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_24"
+                        android:layout_height="@dimen/icon_size_24"
+                        android:contentDescription="@string/cd_icono_partidos"
+                        android:src="@android:drawable/ic_input_add"
+                        android:tint="@color/primary_brand" />
+
+                    <TextView
+                        style="@style/Text.PlayMatch.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_8"
+                        android:text="@string/action_crear_partido"
+                        android:textColor="@color/text_primary"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_8"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_card_blanca"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_16">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_24"
+                        android:layout_height="@dimen/icon_size_24"
+                        android:contentDescription="@string/cd_icono_busqueda"
+                        android:src="@android:drawable/ic_menu_search"
+                        android:tint="@color/primary_brand" />
+
+                    <TextView
+                        style="@style/Text.PlayMatch.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_8"
+                        android:text="@string/action_buscar"
+                        android:textColor="@color/text_primary"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_8"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_card_blanca"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_16">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_24"
+                        android:layout_height="@dimen/icon_size_24"
+                        android:contentDescription="@string/cd_icono_partidos"
+                        android:src="@android:drawable/ic_menu_agenda"
+                        android:tint="@color/primary_brand" />
+
+                    <TextView
+                        style="@style/Text.PlayMatch.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_8"
+                        android:text="@string/action_mis_partidos"
+                        android:textColor="@color/text_primary"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_8"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_card_blanca"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_16">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_24"
+                        android:layout_height="@dimen/icon_size_24"
+                        android:contentDescription="@string/cd_icono_eventos"
+                        android:src="@android:drawable/ic_menu_recent_history"
+                        android:tint="@color/primary_brand" />
+
+                    <TextView
+                        style="@style/Text.PlayMatch.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_8"
+                        android:text="@string/action_historial"
+                        android:textColor="@color/text_primary"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Tarjeta destacada -->
+            <LinearLayout
+                android:id="@+id/card_proximo_partido_home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_24"
+                android:background="@drawable/bg_card_destacada_azul"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home_proximo_partido_titulo"
+                    android:textColor="@color/text_on_primary"
+                    android:textSize="@dimen/text_size_18"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_12"
+                    android:text="@string/home_proximo_partido_fecha"
+                    android:textColor="@color/text_on_primary"
+                    android:textSize="@dimen/text_size_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_4"
+                    android:text="@string/home_proximo_partido_lugar"
+                    android:textColor="@color/text_on_primary"
+                    android:textSize="@dimen/text_size_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_4"
+                    android:text="@string/home_proximo_partido_deporte"
+                    android:textColor="@color/text_on_primary"
+                    android:textSize="@dimen/text_size_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_12"
+                    android:background="@drawable/bg_chip_plazas"
+                    android:paddingStart="@dimen/spacing_12"
+                    android:paddingTop="@dimen/spacing_6"
+                    android:paddingEnd="@dimen/spacing_12"
+                    android:paddingBottom="@dimen/spacing_6"
+                    android:text="@string/home_proximo_partido_plazas"
+                    android:textColor="@color/primary_brand_dark"
+                    android:textSize="@dimen/text_size_12"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btn_ver_partido_home"
+                    style="@style/Widget.PlayMatch.ButtonLight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_16"
+                    android:text="@string/action_ver_detalle" />
+            </LinearLayout>
+
+            <!-- Seccion partidos -->
+            <TextView
+                android:id="@+id/txt_partidos_disponibles_home"
+                style="@style/Text.PlayMatch.SectionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_24"
+                android:text="@string/home_partidos_disponibles" />
+
+            <include layout="@layout/item_partido_layout" />
+
+            <!-- Seccion eventos -->
+            <TextView
+                android:id="@+id/txt_eventos_destacados_home"
+                style="@style/Text.PlayMatch.SectionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:text="@string/home_eventos_destacados" />
+
+            <include layout="@layout/item_evento_layout" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_partidos"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_app">
+
+    <include
+        android:id="@+id/include_bottom_nav_partidos"
+        layout="@layout/bottom_nav_visual_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_partidos"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingStart="@dimen/spacing_20"
+        android:paddingTop="@dimen/spacing_20"
+        android:paddingEnd="@dimen/spacing_20"
+        android:paddingBottom="@dimen/spacing_20"
+        app:layout_constraintBottom_toTopOf="@id/include_bottom_nav_partidos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/container_partidos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Imagen superior -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/hero_height"
+                android:background="@drawable/bg_placeholder_imagen">
+
+                <ImageView
+                    android:id="@+id/img_hero_partidos"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/cd_imagen_partido"
+                    android:padding="@dimen/spacing_32"
+                    android:src="@android:drawable/ic_menu_compass"
+                    android:tint="@color/primary_brand_dark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_16">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/partidos_hero_titulo"
+                        android:textColor="@color/text_primary"
+                        android:textSize="@dimen/text_size_20"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/Text.PlayMatch.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_4"
+                        android:text="@string/partidos_hero_subtitulo"
+                        android:textColor="@color/text_secondary" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/txt_titulo_partidos"
+                style="@style/Text.PlayMatch.SectionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:text="@string/partidos_titulo" />
+
+            <TextView
+                android:id="@+id/txt_subtitulo_partidos"
+                style="@style/Text.PlayMatch.ScreenSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_4"
+                android:text="@string/partidos_subtitulo" />
+
+            <!-- Buscador -->
+            <EditText
+                android:id="@+id/edt_buscar_partidos"
+                style="@style/Widget.PlayMatch.Input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_height"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:drawableStart="@android:drawable/ic_menu_search"
+                android:drawablePadding="@dimen/spacing_8"
+                android:hint="@string/hint_buscar_partidos"
+                android:inputType="text" />
+
+            <!-- Chips de filtro -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/chip_filtro_todos_partidos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_chip_padel"
+                        android:paddingStart="@dimen/spacing_14"
+                        android:paddingTop="@dimen/spacing_8"
+                        android:paddingEnd="@dimen/spacing_14"
+                        android:paddingBottom="@dimen/spacing_8"
+                        android:text="@string/partidos_filtro_todos"
+                        android:textColor="@color/chip_padel_text"
+                        android:textSize="@dimen/text_size_12"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/chip_filtro_padel_partidos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_8"
+                        android:background="@drawable/bg_chip_padel"
+                        android:paddingStart="@dimen/spacing_14"
+                        android:paddingTop="@dimen/spacing_8"
+                        android:paddingEnd="@dimen/spacing_14"
+                        android:paddingBottom="@dimen/spacing_8"
+                        android:text="@string/partidos_filtro_padel"
+                        android:textColor="@color/chip_padel_text"
+                        android:textSize="@dimen/text_size_12"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/chip_filtro_tenis_partidos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_8"
+                        android:background="@drawable/bg_chip_tenis"
+                        android:paddingStart="@dimen/spacing_14"
+                        android:paddingTop="@dimen/spacing_8"
+                        android:paddingEnd="@dimen/spacing_14"
+                        android:paddingBottom="@dimen/spacing_8"
+                        android:text="@string/partidos_filtro_tenis"
+                        android:textColor="@color/chip_tenis_text"
+                        android:textSize="@dimen/text_size_12"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Lista visual de partidos -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:orientation="vertical">
+
+                <include layout="@layout/item_partido_layout" />
+                <include layout="@layout/item_partido_layout" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

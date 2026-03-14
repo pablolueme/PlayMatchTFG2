@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_ajustes"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_app">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_ajustes"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingStart="@dimen/spacing_24"
+        android:paddingTop="@dimen/spacing_24"
+        android:paddingEnd="@dimen/spacing_24"
+        android:paddingBottom="@dimen/spacing_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/container_ajustes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_titulo_ajustes"
+                style="@style/Text.PlayMatch.ScreenTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ajustes_titulo" />
+
+            <TextView
+                android:id="@+id/txt_subtitulo_ajustes"
+                style="@style/Text.PlayMatch.ScreenSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:text="@string/ajustes_subtitulo" />
+
+            <!-- Opcion editar perfil -->
+            <LinearLayout
+                android:id="@+id/card_ajuste_editar_perfil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:background="@drawable/bg_card_blanca"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_16">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_24"
+                    android:layout_height="@dimen/icon_size_24"
+                    android:contentDescription="@string/cd_icono_perfil"
+                    android:src="@android:drawable/ic_menu_edit"
+                    android:tint="@color/primary_brand" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_12"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ajustes_opcion_editar_perfil"
+                        android:textColor="@color/text_primary"
+                        android:textSize="@dimen/text_size_16"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/Text.PlayMatch.Body"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_2"
+                        android:text="@string/ajustes_opcion_editar_perfil_desc" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Opcion informacion de cuenta -->
+            <LinearLayout
+                android:id="@+id/card_ajuste_info_cuenta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:background="@drawable/bg_card_blanca"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_16">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_24"
+                    android:layout_height="@dimen/icon_size_24"
+                    android:contentDescription="@string/cd_icono_ajustes"
+                    android:src="@android:drawable/ic_dialog_info"
+                    android:tint="@color/primary_brand" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_12"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ajustes_opcion_info_cuenta"
+                        android:textColor="@color/text_primary"
+                        android:textSize="@dimen/text_size_16"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/Text.PlayMatch.Body"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_2"
+                        android:text="@string/ajustes_opcion_info_cuenta_desc" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Opcion cerrar sesion -->
+            <LinearLayout
+                android:id="@+id/card_ajuste_cerrar_sesion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:background="@drawable/bg_card_blanca"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_16">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_24"
+                    android:layout_height="@dimen/icon_size_24"
+                    android:contentDescription="@string/cd_icono_ajustes"
+                    android:src="@android:drawable/ic_lock_power_off"
+                    android:tint="@color/danger_red" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_12"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ajustes_opcion_cerrar_sesion"
+                        android:textColor="@color/text_primary"
+                        android:textSize="@dimen/text_size_16"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/Text.PlayMatch.Body"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_2"
+                        android:text="@string/ajustes_opcion_cerrar_sesion_desc" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_cerrar_sesion_ajustes"
+                style="@style/Widget.PlayMatch.ButtonDanger"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:text="@string/action_cerrar_sesion" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

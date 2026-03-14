@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_perfil"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_app">
+
+    <include
+        android:id="@+id/include_bottom_nav_perfil"
+        layout="@layout/bottom_nav_visual_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_perfil"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingStart="@dimen/spacing_20"
+        android:paddingTop="@dimen/spacing_20"
+        android:paddingEnd="@dimen/spacing_20"
+        android:paddingBottom="@dimen/spacing_20"
+        app:layout_constraintBottom_toTopOf="@id/include_bottom_nav_perfil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/container_perfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_titulo_perfil"
+                style="@style/Text.PlayMatch.SectionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/perfil_titulo" />
+
+            <ImageView
+                android:id="@+id/img_avatar_perfil"
+                android:layout_width="@dimen/avatar_size_large"
+                android:layout_height="@dimen/avatar_size_large"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:background="@drawable/bg_avatar_circular"
+                android:contentDescription="@string/cd_avatar_usuario"
+                android:padding="@dimen/spacing_20"
+                android:src="@android:drawable/ic_menu_myplaces"
+                android:tint="@color/primary_brand" />
+
+            <TextView
+                android:id="@+id/txt_nombre_perfil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:text="@string/perfil_nombre"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_size_20"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_correo_perfil"
+                style="@style/Text.PlayMatch.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_4"
+                android:text="@string/perfil_correo" />
+
+            <TextView
+                android:id="@+id/txt_rol_perfil"
+                style="@style/Text.PlayMatch.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_2"
+                android:text="@string/perfil_rol" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:background="@drawable/bg_card_blanca"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_16">
+
+                <TextView
+                    android:id="@+id/txt_ciudad_perfil"
+                    style="@style/Text.PlayMatch.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/perfil_ciudad"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_nivel_perfil"
+                    style="@style/Text.PlayMatch.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_8"
+                    android:text="@string/perfil_nivel"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_editar_perfil"
+                style="@style/Widget.PlayMatch.ButtonSecondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:text="@string/action_editar_perfil" />
+
+            <TextView
+                android:id="@+id/txt_accesos_perfil"
+                style="@style/Text.PlayMatch.SectionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:text="@string/perfil_accesos" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/card_historial_perfil"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_8"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_card_blanca"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_16">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_24"
+                        android:layout_height="@dimen/icon_size_24"
+                        android:contentDescription="@string/cd_icono_partidos"
+                        android:src="@android:drawable/ic_menu_recent_history"
+                        android:tint="@color/primary_brand" />
+
+                    <TextView
+                        style="@style/Text.PlayMatch.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_8"
+                        android:text="@string/perfil_opcion_historial"
+                        android:textColor="@color/text_primary"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/card_ajustes_perfil"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_8"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_card_blanca"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_16">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_24"
+                        android:layout_height="@dimen/icon_size_24"
+                        android:contentDescription="@string/cd_icono_ajustes"
+                        android:src="@android:drawable/ic_menu_manage"
+                        android:tint="@color/primary_brand" />
+
+                    <TextView
+                        style="@style/Text.PlayMatch.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_8"
+                        android:text="@string/perfil_opcion_ajustes"
+                        android:textColor="@color/text_primary"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_cerrar_sesion_perfil"
+                style="@style/Widget.PlayMatch.ButtonDanger"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:text="@string/action_cerrar_sesion" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

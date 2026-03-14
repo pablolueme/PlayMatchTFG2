@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_crear_partido"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_app">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_crear_partido"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingStart="@dimen/spacing_24"
+        android:paddingTop="@dimen/spacing_24"
+        android:paddingEnd="@dimen/spacing_24"
+        android:paddingBottom="@dimen/spacing_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/container_crear_partido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_titulo_crear_partido"
+                style="@style/Text.PlayMatch.ScreenTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/crear_partido_titulo" />
+
+            <TextView
+                android:id="@+id/txt_subtitulo_crear_partido"
+                style="@style/Text.PlayMatch.ScreenSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:text="@string/crear_partido_subtitulo" />
+
+            <!-- Selector de deporte -->
+            <TextView
+                style="@style/Text.PlayMatch.Body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:text="@string/crear_partido_selector_deporte"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_selector_padel_crear_partido"
+                    style="@style/Widget.PlayMatch.ButtonPrimary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/partidos_filtro_padel" />
+
+                <Button
+                    android:id="@+id/btn_selector_tenis_crear_partido"
+                    style="@style/Widget.PlayMatch.ButtonSecondary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_12"
+                    android:layout_weight="1"
+                    android:text="@string/partidos_filtro_tenis" />
+            </LinearLayout>
+
+            <!-- Mensaje jugadores -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:background="@drawable/bg_card_blanca"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_16">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/crear_partido_info_jugadores"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_size_16"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/Text.PlayMatch.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_8"
+                    android:text="@string/crear_partido_msg_padel" />
+
+                <TextView
+                    style="@style/Text.PlayMatch.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_4"
+                    android:text="@string/crear_partido_msg_tenis" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/edt_fecha_crear_partido"
+                style="@style/Widget.PlayMatch.Input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_height"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:hint="@string/hint_fecha"
+                android:inputType="date" />
+
+            <EditText
+                android:id="@+id/edt_hora_crear_partido"
+                style="@style/Widget.PlayMatch.Input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_height"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:hint="@string/hint_hora"
+                android:inputType="time" />
+
+            <EditText
+                android:id="@+id/edt_direccion_crear_partido"
+                style="@style/Widget.PlayMatch.Input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_height"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:hint="@string/hint_direccion"
+                android:inputType="textPostalAddress" />
+
+            <EditText
+                android:id="@+id/edt_nivel_crear_partido"
+                style="@style/Widget.PlayMatch.Input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_height"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:hint="@string/hint_nivel_deportivo"
+                android:inputType="textCapWords" />
+
+            <Button
+                android:id="@+id/btn_crear_partido"
+                style="@style/Widget.PlayMatch.ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:text="@string/action_crear_partido" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_editar_perfil"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_app">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_editar_perfil"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingStart="@dimen/spacing_24"
+        android:paddingTop="@dimen/spacing_24"
+        android:paddingEnd="@dimen/spacing_24"
+        android:paddingBottom="@dimen/spacing_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/container_editar_perfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_titulo_editar_perfil"
+                style="@style/Text.PlayMatch.ScreenTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/editar_perfil_titulo" />
+
+            <TextView
+                android:id="@+id/txt_subtitulo_editar_perfil"
+                style="@style/Text.PlayMatch.ScreenSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:text="@string/editar_perfil_subtitulo" />
+
+            <ImageView
+                android:id="@+id/img_avatar_editar_perfil"
+                android:layout_width="@dimen/avatar_size_large"
+                android:layout_height="@dimen/avatar_size_large"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:background="@drawable/bg_avatar_circular"
+                android:contentDescription="@string/cd_avatar_usuario"
+                android:padding="@dimen/spacing_20"
+                android:src="@android:drawable/ic_menu_myplaces"
+                android:tint="@color/primary_brand" />
+
+            <EditText
+                android:id="@+id/edt_nombre_editar_perfil"
+                style="@style/Widget.PlayMatch.Input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_height"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:hint="@string/hint_nombre_completo"
+                android:inputType="textPersonName"
+                android:text="@string/perfil_nombre" />
+
+            <EditText
+                android:id="@+id/edt_ciudad_editar_perfil"
+                style="@style/Widget.PlayMatch.Input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_height"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:hint="@string/hint_ciudad"
+                android:inputType="textCapWords"
+                android:text="@string/perfil_ciudad" />
+
+            <EditText
+                android:id="@+id/edt_nivel_editar_perfil"
+                style="@style/Widget.PlayMatch.Input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_height"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:hint="@string/hint_nivel_deportivo"
+                android:inputType="textCapWords"
+                android:text="@string/perfil_nivel" />
+
+            <Button
+                android:id="@+id/btn_guardar_editar_perfil"
+                style="@style/Widget.PlayMatch.ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:text="@string/action_guardar_cambios" />
+
+            <Button
+                android:id="@+id/btn_cancelar_editar_perfil"
+                style="@style/Widget.PlayMatch.ButtonSecondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:text="@string/action_cancelar" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

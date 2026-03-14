@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_detalle_partido"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_app">
+
+    <Button
+        android:id="@+id/btn_apuntarse_detalle_partido"
+        style="@style/Widget.PlayMatch.ButtonPrimary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_20"
+        android:layout_marginEnd="@dimen/spacing_20"
+        android:layout_marginBottom="@dimen/spacing_20"
+        android:text="@string/action_apuntarse"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_detalle_partido"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingStart="@dimen/spacing_20"
+        android:paddingTop="@dimen/spacing_20"
+        android:paddingEnd="@dimen/spacing_20"
+        android:paddingBottom="@dimen/spacing_20"
+        app:layout_constraintBottom_toTopOf="@id/btn_apuntarse_detalle_partido"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/container_detalle_partido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Imagen superior -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/banner_height">
+
+                <ImageView
+                    android:id="@+id/img_portada_detalle_partido"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_placeholder_imagen"
+                    android:contentDescription="@string/cd_imagen_partido"
+                    android:padding="@dimen/spacing_40"
+                    android:src="@android:drawable/ic_menu_gallery"
+                    android:tint="@color/primary_brand_dark" />
+
+                <TextView
+                    android:id="@+id/txt_badge_plazas_detalle_partido"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|end"
+                    android:layout_margin="@dimen/spacing_16"
+                    android:background="@drawable/bg_chip_plazas"
+                    android:paddingStart="@dimen/spacing_12"
+                    android:paddingTop="@dimen/spacing_6"
+                    android:paddingEnd="@dimen/spacing_12"
+                    android:paddingBottom="@dimen/spacing_6"
+                    android:text="@string/detalle_partido_plazas_libres"
+                    android:textColor="@color/primary_brand_dark"
+                    android:textSize="@dimen/text_size_12"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <!-- Informacion principal -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:background="@drawable/bg_card_blanca"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_16">
+
+                <TextView
+                    android:id="@+id/txt_titulo_detalle_partido"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detalle_partido_nombre"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_size_20"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_12"
+                    android:text="@string/label_deporte"
+                    android:textColor="@color/text_tertiary"
+                    android:textSize="@dimen/text_size_12" />
+
+                <TextView
+                    android:id="@+id/txt_deporte_detalle_partido"
+                    style="@style/Text.PlayMatch.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detalle_partido_deporte"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_10"
+                    android:text="@string/label_nivel"
+                    android:textColor="@color/text_tertiary"
+                    android:textSize="@dimen/text_size_12" />
+
+                <TextView
+                    android:id="@+id/txt_nivel_detalle_partido"
+                    style="@style/Text.PlayMatch.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detalle_partido_nivel"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_10"
+                    android:text="@string/label_fecha"
+                    android:textColor="@color/text_tertiary"
+                    android:textSize="@dimen/text_size_12" />
+
+                <TextView
+                    android:id="@+id/txt_fecha_detalle_partido"
+                    style="@style/Text.PlayMatch.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detalle_partido_fecha"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_10"
+                    android:text="@string/label_hora"
+                    android:textColor="@color/text_tertiary"
+                    android:textSize="@dimen/text_size_12" />
+
+                <TextView
+                    android:id="@+id/txt_hora_detalle_partido"
+                    style="@style/Text.PlayMatch.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detalle_partido_hora"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_10"
+                    android:text="@string/label_ubicacion"
+                    android:textColor="@color/text_tertiary"
+                    android:textSize="@dimen/text_size_12" />
+
+                <TextView
+                    android:id="@+id/txt_ubicacion_detalle_partido"
+                    style="@style/Text.PlayMatch.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detalle_partido_ubicacion"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Participantes -->
+            <TextView
+                android:id="@+id/txt_participantes_detalle_partido"
+                style="@style/Text.PlayMatch.SectionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:text="@string/detalle_partido_participantes" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/icon_size_40"
+                    android:layout_height="@dimen/icon_size_40"
+                    android:background="@drawable/bg_avatar_circular"
+                    android:gravity="center"
+                    android:text="@string/app_initials"
+                    android:textColor="@color/primary_brand"
+                    android:textSize="@dimen/text_size_14"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="@dimen/icon_size_40"
+                    android:layout_height="@dimen/icon_size_40"
+                    android:layout_marginStart="@dimen/spacing_10"
+                    android:background="@drawable/bg_avatar_circular"
+                    android:gravity="center"
+                    android:text="@string/app_initials"
+                    android:textColor="@color/primary_brand"
+                    android:textSize="@dimen/text_size_14"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="@dimen/icon_size_40"
+                    android:layout_height="@dimen/icon_size_40"
+                    android:layout_marginStart="@dimen/spacing_10"
+                    android:background="@drawable/bg_avatar_circular"
+                    android:gravity="center"
+                    android:text="@string/app_initials"
+                    android:textColor="@color/primary_brand"
+                    android:textSize="@dimen/text_size_14"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="@dimen/icon_size_40"
+                    android:layout_height="@dimen/icon_size_40"
+                    android:layout_marginStart="@dimen/spacing_10"
+                    android:background="@drawable/bg_icono_circulo_claro"
+                    android:gravity="center"
+                    android:text="@string/action_apuntarse"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/text_size_12"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Mapa placeholder -->
+            <TextView
+                android:id="@+id/txt_label_mapa_detalle_partido"
+                style="@style/Text.PlayMatch.SectionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:text="@string/detalle_partido_mapa" />
+
+            <FrameLayout
+                android:id="@+id/map_placeholder_detalle_partido"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/map_height"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:background="@drawable/bg_placeholder_mapa">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_40"
+                    android:layout_height="@dimen/icon_size_40"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/cd_mapa_placeholder"
+                    android:src="@android:drawable/ic_menu_mapmode"
+                    android:tint="@color/text_tertiary" />
+            </FrameLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_registro"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_app">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_registro"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/spacing_24"
+        android:paddingTop="@dimen/spacing_24"
+        android:paddingEnd="@dimen/spacing_24"
+        android:paddingBottom="@dimen/spacing_32"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/container_registro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Imagen superior deportiva -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/hero_height"
+                android:background="@drawable/bg_placeholder_imagen">
+
+                <ImageView
+                    android:id="@+id/img_hero_registro"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/cd_imagen_deportiva"
+                    android:padding="@dimen/spacing_32"
+                    android:src="@android:drawable/ic_media_play"
+                    android:tint="@color/primary_brand_dark" />
+
+                <TextView
+                    android:id="@+id/txt_hero_registro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|start"
+                    android:layout_margin="@dimen/spacing_16"
+                    android:text="@string/registro_hero_text"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_size_16"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/txt_titulo_registro"
+                style="@style/Text.PlayMatch.ScreenTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_24"
+                android:text="@string/registro_titulo" />
+
+            <TextView
+                android:id="@+id/txt_subtitulo_registro"
+                style="@style/Text.PlayMatch.ScreenSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:text="@string/registro_subtitulo" />
+
+            <!-- Selector USER / CLUB -->
+            <TextView
+                android:id="@+id/txt_selector_rol"
+                style="@style/Text.PlayMatch.Body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:text="@string/registro_selector_rol"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/layout_selector_rol"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_rol_user"
+                    style="@style/Widget.PlayMatch.ButtonPrimary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/rol_user" />
+
+                <Button
+                    android:id="@+id/btn_rol_club"
+                    style="@style/Widget.PlayMatch.ButtonSecondary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_12"
+                    android:layout_weight="1"
+                    android:text="@string/rol_club" />
+            </LinearLayout>
+
+            <!-- Campos de registro -->
+            <EditText
+                android:id="@+id/edt_nombre_registro"
+                style="@style/Widget.PlayMatch.Input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_height"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:hint="@string/hint_nombre_completo"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/edt_correo_registro"
+                style="@style/Widget.PlayMatch.Input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_height"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:hint="@string/hint_correo"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/edt_contrasena_registro"
+                style="@style/Widget.PlayMatch.Input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_height"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:hint="@string/hint_contrasena"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/edt_confirmar_contrasena_registro"
+                style="@style/Widget.PlayMatch.Input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_height"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:hint="@string/hint_confirmar_contrasena"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/edt_ciudad_registro"
+                style="@style/Widget.PlayMatch.Input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_height"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:hint="@string/hint_ciudad"
+                android:inputType="textCapWords" />
+
+            <EditText
+                android:id="@+id/edt_nivel_registro"
+                style="@style/Widget.PlayMatch.Input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_height"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:hint="@string/hint_nivel_deportivo"
+                android:inputType="textCapWords" />
+
+            <Button
+                android:id="@+id/btn_crear_cuenta"
+                style="@style/Widget.PlayMatch.ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_20"
+                android:text="@string/action_crear_cuenta" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/Text.PlayMatch.Body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/registro_ya_tienes_cuenta" />
+
+                <TextView
+                    android:id="@+id/txt_ir_login_desde_registro"
+                    style="@style/Widget.PlayMatch.Link"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_6"
+                    android:text="@string/action_iniciar_sesion" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

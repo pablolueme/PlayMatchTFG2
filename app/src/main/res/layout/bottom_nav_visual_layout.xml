@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_bottom_nav_visual"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bottom_nav_height"
+    android:background="@drawable/bg_bottom_nav"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/spacing_8"
+    android:paddingTop="@dimen/spacing_8"
+    android:paddingEnd="@dimen/spacing_8"
+    android:paddingBottom="@dimen/spacing_8">
+
+    <LinearLayout
+        android:id="@+id/item_nav_inicio"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/icon_nav_inicio"
+            android:layout_width="@dimen/icon_size_20"
+            android:layout_height="@dimen/icon_size_20"
+            android:contentDescription="@string/cd_icono_inicio"
+            android:src="@android:drawable/ic_menu_view"
+            android:tint="@color/primary_brand" />
+
+        <TextView
+            android:id="@+id/txt_nav_inicio"
+            style="@style/Text.PlayMatch.NavLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_4"
+            android:text="@string/nav_inicio"
+            android:textColor="@color/primary_brand" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/item_nav_partidos"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/icon_nav_partidos"
+            android:layout_width="@dimen/icon_size_20"
+            android:layout_height="@dimen/icon_size_20"
+            android:contentDescription="@string/cd_icono_partidos"
+            android:src="@android:drawable/ic_menu_agenda"
+            android:tint="@color/nav_icon_inactive" />
+
+        <TextView
+            android:id="@+id/txt_nav_partidos"
+            style="@style/Text.PlayMatch.NavLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_4"
+            android:text="@string/nav_partidos" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/item_nav_eventos"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/icon_nav_eventos"
+            android:layout_width="@dimen/icon_size_20"
+            android:layout_height="@dimen/icon_size_20"
+            android:contentDescription="@string/cd_icono_eventos"
+            android:src="@android:drawable/ic_menu_my_calendar"
+            android:tint="@color/nav_icon_inactive" />
+
+        <TextView
+            android:id="@+id/txt_nav_eventos"
+            style="@style/Text.PlayMatch.NavLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_4"
+            android:text="@string/nav_eventos" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/item_nav_perfil"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/icon_nav_perfil"
+            android:layout_width="@dimen/icon_size_20"
+            android:layout_height="@dimen/icon_size_20"
+            android:contentDescription="@string/cd_icono_perfil"
+            android:src="@android:drawable/ic_menu_myplaces"
+            android:tint="@color/nav_icon_inactive" />
+
+        <TextView
+            android:id="@+id/txt_nav_perfil"
+            style="@style/Text.PlayMatch.NavLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_4"
+            android:text="@string/nav_perfil" />
+    </LinearLayout>
+
+</LinearLayout>

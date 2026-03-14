@@ -1,0 +1,194 @@
+﻿<resources>
+    <string name="app_name">PlayMatch</string>
+    <string name="app_brand_name">PlayMatch</string>
+    <string name="app_initials">PM</string>
+
+    <string name="action_iniciar_sesion">Iniciar sesion</string>
+    <string name="action_registrate">Registrate</string>
+    <string name="action_crear_cuenta">Crear cuenta</string>
+    <string name="action_enviar_enlace">Enviar enlace</string>
+    <string name="action_volver_login">Volver a login</string>
+    <string name="action_apuntarse">Apuntarse</string>
+    <string name="action_ver_detalle">Ver detalle</string>
+    <string name="action_crear_partido">Crear partido</string>
+    <string name="action_guardar_resultado">Guardar resultado</string>
+    <string name="action_publicar_evento">Publicar evento</string>
+    <string name="action_editar_perfil">Editar perfil</string>
+    <string name="action_guardar_cambios">Guardar cambios</string>
+    <string name="action_cancelar">Cancelar</string>
+    <string name="action_cerrar_sesion">Cerrar sesion</string>
+    <string name="action_buscar">Buscar</string>
+    <string name="action_mis_partidos">Mis partidos</string>
+    <string name="action_historial">Historial</string>
+    <string name="action_ajustes">Ajustes</string>
+    <string name="action_confirmar">Confirmar</string>
+    <string name="action_ver_mas">Ver mas</string>
+
+    <string name="hint_nombre_completo">Nombre completo</string>
+    <string name="hint_correo">Correo electronico</string>
+    <string name="hint_contrasena">Contrasena</string>
+    <string name="hint_confirmar_contrasena">Confirmar contrasena</string>
+    <string name="hint_ciudad">Ciudad</string>
+    <string name="hint_nivel_deportivo">Nivel deportivo</string>
+    <string name="hint_fecha">Fecha</string>
+    <string name="hint_hora">Hora</string>
+    <string name="hint_direccion">Direccion</string>
+    <string name="hint_ubicacion">Ubicacion</string>
+    <string name="hint_titulo_evento">Titulo del evento</string>
+    <string name="hint_descripcion_evento">Descripcion del evento</string>
+    <string name="hint_buscar_partidos">Buscar partidos en Salamanca</string>
+    <string name="hint_buscar_eventos">Buscar eventos deportivos</string>
+    <string name="hint_marcador">0</string>
+
+    <string name="login_titulo">Bienvenido de nuevo</string>
+    <string name="login_subtitulo">Organiza tus partidos de padel y tenis en Salamanca con PlayMatch.</string>
+    <string name="login_recordar_sesion">Recordar sesion</string>
+    <string name="login_olvide_contrasena">Has olvidado tu contrasena?</string>
+    <string name="login_no_tienes_cuenta">No tienes cuenta aun?</string>
+
+    <string name="registro_titulo">Unete a PlayMatch</string>
+    <string name="registro_subtitulo">Completa tus datos y empieza a jugar hoy mismo.</string>
+    <string name="registro_selector_rol">Selecciona tu rol</string>
+    <string name="rol_user">USER</string>
+    <string name="rol_club">CLUB</string>
+    <string name="registro_ya_tienes_cuenta">Ya tienes cuenta?</string>
+    <string name="registro_hero_text">Comunidad deportiva local</string>
+
+    <string name="recuperar_titulo">Recuperar contrasena</string>
+    <string name="recuperar_subtitulo">Introduce tu correo y te enviaremos un enlace para restablecerla.</string>
+
+    <string name="home_saludo">Hola, jugador</string>
+    <string name="home_estado">Listo para tu proximo partido?</string>
+    <string name="home_accesos_rapidos">Accesos rapidos</string>
+    <string name="home_proximo_partido_titulo">Proximo partido confirmado</string>
+    <string name="home_proximo_partido_fecha">Domingo, 19:00</string>
+    <string name="home_proximo_partido_lugar">Club La Dehesa, Salamanca</string>
+    <string name="home_proximo_partido_deporte">Padel mixto</string>
+    <string name="home_proximo_partido_plazas">1 plaza libre</string>
+    <string name="home_partidos_disponibles">Partidos disponibles</string>
+    <string name="home_eventos_destacados">Eventos destacados</string>
+
+    <string name="partidos_titulo">Partidos</string>
+    <string name="partidos_subtitulo">Encuentra y reserva tu siguiente partido.</string>
+    <string name="partidos_hero_titulo">Partidos cerca de ti</string>
+    <string name="partidos_hero_subtitulo">Padel y tenis en clubes de Salamanca</string>
+    <string name="partidos_filtro_todos">Todos</string>
+    <string name="partidos_filtro_padel">Padel</string>
+    <string name="partidos_filtro_tenis">Tenis</string>
+
+    <string name="detalle_partido_titulo">Detalle del partido</string>
+    <string name="detalle_partido_plazas_libres">2 plazas libres</string>
+    <string name="detalle_partido_nombre">Partido nocturno en pista central</string>
+    <string name="detalle_partido_deporte">Padel</string>
+    <string name="detalle_partido_nivel">Intermedio</string>
+    <string name="detalle_partido_fecha">Martes, 22 marzo 2026</string>
+    <string name="detalle_partido_hora">20:30 - 22:00</string>
+    <string name="detalle_partido_ubicacion">Club Padel Salamanca, Avenida de Portugal</string>
+    <string name="detalle_partido_participantes">Participantes</string>
+    <string name="detalle_partido_mapa">Ubicacion del partido</string>
+
+    <string name="crear_partido_titulo">Crear partido</string>
+    <string name="crear_partido_subtitulo">Configura un partido y comparte plazas con la comunidad.</string>
+    <string name="crear_partido_selector_deporte">Deporte</string>
+    <string name="crear_partido_info_jugadores">Regla de jugadores</string>
+    <string name="crear_partido_msg_padel">Padel requiere 4 jugadores.</string>
+    <string name="crear_partido_msg_tenis">Tenis requiere 2 jugadores.</string>
+
+    <string name="historial_titulo">Historial de partidos</string>
+    <string name="historial_subtitulo">Consulta encuentros finalizados o pendientes de validar.</string>
+    <string name="historial_filtro_pendientes">Pendientes</string>
+    <string name="historial_filtro_finalizados">Finalizados</string>
+    <string name="historial_partido_pendiente">Partido pendiente de resultado</string>
+    <string name="historial_partido_finalizado">Partido finalizado</string>
+    <string name="historial_estado_pendiente">Pendiente</string>
+    <string name="historial_estado_finalizado">Finalizado</string>
+    <string name="historial_confirmar_resultado">Confirmar resultado</string>
+
+    <string name="confirmar_resultado_titulo">Confirmar resultado</string>
+    <string name="confirmar_resultado_subtitulo">Registra el marcador final del encuentro.</string>
+    <string name="confirmar_resultado_resumen">Resumen del encuentro</string>
+    <string name="confirmar_resultado_local">Local</string>
+    <string name="confirmar_resultado_visitante">Visitante</string>
+    <string name="confirmar_resultado_set_1">Set 1</string>
+    <string name="confirmar_resultado_set_2">Set 2</string>
+    <string name="confirmar_resultado_set_3">Set 3</string>
+
+    <string name="eventos_titulo">Eventos</string>
+    <string name="eventos_subtitulo">Descubre torneos, clinics y actividades de club.</string>
+    <string name="eventos_hero_titulo">Eventos en tendencia</string>
+    <string name="eventos_hero_subtitulo">Activa tu calendario deportivo</string>
+    <string name="eventos_filtro_padel">Padel</string>
+    <string name="eventos_filtro_tenis">Tenis</string>
+
+    <string name="detalle_evento_titulo">Detalle del evento</string>
+    <string name="detalle_evento_nombre">Torneo Primavera PlayMatch</string>
+    <string name="detalle_evento_organizador">Club Deportivo Salamanca</string>
+    <string name="detalle_evento_fecha">Sabado, 26 marzo 2026</string>
+    <string name="detalle_evento_hora">09:00 - 14:00</string>
+    <string name="detalle_evento_ubicacion">Calle Deportiva 18, Salamanca</string>
+    <string name="detalle_evento_descripcion">Evento abierto para nivel medio y avanzado con fase de grupos y premios.</string>
+    <string name="detalle_evento_mapa">Ubicacion del evento</string>
+
+    <string name="crear_evento_titulo">Crear evento</string>
+    <string name="crear_evento_subtitulo">Publica una actividad para la comunidad PlayMatch.</string>
+
+    <string name="perfil_titulo">Mi perfil</string>
+    <string name="perfil_nombre">Pablo Martin</string>
+    <string name="perfil_correo">pablo@playmatch.app</string>
+    <string name="perfil_rol">Rol: USER</string>
+    <string name="perfil_ciudad">Ciudad: Salamanca</string>
+    <string name="perfil_nivel">Nivel: Intermedio</string>
+    <string name="perfil_accesos">Accesos rapidos</string>
+    <string name="perfil_opcion_historial">Ver historial</string>
+    <string name="perfil_opcion_ajustes">Abrir ajustes</string>
+
+    <string name="editar_perfil_titulo">Editar perfil</string>
+    <string name="editar_perfil_subtitulo">Actualiza tus datos personales y deportivos.</string>
+
+    <string name="ajustes_titulo">Ajustes</string>
+    <string name="ajustes_subtitulo">Gestiona opciones basicas de tu cuenta.</string>
+    <string name="ajustes_opcion_editar_perfil">Editar perfil</string>
+    <string name="ajustes_opcion_editar_perfil_desc">Actualiza foto, ciudad y nivel.</string>
+    <string name="ajustes_opcion_info_cuenta">Informacion de cuenta</string>
+    <string name="ajustes_opcion_info_cuenta_desc">Consulta correo, rol y estado de usuario.</string>
+    <string name="ajustes_opcion_cerrar_sesion">Cerrar sesion</string>
+    <string name="ajustes_opcion_cerrar_sesion_desc">Finaliza la sesion en este dispositivo.</string>
+
+    <string name="nav_inicio">Inicio</string>
+    <string name="nav_partidos">Partidos</string>
+    <string name="nav_eventos">Eventos</string>
+    <string name="nav_perfil">Perfil</string>
+
+    <string name="sample_partido_titulo">Partido en pista indoor</string>
+    <string name="sample_partido_ubicacion">Club La Aldehuela, Salamanca</string>
+    <string name="sample_partido_fecha_hora">Jueves, 19:30</string>
+    <string name="sample_partido_nivel">Nivel medio</string>
+    <string name="sample_partido_plazas">2 plazas libres</string>
+
+    <string name="sample_evento_titulo">Liga Express de primavera</string>
+    <string name="sample_evento_ubicacion">Ciudad Deportiva, Salamanca</string>
+    <string name="sample_evento_fecha">24 marzo 2026</string>
+
+    <string name="label_deporte">Deporte</string>
+    <string name="label_nivel">Nivel</string>
+    <string name="label_fecha">Fecha</string>
+    <string name="label_hora">Hora</string>
+    <string name="label_ubicacion">Ubicacion</string>
+    <string name="label_participantes">Participantes</string>
+    <string name="label_organizador">Organizador</string>
+    <string name="label_descripcion">Descripcion</string>
+
+    <string name="cd_logo_playmatch">Logo de PlayMatch</string>
+    <string name="cd_icono_busqueda">Icono de busqueda</string>
+    <string name="cd_icono_notificacion">Icono de notificaciones</string>
+    <string name="cd_avatar_usuario">Avatar del usuario</string>
+    <string name="cd_imagen_deportiva">Imagen deportiva decorativa</string>
+    <string name="cd_imagen_partido">Imagen del partido</string>
+    <string name="cd_imagen_evento">Imagen del evento</string>
+    <string name="cd_mapa_placeholder">Mapa de ubicacion</string>
+    <string name="cd_icono_inicio">Icono inicio</string>
+    <string name="cd_icono_partidos">Icono partidos</string>
+    <string name="cd_icono_eventos">Icono eventos</string>
+    <string name="cd_icono_perfil">Icono perfil</string>
+    <string name="cd_icono_ajustes">Icono ajustes</string>
+</resources>

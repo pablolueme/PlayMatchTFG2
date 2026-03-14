@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary_brand">#4B50F5</color>
+    <color name="primary_brand_dark">#2F36B8</color>
+    <color name="accent_blue">#1E8CFF</color>
+    <color name="accent_blue_soft">#E7F2FF</color>
+
+    <color name="background_app">#F4F6FF</color>
+    <color name="surface_card">#FFFFFF</color>
+    <color name="surface_muted">#EEF2FF</color>
+    <color name="nav_surface">#FFFFFF</color>
+
+    <color name="text_primary">#1A1E33</color>
+    <color name="text_secondary">#606884</color>
+    <color name="text_tertiary">#8C93AC</color>
+    <color name="text_on_primary">#FFFFFF</color>
+
+    <color name="border_light">#DCE2F2</color>
+    <color name="divider_light">#E8ECF8</color>
+    <color name="shadow_soft">#260E1D52</color>
+
+    <color name="chip_padel_bg">#EAF0FF</color>
+    <color name="chip_tenis_bg">#E9FBEF</color>
+    <color name="chip_padel_text">#3B57C7</color>
+    <color name="chip_tenis_text">#1D8E57</color>
+
+    <color name="warning_yellow">#F3B328</color>
+    <color name="warning_soft">#FFF5D9</color>
+    <color name="warning_text">#A16C00</color>
+
+    <color name="success_green">#23A25F</color>
+    <color name="success_soft">#E6F7EE</color>
+    <color name="success_text">#1A7A47</color>
+
+    <color name="danger_red">#E14D57</color>
+    <color name="danger_soft">#FDECEE</color>
+
+    <color name="nav_icon_inactive">#8D94AF</color>
+    <color name="transparent">#00000000</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>
