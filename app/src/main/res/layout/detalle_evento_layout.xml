@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_detalle_evento"
@@ -46,7 +46,7 @@
                 android:contentDescription="@string/cd_imagen_evento"
                 android:padding="@dimen/spacing_40"
                 android:src="@android:drawable/ic_menu_gallery"
-                android:tint="@color/primary_brand_dark" />
+                app:tint="@color/primary_brand_dark" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -166,7 +166,7 @@
                     android:layout_gravity="center"
                     android:contentDescription="@string/cd_mapa_placeholder"
                     android:src="@android:drawable/ic_menu_mapmode"
-                    android:tint="@color/text_tertiary" />
+                    app:tint="@color/text_tertiary" />
             </FrameLayout>
 
         </LinearLayout>

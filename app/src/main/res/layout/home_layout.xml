@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_home"
@@ -75,7 +75,7 @@
                     android:contentDescription="@string/cd_avatar_usuario"
                     android:padding="@dimen/spacing_8"
                     android:src="@android:drawable/ic_menu_myplaces"
-                    android:tint="@color/primary_brand" />
+                    app:tint="@color/primary_brand" />
 
                 <ImageView
                     android:id="@+id/img_busqueda_home"
@@ -86,7 +86,7 @@
                     android:contentDescription="@string/cd_icono_busqueda"
                     android:padding="@dimen/spacing_10"
                     android:src="@android:drawable/ic_menu_search"
-                    android:tint="@color/text_secondary" />
+                    app:tint="@color/text_secondary" />
 
                 <ImageView
                     android:id="@+id/img_notificacion_home"
@@ -96,17 +96,8 @@
                     android:contentDescription="@string/cd_icono_notificacion"
                     android:padding="@dimen/spacing_10"
                     android:src="@android:drawable/ic_dialog_info"
-                    android:tint="@color/text_secondary" />
+                    app:tint="@color/text_secondary" />
             </LinearLayout>
-
-            <Button
-                android:id="@+id/btn_cerrar_sesion"
-                style="@style/Widget.PlayMatch.ButtonSecondary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="@dimen/spacing_12"
-                android:text="@string/action_cerrar_sesion" />
 
             <!-- Accesos rapidos -->
             <TextView
@@ -138,7 +129,7 @@
                         android:layout_height="@dimen/icon_size_24"
                         android:contentDescription="@string/cd_icono_partidos"
                         android:src="@android:drawable/ic_input_add"
-                        android:tint="@color/primary_brand" />
+                        app:tint="@color/primary_brand" />
 
                     <TextView
                         style="@style/Text.PlayMatch.Body"
@@ -165,7 +156,7 @@
                         android:layout_height="@dimen/icon_size_24"
                         android:contentDescription="@string/cd_icono_busqueda"
                         android:src="@android:drawable/ic_menu_search"
-                        android:tint="@color/primary_brand" />
+                        app:tint="@color/primary_brand" />
 
                     <TextView
                         style="@style/Text.PlayMatch.Body"
@@ -199,7 +190,7 @@
                         android:layout_height="@dimen/icon_size_24"
                         android:contentDescription="@string/cd_icono_partidos"
                         android:src="@android:drawable/ic_menu_agenda"
-                        android:tint="@color/primary_brand" />
+                        app:tint="@color/primary_brand" />
 
                     <TextView
                         style="@style/Text.PlayMatch.Body"
@@ -226,7 +217,7 @@
                         android:layout_height="@dimen/icon_size_24"
                         android:contentDescription="@string/cd_icono_eventos"
                         android:src="@android:drawable/ic_menu_recent_history"
-                        android:tint="@color/primary_brand" />
+                        app:tint="@color/primary_brand" />
 
                     <TextView
                         style="@style/Text.PlayMatch.Body"

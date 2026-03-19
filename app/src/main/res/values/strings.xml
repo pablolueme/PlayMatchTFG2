@@ -1,6 +1,6 @@
-﻿<resources>
-    <string name="app_name">PlayMatch</string>
-    <string name="app_brand_name">PlayMatch</string>
+<resources>
+    <string name="app_name">ProyectoFinalApp</string>
+    <string name="app_brand_name">ProyectoFinalApp</string>
     <string name="app_initials">PM</string>
 
     <string name="action_iniciar_sesion">Iniciar sesion</string>
@@ -61,6 +61,8 @@
     <string name="error_club_code_invalid">Codigo de club incorrecto</string>
     <string name="error_nivel_padel_required">Selecciona tu nivel de padel</string>
     <string name="error_nivel_tenis_required">Selecciona tu nivel de tenis</string>
+    <string name="error_city_required">La ciudad es obligatoria</string>
+    <string name="error_profile_level_required">Introduce un nivel del 1 al 5</string>
     <string name="error_invalid_email_format">El correo no tiene un formato valido</string>
     <string name="error_password_min_length">La contrasena debe tener al menos 6 caracteres</string>
     <string name="error_passwords_do_not_match">Las contrasenas no coinciden</string>
@@ -74,6 +76,7 @@
     <string name="msg_auth_too_many_requests">Demasiados intentos. Prueba de nuevo mas tarde</string>
     <string name="msg_auth_generic_error">Ha ocurrido un error. Intentalo de nuevo</string>
     <string name="msg_profile_not_found">No se pudo cargar el perfil del usuario</string>
+    <string name="msg_profile_updated">Perfil actualizado correctamente</string>
 
     <string name="registro_titulo">Unete a PlayMatch</string>
     <string name="registro_subtitulo">Completa tus datos y empieza a jugar hoy mismo.</string>
@@ -171,6 +174,13 @@
     <string name="perfil_rol">Rol: USER</string>
     <string name="perfil_ciudad">Ciudad: Salamanca</string>
     <string name="perfil_nivel">Nivel: Intermedio</string>
+    <string name="perfil_rol_format">Rol: %1$s</string>
+    <string name="perfil_ciudad_format">Ciudad: %1$s</string>
+    <string name="perfil_nivel_format">Nivel: %1$s</string>
+    <string name="perfil_nivel_padel_tenis_format">Padel %1$d | Tenis %2$d</string>
+    <string name="perfil_ciudad_no_disponible">No especificada</string>
+    <string name="perfil_nivel_no_disponible">No especificado</string>
+    <string name="perfil_email_no_disponible">Correo no disponible</string>
     <string name="perfil_accesos">Accesos rapidos</string>
     <string name="perfil_opcion_historial">Ver historial</string>
     <string name="perfil_opcion_ajustes">Abrir ajustes</string>

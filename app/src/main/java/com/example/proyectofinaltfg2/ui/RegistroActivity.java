@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proyectofinaltfg2.model.UserProfile;
 import com.example.proyectofinaltfg2.R;
+import com.example.proyectofinaltfg2.repository.UsuarioRepository;
 import com.example.proyectofinaltfg2.utils.FirebaseAuthUtil;
 import com.example.proyectofinaltfg2.utils.ValidationUtils;
 
@@ -140,6 +141,8 @@ public class RegistroActivity extends AppCompatActivity {
                 alias,
                 email,
                 selectedRole,
+                UsuarioRepository.CIUDAD_FIJA,
+                "",
                 ValidationUtils.parseLevel(nivelPadelText),
                 ValidationUtils.parseLevel(nivelTenisText)
         );

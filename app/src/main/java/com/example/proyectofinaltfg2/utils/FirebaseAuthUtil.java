@@ -21,7 +21,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public final class FirebaseAuthUtil {
 
-    private static final String USERS_COLLECTION = "users";
+    private static final String USERS_COLLECTION = "usuarios";
+    private static final String USERS_COLLECTION_LEGACY = "users";
 
     public interface AuthResultCallback {
         void onSuccess();
@@ -88,7 +89,7 @@ public final class FirebaseAuthUtil {
     ) {
         getAuth()
                 .createUserWithEmailAndPassword(
-                        sanitize(userProfile.getEmail()),
+                        sanitize(userProfile.getCorreo()),
                         sanitize(password)
                 )
                 .addOnCompleteListener(task -> {
@@ -127,7 +128,7 @@ public final class FirebaseAuthUtil {
         getFirestore()
                 .collection(USERS_COLLECTION)
                 .document(userProfile.getUid())
-                .set(userProfile)
+                .set(userProfile.toFirestoreMap())
                 .addOnSuccessListener(unused -> callback.onSuccess())
                 .addOnFailureListener(exception ->
                         callback.onError(getAuthErrorMessage(context, exception))
@@ -155,8 +156,13 @@ public final class FirebaseAuthUtil {
                 .collection(USERS_COLLECTION)
                 .document(uid)
                 .get()
-                .addOnSuccessListener(documentSnapshot ->
-                        handleUserProfileDocument(documentSnapshot, context, callback)
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        handleUserProfileDocument(documentSnapshot, context, callback);
+                        return;
+                    }
+                    fetchLegacyUserProfile(uid, context, callback);
+                }
                 )
                 .addOnFailureListener(exception ->
                         callback.onError(getAuthErrorMessage(context, exception))
@@ -266,7 +272,7 @@ public final class FirebaseAuthUtil {
             return;
         }
 
-        UserProfile userProfile = documentSnapshot.toObject(UserProfile.class);
+        UserProfile userProfile = UserProfile.fromDocumentSnapshot(documentSnapshot);
         if (userProfile == null) {
             callback.onError(context.getString(R.string.msg_profile_not_found));
             return;
@@ -277,6 +283,56 @@ public final class FirebaseAuthUtil {
         }
 
         callback.onSuccess(userProfile);
+    }
+
+    private static void fetchLegacyUserProfile(
+            @NonNull String uid,
+            @NonNull Context context,
+            @NonNull UserProfileCallback callback
+    ) {
+        getFirestore()
+                .collection(USERS_COLLECTION_LEGACY)
+                .document(uid)
+                .get()
+                .addOnSuccessListener(legacyDocument -> {
+                    if (!legacyDocument.exists()) {
+                        callback.onError(context.getString(R.string.msg_profile_not_found));
+                        return;
+                    }
+
+                    UserProfile legacyProfile = UserProfile.fromDocumentSnapshot(legacyDocument);
+                    if (legacyProfile == null) {
+                        callback.onError(context.getString(R.string.msg_profile_not_found));
+                        return;
+                    }
+
+                    if (TextUtils.isEmpty(legacyProfile.getUid())) {
+                        legacyProfile.setUid(uid);
+                    }
+
+                    migrateLegacyProfile(legacyProfile, context);
+                    callback.onSuccess(legacyProfile);
+                })
+                .addOnFailureListener(exception ->
+                        callback.onError(getAuthErrorMessage(context, exception))
+                );
+    }
+
+    private static void migrateLegacyProfile(
+            @NonNull UserProfile legacyProfile,
+            @NonNull Context context
+    ) {
+        saveUserProfile(legacyProfile, context, new AuthResultCallback() {
+            @Override
+            public void onSuccess() {
+                // No-op.
+            }
+
+            @Override
+            public void onError(@NonNull String errorMessage) {
+                // No-op.
+            }
+        });
     }
 
     @NonNull

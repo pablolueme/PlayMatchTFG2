@@ -156,8 +156,8 @@ public class LoginActivity extends AppCompatActivity {
     private void navigateToHome(@NonNull UserProfile userProfile) {
         Intent intent = new Intent(this, HomeActivity.class);
         intent.putExtra(HomeActivity.EXTRA_ALIAS, userProfile.getAlias());
-        intent.putExtra(HomeActivity.EXTRA_NOMBRE_COMPLETO, userProfile.getNombreCompleto());
-        intent.putExtra(HomeActivity.EXTRA_ROLE, userProfile.getRole());
+        intent.putExtra(HomeActivity.EXTRA_NOMBRE_COMPLETO, userProfile.getNombre());
+        intent.putExtra(HomeActivity.EXTRA_ROLE, userProfile.getRol());
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }

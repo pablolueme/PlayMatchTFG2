@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_partidos"
@@ -47,7 +47,7 @@
                     android:contentDescription="@string/cd_imagen_partido"
                     android:padding="@dimen/spacing_32"
                     android:src="@android:drawable/ic_menu_compass"
-                    android:tint="@color/primary_brand_dark" />
+                    app:tint="@color/primary_brand_dark" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
