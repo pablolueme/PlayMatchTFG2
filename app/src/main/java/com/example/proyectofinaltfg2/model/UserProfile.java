@@ -16,6 +16,8 @@ public class UserProfile {
     private String rol;
     private String ciudad;
     private int nivelDeportivo;
+    private int nivelPadel;
+    private int nivelTenis;
     private String nombreClub;
     private String descripcionClub;
     private String fotoPerfilUrl;
@@ -24,10 +26,13 @@ public class UserProfile {
     private String alias;
 
     public UserProfile() {
-        // Constructor vacio requerido por Firestore
+        // Constructor para Firestore
+        this.nivelDeportivo = -1;
+        this.nivelPadel = -1;
+        this.nivelTenis = -1;
     }
 
-    // Constructor legado compatible con el flujo actual de registro/login.
+    // Constructor para el flujo actual de registro/login.
     public UserProfile(
             @Nullable String uid,
             @Nullable String nombreCompleto,
@@ -50,7 +55,6 @@ public class UserProfile {
         );
     }
 
-    // Constructor legado compatible con la version previa del proyecto.
     public UserProfile(
             @Nullable String uid,
             @Nullable String nombreCompleto,
@@ -69,6 +73,8 @@ public class UserProfile {
         this.rol = sanitize(role);
         this.ciudad = sanitize(ciudad);
         this.fotoPerfilUrl = sanitize(fotoPerfilUrl);
+        this.nivelPadel = nivelPadel;
+        this.nivelTenis = nivelTenis;
         this.nivelDeportivo = resolveNivelDeportivo(nivelPadel, nivelTenis);
         this.nombreClub = "";
         this.descripcionClub = "";
@@ -122,11 +128,16 @@ public class UserProfile {
     }
 
     public int getNivelDeportivo() {
-        return nivelDeportivo;
+        if (nivelDeportivo > 0) {
+            return nivelDeportivo;
+        }
+        return resolveNivelDeportivo(nivelPadel, nivelTenis);
     }
 
     public void setNivelDeportivo(int nivelDeportivo) {
         this.nivelDeportivo = nivelDeportivo;
+        this.nivelPadel = nivelDeportivo;
+        this.nivelTenis = nivelDeportivo;
     }
 
     @NonNull
@@ -211,19 +222,27 @@ public class UserProfile {
     }
 
     public int getNivelPadel() {
+        if (nivelPadel > 0) {
+            return nivelPadel;
+        }
         return getNivelDeportivo();
     }
 
     public void setNivelPadel(int nivelPadel) {
-        setNivelDeportivo(nivelPadel);
+        this.nivelPadel = nivelPadel;
+        this.nivelDeportivo = resolveNivelDeportivo(this.nivelPadel, this.nivelTenis);
     }
 
     public int getNivelTenis() {
+        if (nivelTenis > 0) {
+            return nivelTenis;
+        }
         return getNivelDeportivo();
     }
 
     public void setNivelTenis(int nivelTenis) {
-        setNivelDeportivo(nivelTenis);
+        this.nivelTenis = nivelTenis;
+        this.nivelDeportivo = resolveNivelDeportivo(this.nivelPadel, this.nivelTenis);
     }
 
     @NonNull
@@ -235,6 +254,8 @@ public class UserProfile {
         data.put("rol", getRol());
         data.put("ciudad", getCiudad());
         data.put("nivelDeportivo", getNivelDeportivo());
+        data.put("nivelPadel", getNivelPadel());
+        data.put("nivelTenis", getNivelTenis());
         data.put("nombreClub", getNombreClub());
         data.put("descripcionClub", getDescripcionClub());
         data.put("fotoPerfilUrl", getFotoPerfilUrl());
@@ -258,7 +279,9 @@ public class UserProfile {
         userProfile.setCorreo(readString(documentSnapshot, "correo", "email"));
         userProfile.setRol(readString(documentSnapshot, "rol", "role"));
         userProfile.setCiudad(readString(documentSnapshot, "ciudad", null));
-        userProfile.setNivelDeportivo(readNivelDeportivo(documentSnapshot));
+        int nivelDeportivo = readNivelDeportivo(documentSnapshot);
+        userProfile.setNivelPadel(readNivelCampo(documentSnapshot, "nivelPadel", nivelDeportivo));
+        userProfile.setNivelTenis(readNivelCampo(documentSnapshot, "nivelTenis", nivelDeportivo));
         userProfile.setNombreClub(readString(documentSnapshot, "nombreClub", null));
         userProfile.setDescripcionClub(readString(documentSnapshot, "descripcionClub", null));
         userProfile.setFotoPerfilUrl(readString(documentSnapshot, "fotoPerfilUrl", null));
@@ -291,6 +314,18 @@ public class UserProfile {
             return nivelTenis.intValue();
         }
         return -1;
+    }
+
+    private static int readNivelCampo(
+            @NonNull DocumentSnapshot snapshot,
+            @NonNull String key,
+            int fallback
+    ) {
+        Long nivel = snapshot.getLong(key);
+        if (nivel != null && nivel > 0) {
+            return nivel.intValue();
+        }
+        return fallback;
     }
 
     @NonNull

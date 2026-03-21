@@ -172,6 +172,57 @@
                     android:text="@string/detalle_partido_ubicacion"
                     android:textColor="@color/text_primary"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_10"
+                    android:text="@string/label_creador"
+                    android:textColor="@color/text_tertiary"
+                    android:textSize="@dimen/text_size_12" />
+
+                <TextView
+                    android:id="@+id/txt_creador_detalle_partido"
+                    style="@style/Text.PlayMatch.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home_nombre_no_disponible"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_10"
+                    android:text="@string/label_plazas_ocupadas"
+                    android:textColor="@color/text_tertiary"
+                    android:textSize="@dimen/text_size_12" />
+
+                <TextView
+                    android:id="@+id/txt_plazas_detalle_partido"
+                    style="@style/Text.PlayMatch.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home_proximo_partido_plazas"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_10"
+                    android:text="@string/label_estado"
+                    android:textColor="@color/text_tertiary"
+                    android:textSize="@dimen/text_size_12" />
+
+                <TextView
+                    android:id="@+id/txt_estado_detalle_partido"
+                    style="@style/Text.PlayMatch.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/partido_estado_activo"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <!-- Participantes -->
@@ -184,54 +235,11 @@
                 android:text="@string/detalle_partido_participantes" />
 
             <LinearLayout
+                android:id="@+id/container_participantes_detalle_partido"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_12"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="@dimen/icon_size_40"
-                    android:layout_height="@dimen/icon_size_40"
-                    android:background="@drawable/bg_avatar_circular"
-                    android:gravity="center"
-                    android:text="@string/app_initials"
-                    android:textColor="@color/primary_brand"
-                    android:textSize="@dimen/text_size_14"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="@dimen/icon_size_40"
-                    android:layout_height="@dimen/icon_size_40"
-                    android:layout_marginStart="@dimen/spacing_10"
-                    android:background="@drawable/bg_avatar_circular"
-                    android:gravity="center"
-                    android:text="@string/app_initials"
-                    android:textColor="@color/primary_brand"
-                    android:textSize="@dimen/text_size_14"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="@dimen/icon_size_40"
-                    android:layout_height="@dimen/icon_size_40"
-                    android:layout_marginStart="@dimen/spacing_10"
-                    android:background="@drawable/bg_avatar_circular"
-                    android:gravity="center"
-                    android:text="@string/app_initials"
-                    android:textColor="@color/primary_brand"
-                    android:textSize="@dimen/text_size_14"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="@dimen/icon_size_40"
-                    android:layout_height="@dimen/icon_size_40"
-                    android:layout_marginStart="@dimen/spacing_10"
-                    android:background="@drawable/bg_icono_circulo_claro"
-                    android:gravity="center"
-                    android:text="@string/action_apuntarse"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="@dimen/text_size_12"
-                    android:textStyle="bold" />
+                android:orientation="vertical">
             </LinearLayout>
 
             <!-- Mapa placeholder -->

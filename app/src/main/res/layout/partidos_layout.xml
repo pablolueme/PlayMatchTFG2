@@ -161,15 +161,20 @@
             </HorizontalScrollView>
 
             <!-- Lista visual de partidos -->
-            <LinearLayout
+            <TextView
+                android:id="@+id/txt_estado_lista_partidos"
+                style="@style/Text.PlayMatch.Body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_16"
-                android:orientation="vertical">
+                android:text="@string/msg_partidos_cargando" />
 
-                <include layout="@layout/item_partido_layout" />
-                <include layout="@layout/item_partido_layout" />
-            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/container_lista_partidos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:orientation="vertical" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

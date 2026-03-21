@@ -2,8 +2,10 @@ package com.example.proyectofinaltfg2.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,11 +17,17 @@ import com.example.proyectofinaltfg2.repository.UsuarioRepository;
 import com.example.proyectofinaltfg2.utils.FirebaseAuthUtil;
 import com.example.proyectofinaltfg2.utils.ValidationUtils;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class EditarPerfilActivity extends AppCompatActivity {
+
+    private static final List<String> OPCIONES_NIVEL = Arrays.asList("1", "2", "3", "4", "5");
 
     private EditText edtNombreEditarPerfil;
     private EditText edtCiudadEditarPerfil;
-    private EditText edtNivelEditarPerfil;
+    private Spinner spinnerNivelPadelEditarPerfil;
+    private Spinner spinnerNivelTenisEditarPerfil;
     private Button btnGuardarEditarPerfil;
     private Button btnCancelarEditarPerfil;
 
@@ -39,6 +47,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
 
         usuarioRepository = new UsuarioRepository();
         bindViews();
+        configurarSpinnersNivel();
         lockCityField();
         configureListeners();
         loadCurrentProfile();
@@ -47,9 +56,22 @@ public class EditarPerfilActivity extends AppCompatActivity {
     private void bindViews() {
         edtNombreEditarPerfil = findViewById(R.id.edt_nombre_editar_perfil);
         edtCiudadEditarPerfil = findViewById(R.id.edt_ciudad_editar_perfil);
-        edtNivelEditarPerfil = findViewById(R.id.edt_nivel_editar_perfil);
+        spinnerNivelPadelEditarPerfil = findViewById(R.id.spinner_nivel_padel_editar_perfil);
+        spinnerNivelTenisEditarPerfil = findViewById(R.id.spinner_nivel_tenis_editar_perfil);
         btnGuardarEditarPerfil = findViewById(R.id.btn_guardar_editar_perfil);
         btnCancelarEditarPerfil = findViewById(R.id.btn_cancelar_editar_perfil);
+    }
+
+    private void configurarSpinnersNivel() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                OPCIONES_NIVEL
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinnerNivelPadelEditarPerfil.setAdapter(adapter);
+        spinnerNivelTenisEditarPerfil.setAdapter(adapter);
     }
 
     private void lockCityField() {
@@ -86,7 +108,8 @@ public class EditarPerfilActivity extends AppCompatActivity {
     private void bindEditableData(@NonNull UserProfile userProfile) {
         edtNombreEditarPerfil.setText(userProfile.getNombre());
         edtCiudadEditarPerfil.setText(UsuarioRepository.CIUDAD_FIJA);
-        edtNivelEditarPerfil.setText(resolveEditableLevel(userProfile));
+        seleccionarNivelEnSpinner(spinnerNivelPadelEditarPerfil, userProfile.getNivelPadel());
+        seleccionarNivelEnSpinner(spinnerNivelTenisEditarPerfil, userProfile.getNivelTenis());
     }
 
     private void attemptSaveProfile() {
@@ -97,7 +120,8 @@ public class EditarPerfilActivity extends AppCompatActivity {
         clearErrors();
 
         String nombre = textOf(edtNombreEditarPerfil);
-        String nivel = textOf(edtNivelEditarPerfil);
+        int nivelPadel = obtenerNivelSeleccionado(spinnerNivelPadelEditarPerfil);
+        int nivelTenis = obtenerNivelSeleccionado(spinnerNivelTenisEditarPerfil);
 
         if (ValidationUtils.isFieldEmpty(nombre)) {
             edtNombreEditarPerfil.setError(getString(R.string.error_name_required));
@@ -105,24 +129,12 @@ public class EditarPerfilActivity extends AppCompatActivity {
             return;
         }
 
-        if (!ValidationUtils.isValidLevelSelection(nivel)) {
-            edtNivelEditarPerfil.setError(getString(R.string.error_profile_level_required));
-            edtNivelEditarPerfil.requestFocus();
-            return;
-        }
-
-        int parsedLevel = ValidationUtils.parseLevel(nivel);
-        if (parsedLevel < ValidationUtils.MIN_LEVEL || parsedLevel > ValidationUtils.MAX_LEVEL) {
-            edtNivelEditarPerfil.setError(getString(R.string.error_profile_level_required));
-            edtNivelEditarPerfil.requestFocus();
-            return;
-        }
-
         setLoading(true);
-        usuarioRepository.actualizarNombreYNivelDeportivo(
+        usuarioRepository.actualizarNombreYNivelesDeportivos(
                 this,
                 nombre.trim(),
-                parsedLevel,
+                nivelPadel,
+                nivelTenis,
                 new UsuarioRepository.RepositoryCallback() {
                     @Override
                     public void onSuccess() {
@@ -148,14 +160,14 @@ public class EditarPerfilActivity extends AppCompatActivity {
     private void setLoading(boolean loading) {
         isSaving = loading;
         edtNombreEditarPerfil.setEnabled(!loading);
-        edtNivelEditarPerfil.setEnabled(!loading);
+        spinnerNivelPadelEditarPerfil.setEnabled(!loading);
+        spinnerNivelTenisEditarPerfil.setEnabled(!loading);
         btnGuardarEditarPerfil.setEnabled(!loading);
         btnCancelarEditarPerfil.setEnabled(!loading);
     }
 
     private void clearErrors() {
         edtNombreEditarPerfil.setError(null);
-        edtNivelEditarPerfil.setError(null);
     }
 
     @NonNull
@@ -167,13 +179,28 @@ public class EditarPerfilActivity extends AppCompatActivity {
     }
 
     @NonNull
-    private String resolveEditableLevel(@NonNull UserProfile userProfile) {
-        int nivelDeportivo = userProfile.getNivelDeportivo();
-        if (nivelDeportivo >= ValidationUtils.MIN_LEVEL
-                && nivelDeportivo <= ValidationUtils.MAX_LEVEL) {
-            return String.valueOf(nivelDeportivo);
+    private void seleccionarNivelEnSpinner(@NonNull Spinner spinner, int nivel) {
+        if (nivel < ValidationUtils.MIN_LEVEL || nivel > ValidationUtils.MAX_LEVEL) {
+            spinner.setSelection(0);
+            return;
         }
-        return "";
+        String valorBuscado = String.valueOf(nivel);
+        for (int i = 0; i < spinner.getCount(); i++) {
+            Object item = spinner.getItemAtPosition(i);
+            if (item != null && valorBuscado.equals(String.valueOf(item))) {
+                spinner.setSelection(i);
+                return;
+            }
+        }
+        spinner.setSelection(0);
+    }
+
+    private int obtenerNivelSeleccionado(@NonNull Spinner spinner) {
+        Object itemSeleccionado = spinner.getSelectedItem();
+        if (itemSeleccionado == null) {
+            return ValidationUtils.MIN_LEVEL;
+        }
+        return ValidationUtils.parseLevel(String.valueOf(itemSeleccionado));
     }
 
     private void navigateToLogin() {

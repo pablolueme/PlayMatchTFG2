@@ -76,13 +76,33 @@ public class UsuarioRepository {
             int nivelDeportivo,
             @NonNull RepositoryCallback callback
     ) {
+        actualizarNombreYNivelesDeportivos(
+                context,
+                nombre,
+                nivelDeportivo,
+                nivelDeportivo,
+                callback
+        );
+    }
+
+    public void actualizarNombreYNivelesDeportivos(
+            @NonNull Context context,
+            @NonNull String nombre,
+            int nivelPadel,
+            int nivelTenis,
+            @NonNull RepositoryCallback callback
+    ) {
         String safeNombre = nombre.trim();
         if (TextUtils.isEmpty(safeNombre)) {
             callback.onError(context.getString(R.string.error_name_required));
             return;
         }
-        if (nivelDeportivo < ValidationUtils.MIN_LEVEL || nivelDeportivo > ValidationUtils.MAX_LEVEL) {
-            callback.onError(context.getString(R.string.error_profile_level_required));
+        if (nivelPadel < ValidationUtils.MIN_LEVEL || nivelPadel > ValidationUtils.MAX_LEVEL) {
+            callback.onError(context.getString(R.string.error_nivel_padel_required));
+            return;
+        }
+        if (nivelTenis < ValidationUtils.MIN_LEVEL || nivelTenis > ValidationUtils.MAX_LEVEL) {
+            callback.onError(context.getString(R.string.error_nivel_tenis_required));
             return;
         }
 
@@ -91,7 +111,8 @@ public class UsuarioRepository {
             public void onSuccess(@NonNull UserProfile userProfile) {
                 userProfile.setNombre(safeNombre);
                 userProfile.setCiudad(CIUDAD_FIJA);
-                userProfile.setNivelDeportivo(nivelDeportivo);
+                userProfile.setNivelPadel(nivelPadel);
+                userProfile.setNivelTenis(nivelTenis);
 
                 FirebaseAuthUtil.saveUserProfile(userProfile, context, new FirebaseAuthUtil.AuthResultCallback() {
                     @Override

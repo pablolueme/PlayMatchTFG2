@@ -115,6 +115,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/card_crear_partido_home"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/spacing_8"
@@ -249,6 +250,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/txt_fecha_proximo_partido_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_12"
@@ -257,6 +259,7 @@
                     android:textSize="@dimen/text_size_14" />
 
                 <TextView
+                    android:id="@+id/txt_lugar_proximo_partido_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_4"
@@ -265,6 +268,7 @@
                     android:textSize="@dimen/text_size_14" />
 
                 <TextView
+                    android:id="@+id/txt_deporte_proximo_partido_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_4"
@@ -273,6 +277,7 @@
                     android:textSize="@dimen/text_size_14" />
 
                 <TextView
+                    android:id="@+id/txt_plazas_proximo_partido_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_12"
@@ -304,7 +309,9 @@
                 android:layout_marginTop="@dimen/spacing_24"
                 android:text="@string/home_partidos_disponibles" />
 
-            <include layout="@layout/item_partido_layout" />
+            <include
+                android:id="@+id/item_partido_preview_home"
+                layout="@layout/item_partido_layout" />
 
             <!-- Seccion eventos -->
             <TextView

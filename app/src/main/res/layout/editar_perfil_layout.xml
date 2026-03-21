@@ -70,14 +70,45 @@
                 android:hint="@string/hint_ciudad"
                 android:inputType="textCapWords" />
 
-            <EditText
-                android:id="@+id/edt_nivel_editar_perfil"
-                style="@style/Widget.PlayMatch.Input"
+            <TextView
+                style="@style/Text.PlayMatch.Body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:text="@string/label_nivel_padel"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinner_nivel_padel_editar_perfil"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/input_height"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:background="@drawable/bg_input_redondeado"
+                android:paddingStart="@dimen/spacing_16"
+                android:paddingTop="@dimen/spacing_10"
+                android:paddingEnd="@dimen/spacing_16"
+                android:paddingBottom="@dimen/spacing_10" />
+
+            <TextView
+                style="@style/Text.PlayMatch.Body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_12"
-                android:hint="@string/hint_nivel_deportivo"
-                android:inputType="number" />
+                android:text="@string/label_nivel_tenis"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinner_nivel_tenis_editar_perfil"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_height"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:background="@drawable/bg_input_redondeado"
+                android:paddingStart="@dimen/spacing_16"
+                android:paddingTop="@dimen/spacing_10"
+                android:paddingEnd="@dimen/spacing_16"
+                android:paddingBottom="@dimen/spacing_10" />
 
             <Button
                 android:id="@+id/btn_guardar_editar_perfil"

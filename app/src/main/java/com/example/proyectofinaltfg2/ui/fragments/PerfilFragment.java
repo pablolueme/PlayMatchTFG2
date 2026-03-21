@@ -27,7 +27,8 @@ public class PerfilFragment extends Fragment {
     private TextView txtCorreoPerfil;
     private TextView txtRolPerfil;
     private TextView txtCiudadPerfil;
-    private TextView txtNivelPerfil;
+    private TextView txtNivelPadelPerfil;
+    private TextView txtNivelTenisPerfil;
     private Button btnEditarPerfil;
     private Button btnCerrarSesionPerfil;
     private LinearLayout cardHistorialPerfil;
@@ -65,7 +66,8 @@ public class PerfilFragment extends Fragment {
         txtCorreoPerfil = view.findViewById(R.id.txt_correo_perfil);
         txtRolPerfil = view.findViewById(R.id.txt_rol_perfil);
         txtCiudadPerfil = view.findViewById(R.id.txt_ciudad_perfil);
-        txtNivelPerfil = view.findViewById(R.id.txt_nivel_perfil);
+        txtNivelPadelPerfil = view.findViewById(R.id.txt_nivel_padel_perfil);
+        txtNivelTenisPerfil = view.findViewById(R.id.txt_nivel_tenis_perfil);
         btnEditarPerfil = view.findViewById(R.id.btn_editar_perfil);
         btnCerrarSesionPerfil = view.findViewById(R.id.btn_cerrar_sesion_perfil);
         cardHistorialPerfil = view.findViewById(R.id.card_historial_perfil);
@@ -124,7 +126,18 @@ public class PerfilFragment extends Fragment {
         txtCorreoPerfil.setText(safeEmail);
         txtRolPerfil.setText(getString(R.string.perfil_rol_format, safeRole));
         txtCiudadPerfil.setText(getString(R.string.perfil_ciudad_format, UsuarioRepository.CIUDAD_FIJA));
-        txtNivelPerfil.setText(getString(R.string.perfil_nivel_format, getNivelText(userProfile)));
+        txtNivelPadelPerfil.setText(
+                getString(
+                        R.string.perfil_nivel_padel_format,
+                        getNivelTexto(userProfile.getNivelPadel())
+                )
+        );
+        txtNivelTenisPerfil.setText(
+                getString(
+                        R.string.perfil_nivel_tenis_format,
+                        getNivelTexto(userProfile.getNivelTenis())
+                )
+        );
     }
 
     private void bindFallbackData() {
@@ -137,16 +150,25 @@ public class PerfilFragment extends Fragment {
         txtCorreoPerfil.setText(safeEmail);
         txtRolPerfil.setText(getString(R.string.perfil_rol_format, ValidationUtils.ROLE_USER));
         txtCiudadPerfil.setText(getString(R.string.perfil_ciudad_format, UsuarioRepository.CIUDAD_FIJA));
-        txtNivelPerfil.setText(
-                getString(R.string.perfil_nivel_format, getString(R.string.perfil_nivel_no_disponible))
+        txtNivelPadelPerfil.setText(
+                getString(
+                        R.string.perfil_nivel_padel_format,
+                        getString(R.string.perfil_nivel_no_disponible)
+                )
+        );
+        txtNivelTenisPerfil.setText(
+                getString(
+                        R.string.perfil_nivel_tenis_format,
+                        getString(R.string.perfil_nivel_no_disponible)
+                )
         );
     }
 
     @NonNull
-    private String getNivelText(@NonNull UserProfile userProfile) {
-        int nivelDeportivo = normalizeLevel(userProfile.getNivelDeportivo());
-        if (nivelDeportivo != -1) {
-            return String.valueOf(nivelDeportivo);
+    private String getNivelTexto(int nivel) {
+        int nivelNormalizado = normalizeLevel(nivel);
+        if (nivelNormalizado != -1) {
+            return String.valueOf(nivelNormalizado);
         }
         return getString(R.string.perfil_nivel_no_disponible);
     }

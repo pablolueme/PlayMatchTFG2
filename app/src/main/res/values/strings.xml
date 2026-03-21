@@ -66,6 +66,17 @@
     <string name="error_invalid_email_format">El correo no tiene un formato valido</string>
     <string name="error_password_min_length">La contrasena debe tener al menos 6 caracteres</string>
     <string name="error_passwords_do_not_match">Las contrasenas no coinciden</string>
+    <string name="error_partido_deporte_required">Selecciona un deporte (padel o tenis)</string>
+    <string name="error_partido_fecha_required">Introduce la fecha del partido</string>
+    <string name="error_partido_fecha_invalid">La fecha no tiene un formato valido (dd/MM/yyyy)</string>
+    <string name="error_partido_hora_required">Introduce la hora del partido</string>
+    <string name="error_partido_hora_invalid">La hora no tiene un formato valido (HH:mm)</string>
+    <string name="error_partido_direccion_required">Introduce la direccion del partido</string>
+    <string name="error_partido_nivel_required">Introduce el nivel del partido</string>
+    <string name="error_partido_acompanantes_invalid">En padel las personas iniciales deben ser 1 o 2</string>
+    <string name="error_partido_plazas_iniciales_invalid">Las plazas iniciales no son validas para ese deporte</string>
+    <string name="error_partido_fecha_hora_pasada">La fecha y hora deben ser futuras</string>
+    <string name="error_partido_fecha_hora_invalida_simple">Selecciona una fecha y hora futuras</string>
     <string name="msg_account_created_success">Cuenta creada correctamente</string>
     <string name="msg_recovery_email_sent">Se ha enviado el correo de recuperacion</string>
     <string name="msg_auth_invalid_credentials">Correo o contrasena incorrectos</string>
@@ -77,6 +88,12 @@
     <string name="msg_auth_generic_error">Ha ocurrido un error. Intentalo de nuevo</string>
     <string name="msg_profile_not_found">No se pudo cargar el perfil del usuario</string>
     <string name="msg_profile_updated">Perfil actualizado correctamente</string>
+    <string name="msg_partido_creado_ok">Partido creado correctamente</string>
+    <string name="msg_partidos_cargando">Cargando partidos...</string>
+    <string name="msg_partidos_error_carga">No se pudieron cargar los partidos</string>
+    <string name="msg_partidos_sin_resultados">No hay partidos activos y futuros con esos filtros</string>
+    <string name="msg_partido_id_invalido">Id de partido no valido</string>
+    <string name="msg_partido_no_encontrado">No se encontro el partido solicitado</string>
 
     <string name="registro_titulo">Unete a PlayMatch</string>
     <string name="registro_subtitulo">Completa tus datos y empieza a jugar hoy mismo.</string>
@@ -97,6 +114,10 @@
     <string name="home_proximo_partido_lugar">Club La Dehesa, Salamanca</string>
     <string name="home_proximo_partido_deporte">Padel mixto</string>
     <string name="home_proximo_partido_plazas">1 plaza libre</string>
+    <string name="home_sin_partidos_fecha">Sin partidos proximos</string>
+    <string name="home_sin_partidos_lugar">Crea uno nuevo desde accesos rapidos</string>
+    <string name="home_sin_partidos_deporte">Sin deporte disponible</string>
+    <string name="home_sin_partidos_plazas">0 plazas libres</string>
     <string name="home_partidos_disponibles">Partidos disponibles</string>
     <string name="home_eventos_destacados">Eventos destacados</string>
     <string name="home_bienvenida_default">Hola, jugador</string>
@@ -129,6 +150,9 @@
     <string name="crear_partido_info_jugadores">Regla de jugadores</string>
     <string name="crear_partido_msg_padel">Padel requiere 4 jugadores.</string>
     <string name="crear_partido_msg_tenis">Tenis requiere 2 jugadores.</string>
+    <string name="crear_partido_acompanantes_titulo">Personas iniciales (solo padel)</string>
+    <string name="crear_partido_acompanantes_subtitulo">Elige 1 si vas solo o 2 si vas con acompanante.</string>
+    <string name="crear_partido_nivel_titulo">Nivel (1-5)</string>
 
     <string name="historial_titulo">Historial de partidos</string>
     <string name="historial_subtitulo">Consulta encuentros finalizados o pendientes de validar.</string>
@@ -174,9 +198,13 @@
     <string name="perfil_rol">Rol: USER</string>
     <string name="perfil_ciudad">Ciudad: Salamanca</string>
     <string name="perfil_nivel">Nivel: Intermedio</string>
+    <string name="perfil_nivel_padel">Nivel padel: --</string>
+    <string name="perfil_nivel_tenis">Nivel tenis: --</string>
     <string name="perfil_rol_format">Rol: %1$s</string>
     <string name="perfil_ciudad_format">Ciudad: %1$s</string>
     <string name="perfil_nivel_format">Nivel: %1$s</string>
+    <string name="perfil_nivel_padel_format">Nivel padel: %1$s</string>
+    <string name="perfil_nivel_tenis_format">Nivel tenis: %1$s</string>
     <string name="perfil_nivel_padel_tenis_format">Padel %1$d | Tenis %2$d</string>
     <string name="perfil_ciudad_no_disponible">No especificada</string>
     <string name="perfil_nivel_no_disponible">No especificado</string>
@@ -207,6 +235,14 @@
     <string name="sample_partido_fecha_hora">Jueves, 19:30</string>
     <string name="sample_partido_nivel">Nivel medio</string>
     <string name="sample_partido_plazas">2 plazas libres</string>
+    <string name="partido_titulo_item_format">Partido de %1$s</string>
+    <string name="partido_nivel_format">Nivel: %1$s</string>
+    <string name="partido_plazas_ocupadas_format">%1$d/%2$d plazas ocupadas</string>
+    <string name="partido_plazas_libres_format">%1$d plazas libres</string>
+    <string name="partido_estado_activo">ACTIVO</string>
+    <string name="detalle_partido_participante_creador">Creador: %1$s</string>
+    <string name="detalle_partido_participante_acompanante">Acompanante</string>
+    <string name="detalle_partido_participante_pendiente">Participante pendiente %1$d</string>
 
     <string name="sample_evento_titulo">Liga Express de primavera</string>
     <string name="sample_evento_ubicacion">Ciudad Deportiva, Salamanca</string>
@@ -220,6 +256,9 @@
     <string name="label_fecha">Fecha</string>
     <string name="label_hora">Hora</string>
     <string name="label_ubicacion">Ubicacion</string>
+    <string name="label_creador">Creador</string>
+    <string name="label_estado">Estado</string>
+    <string name="label_plazas_ocupadas">Plazas</string>
     <string name="label_participantes">Participantes</string>
     <string name="label_organizador">Organizador</string>
     <string name="label_descripcion">Descripcion</string>

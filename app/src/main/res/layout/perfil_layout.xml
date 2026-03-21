@@ -98,12 +98,22 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/txt_nivel_perfil"
+                    android:id="@+id/txt_nivel_padel_perfil"
                     style="@style/Text.PlayMatch.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_8"
-                    android:text="@string/perfil_nivel"
+                    android:text="@string/perfil_nivel_padel"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_nivel_tenis_perfil"
+                    style="@style/Text.PlayMatch.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_4"
+                    android:text="@string/perfil_nivel_tenis"
                     android:textColor="@color/text_primary"
                     android:textStyle="bold" />
             </LinearLayout>

@@ -79,6 +79,7 @@
                     app:tint="@color/text_tertiary" />
 
                 <TextView
+                    android:id="@+id/txt_ubicacion_item_partido"
                     style="@style/Text.PlayMatch.Body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -101,6 +102,7 @@
                     app:tint="@color/text_tertiary" />
 
                 <TextView
+                    android:id="@+id/txt_fecha_hora_item_partido"
                     style="@style/Text.PlayMatch.Body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -106,12 +106,50 @@
                     android:text="@string/crear_partido_msg_tenis" />
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/container_personas_iniciales_padel_crear_partido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:background="@drawable/bg_card_blanca"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_16">
+
+                <TextView
+                    style="@style/Text.PlayMatch.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/crear_partido_acompanantes_titulo"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/Text.PlayMatch.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_4"
+                    android:text="@string/crear_partido_acompanantes_subtitulo" />
+
+                <Spinner
+                    android:id="@+id/spinner_personas_iniciales_padel_crear_partido"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_10"
+                    android:background="@drawable/bg_input_redondeado"
+                    android:paddingStart="@dimen/spacing_16"
+                    android:paddingTop="@dimen/spacing_10"
+                    android:paddingEnd="@dimen/spacing_16"
+                    android:paddingBottom="@dimen/spacing_10" />
+            </LinearLayout>
+
             <EditText
                 android:id="@+id/edt_fecha_crear_partido"
                 style="@style/Widget.PlayMatch.Input"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/input_height"
                 android:layout_marginTop="@dimen/spacing_20"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:hint="@string/hint_fecha"
                 android:inputType="date" />
 
@@ -121,6 +159,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/input_height"
                 android:layout_marginTop="@dimen/spacing_12"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:hint="@string/hint_hora"
                 android:inputType="time" />
 
@@ -133,14 +173,25 @@
                 android:hint="@string/hint_direccion"
                 android:inputType="textPostalAddress" />
 
-            <EditText
-                android:id="@+id/edt_nivel_crear_partido"
-                style="@style/Widget.PlayMatch.Input"
+            <TextView
+                style="@style/Text.PlayMatch.Body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:text="@string/crear_partido_nivel_titulo"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinner_nivel_crear_partido"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/input_height"
-                android:layout_marginTop="@dimen/spacing_12"
-                android:hint="@string/hint_nivel_deportivo"
-                android:inputType="textCapWords" />
+                android:layout_marginTop="@dimen/spacing_8"
+                android:background="@drawable/bg_input_redondeado"
+                android:paddingStart="@dimen/spacing_16"
+                android:paddingTop="@dimen/spacing_10"
+                android:paddingEnd="@dimen/spacing_16"
+                android:paddingBottom="@dimen/spacing_10" />
 
             <Button
                 android:id="@+id/btn_crear_partido"
