@@ -9,6 +9,8 @@
     <string name="action_enviar_enlace">Enviar enlace</string>
     <string name="action_volver_login">Volver a login</string>
     <string name="action_apuntarse">Apuntarse</string>
+    <string name="action_unirse">Unirse</string>
+    <string name="action_desapuntarse">Desapuntarse</string>
     <string name="action_ver_detalle">Ver detalle</string>
     <string name="action_crear_partido">Crear partido</string>
     <string name="action_guardar_resultado">Guardar resultado</string>
@@ -16,6 +18,7 @@
     <string name="action_editar_perfil">Editar perfil</string>
     <string name="action_guardar_cambios">Guardar cambios</string>
     <string name="action_cancelar">Cancelar</string>
+    <string name="action_volver">Volver</string>
     <string name="action_cerrar_sesion">Cerrar sesion</string>
     <string name="action_buscar">Buscar</string>
     <string name="action_mis_partidos">Mis partidos</string>
@@ -94,6 +97,11 @@
     <string name="msg_partidos_sin_resultados">No hay partidos activos y futuros con esos filtros</string>
     <string name="msg_partido_id_invalido">Id de partido no valido</string>
     <string name="msg_partido_no_encontrado">No se encontro el partido solicitado</string>
+    <string name="msg_partido_unido_ok">Te has unido al partido correctamente</string>
+    <string name="msg_partido_ya_apuntado">Ya estas apuntado a este partido</string>
+    <string name="msg_partido_sin_plazas">No quedan plazas disponibles</string>
+    <string name="msg_partido_desapuntado_ok">Te has desapuntado del partido</string>
+    <string name="msg_partido_operacion_error">Error al realizar la operacion. Intentalo de nuevo</string>
 
     <string name="registro_titulo">Unete a PlayMatch</string>
     <string name="registro_subtitulo">Completa tus datos y empieza a jugar hoy mismo.</string>
@@ -243,6 +251,9 @@
     <string name="detalle_partido_participante_creador">Creador: %1$s</string>
     <string name="detalle_partido_participante_acompanante">Acompanante</string>
     <string name="detalle_partido_participante_pendiente">Participante pendiente %1$d</string>
+    <string name="detalle_partido_participante_actual">Tu usuario</string>
+    <string name="detalle_partido_participante_generico">Jugador apuntado</string>
+    <string name="detalle_partido_sin_participantes">Sin participantes apuntados</string>
 
     <string name="sample_evento_titulo">Liga Express de primavera</string>
     <string name="sample_evento_ubicacion">Ciudad Deportiva, Salamanca</string>

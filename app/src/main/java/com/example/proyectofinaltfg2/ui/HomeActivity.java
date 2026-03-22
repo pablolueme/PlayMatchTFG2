@@ -70,6 +70,12 @@ public class HomeActivity extends AppCompatActivity {
             switchTab(MainTab.INICIO);
         } else {
             selectedTab = parseTab(savedInstanceState.getString(STATE_SELECTED_TAB));
+            Fragment restoredTabFragment = getSupportFragmentManager()
+                    .findFragmentByTag(selectedTab.name());
+            if (restoredTabFragment == null) {
+                switchTab(selectedTab);
+                return;
+            }
             updateBottomNavState(selectedTab);
         }
     }

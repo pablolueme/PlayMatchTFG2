@@ -6,6 +6,20 @@
     android:layout_height="match_parent"
     android:background="@color/background_app">
 
+    <ImageButton
+        android:id="@+id/btn_volver_detalle_partido"
+        android:layout_width="@dimen/icon_size_40"
+        android:layout_height="@dimen/icon_size_40"
+        android:layout_marginStart="@dimen/spacing_20"
+        android:layout_marginTop="@dimen/spacing_16"
+        android:background="@drawable/bg_icono_circulo_claro"
+        android:contentDescription="@string/action_volver"
+        android:padding="@dimen/spacing_10"
+        android:src="@android:drawable/ic_media_previous"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/primary_brand_dark" />
+
     <Button
         android:id="@+id/btn_apuntarse_detalle_partido"
         style="@style/Widget.PlayMatch.ButtonPrimary"
@@ -14,7 +28,7 @@
         android:layout_marginStart="@dimen/spacing_20"
         android:layout_marginEnd="@dimen/spacing_20"
         android:layout_marginBottom="@dimen/spacing_20"
-        android:text="@string/action_apuntarse"
+        android:text="@string/action_unirse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -24,13 +38,13 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:paddingStart="@dimen/spacing_20"
-        android:paddingTop="@dimen/spacing_20"
+        android:paddingTop="@dimen/spacing_12"
         android:paddingEnd="@dimen/spacing_20"
         android:paddingBottom="@dimen/spacing_20"
         app:layout_constraintBottom_toTopOf="@id/btn_apuntarse_detalle_partido"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/btn_volver_detalle_partido">
 
         <LinearLayout
             android:id="@+id/container_detalle_partido"

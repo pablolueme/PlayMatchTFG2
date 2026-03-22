@@ -146,7 +146,7 @@ public class Partido {
         }
         for (String participanteId : participantes) {
             String safeId = sanitize(participanteId);
-            if (!safeId.isEmpty()) {
+            if (!safeId.isEmpty() && !this.participantes.contains(safeId)) {
                 this.participantes.add(safeId);
             }
         }
