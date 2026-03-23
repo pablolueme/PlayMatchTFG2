@@ -206,6 +206,62 @@ public class PartidoRepository {
                 );
     }
 
+    public void obtenerMisPartidosActivosYFuturos(
+            @NonNull Context context,
+            @NonNull ObtenerPartidosCallback callback
+    ) {
+        limpiarPartidosInactivosAntiguos();
+        String usuarioIdActual = authService.getUsuarioIdActual();
+        if (TextUtils.isEmpty(usuarioIdActual)) {
+            callback.onError(context.getString(R.string.msg_auth_invalid_credentials));
+            return;
+        }
+
+        firestore
+                .collection(PARTIDOS_COLLECTION)
+                .whereIn("estado", Arrays.asList(Partido.ESTADO_ACTIVO, Partido.ESTADO_COMPLETO))
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<Partido> misPartidos = new ArrayList<>();
+                    List<String> partidosPasados = new ArrayList<>();
+
+                    queryDocumentSnapshots.getDocuments().forEach(documentSnapshot -> {
+                        Partido partido = Partido.fromDocument(documentSnapshot);
+                        if (partido == null) {
+                            return;
+                        }
+                        if (!esPartidoDelUsuario(partido, usuarioIdActual)) {
+                            return;
+                        }
+
+                        if (PartidoFechaHoraUtils.esFuturoOPresente(partido.getFecha(), partido.getHora())) {
+                            misPartidos.add(partido);
+                            return;
+                        }
+
+                        if (!partido.getIdPartido().isEmpty()) {
+                            partidosPasados.add(partido.getIdPartido());
+                        }
+                    });
+
+                    misPartidos.sort(
+                            Comparator.comparing(
+                                    partido -> PartidoFechaHoraUtils.parsearFechaHora(
+                                            partido.getFecha(),
+                                            partido.getHora()
+                                    ),
+                                    Comparator.nullsLast(Comparator.naturalOrder())
+                            )
+                    );
+
+                    callback.onSuccess(misPartidos);
+                    marcarPartidosPasadosComoFinalizados(partidosPasados);
+                })
+                .addOnFailureListener(exception ->
+                        callback.onError(FirebaseAuthUtil.getAuthErrorMessage(context, exception))
+                );
+    }
+
     public void obtenerProximosPartidosActivos(
             @NonNull Context context,
             int limit,
@@ -402,6 +458,16 @@ public class PartidoRepository {
         }
         if (TextUtils.isEmpty(usuarioIdActual)) {
             return false;
+        }
+        return partido.getParticipantes().contains(usuarioIdActual);
+    }
+
+    private boolean esPartidoDelUsuario(@NonNull Partido partido, @NonNull String usuarioIdActual) {
+        if (TextUtils.isEmpty(usuarioIdActual)) {
+            return false;
+        }
+        if (usuarioIdActual.equals(partido.getCreadorId())) {
+            return true;
         }
         return partido.getParticipantes().contains(usuarioIdActual);
     }

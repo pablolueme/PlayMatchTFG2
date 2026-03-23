@@ -143,6 +143,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/card_buscar_partidos_home"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_8"
@@ -177,6 +178,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/card_mis_partidos_home"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/spacing_8"
@@ -204,6 +206,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/card_historial_home"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_8"

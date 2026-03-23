@@ -26,10 +26,16 @@ import java.util.Locale;
 
 public class PartidosFragment extends Fragment {
 
+    public static final String MODO_TODOS = "modo_todos";
+    public static final String MODO_MIS_PARTIDOS = "modo_mis_partidos";
+
+    private static final String ARG_MODO_LISTADO = "arg_modo_listado";
     private static final String FILTRO_TODOS = "todos";
     private static final String FILTRO_PADEL = Partido.DEPORTE_PADEL;
     private static final String FILTRO_TENIS = Partido.DEPORTE_TENIS;
 
+    private TextView txtTituloPartidos;
+    private TextView txtSubtituloPartidos;
     private EditText edtBuscarPartidos;
     private TextView chipFiltroTodos;
     private TextView chipFiltroPadel;
@@ -41,10 +47,29 @@ public class PartidosFragment extends Fragment {
     private AdaptadorPartidos adaptadorPartidos;
     private final List<Partido> partidosCargados = new ArrayList<>();
 
+    @NonNull
+    private String modoListado = MODO_TODOS;
     private String filtroDeporte = FILTRO_TODOS;
 
     public PartidosFragment() {
         super(R.layout.partidos_layout);
+    }
+
+    @NonNull
+    public static PartidosFragment newInstance(@Nullable String modoListado) {
+        PartidosFragment fragment = new PartidosFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_MODO_LISTADO, normalizarModo(modoListado));
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            modoListado = normalizarModo(getArguments().getString(ARG_MODO_LISTADO));
+        }
     }
 
     @Override
@@ -57,12 +82,32 @@ public class PartidosFragment extends Fragment {
         adaptadorPartidos = new AdaptadorPartidos(requireContext(), this::abrirDetallePartido);
         configurarEventos();
         actualizarEstiloFiltros();
+        actualizarTextosModo();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         cargarPartidos();
+    }
+
+    public void actualizarModoListado(@Nullable String nuevoModo) {
+        String modoNormalizado = normalizarModo(nuevoModo);
+        boolean cambioModo = !modoNormalizado.equals(modoListado);
+        modoListado = modoNormalizado;
+        filtroDeporte = FILTRO_TODOS;
+        if (edtBuscarPartidos != null) {
+            edtBuscarPartidos.setText("");
+        }
+        actualizarEstiloFiltros();
+        actualizarTextosModo();
+        if (isAdded()) {
+            if (cambioModo || partidosCargados.isEmpty()) {
+                cargarPartidos();
+            } else {
+                aplicarFiltros();
+            }
+        }
     }
 
     private void ocultarBottomNavInterna(@NonNull View view) {
@@ -73,12 +118,29 @@ public class PartidosFragment extends Fragment {
     }
 
     private void inicializarVistas(@NonNull View view) {
+        txtTituloPartidos = view.findViewById(R.id.txt_titulo_partidos);
+        txtSubtituloPartidos = view.findViewById(R.id.txt_subtitulo_partidos);
         edtBuscarPartidos = view.findViewById(R.id.edt_buscar_partidos);
         chipFiltroTodos = view.findViewById(R.id.chip_filtro_todos_partidos);
         chipFiltroPadel = view.findViewById(R.id.chip_filtro_padel_partidos);
         chipFiltroTenis = view.findViewById(R.id.chip_filtro_tenis_partidos);
         txtEstadoListaPartidos = view.findViewById(R.id.txt_estado_lista_partidos);
         containerListaPartidos = view.findViewById(R.id.container_lista_partidos);
+    }
+
+    private void actualizarTextosModo() {
+        if (!isAdded()) {
+            return;
+        }
+        if (MODO_MIS_PARTIDOS.equals(modoListado)) {
+            txtTituloPartidos.setText(R.string.mis_partidos_titulo);
+            txtSubtituloPartidos.setText(R.string.mis_partidos_subtitulo);
+            edtBuscarPartidos.setHint(R.string.hint_buscar_mis_partidos);
+            return;
+        }
+        txtTituloPartidos.setText(R.string.partidos_titulo);
+        txtSubtituloPartidos.setText(R.string.partidos_subtitulo);
+        edtBuscarPartidos.setHint(R.string.hint_buscar_partidos);
     }
 
     private void configurarEventos() {
@@ -126,30 +188,33 @@ public class PartidosFragment extends Fragment {
         txtEstadoListaPartidos.setVisibility(View.VISIBLE);
         txtEstadoListaPartidos.setText(R.string.msg_partidos_cargando);
 
-        partidoRepository.obtenerPartidosActivosYFuturos(
-                requireContext(),
-                new PartidoRepository.ObtenerPartidosCallback() {
-                    @Override
-                    public void onSuccess(@NonNull List<Partido> partidos) {
-                        if (!isAdded()) {
-                            return;
-                        }
-                        partidosCargados.clear();
-                        partidosCargados.addAll(partidos);
-                        aplicarFiltros();
-                    }
-
-                    @Override
-                    public void onError(@NonNull String errorMessage) {
-                        if (!isAdded()) {
-                            return;
-                        }
-                        txtEstadoListaPartidos.setVisibility(View.VISIBLE);
-                        txtEstadoListaPartidos.setText(R.string.msg_partidos_error_carga);
-                        Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show();
-                    }
+        PartidoRepository.ObtenerPartidosCallback callback = new PartidoRepository.ObtenerPartidosCallback() {
+            @Override
+            public void onSuccess(@NonNull List<Partido> partidos) {
+                if (!isAdded()) {
+                    return;
                 }
-        );
+                partidosCargados.clear();
+                partidosCargados.addAll(partidos);
+                aplicarFiltros();
+            }
+
+            @Override
+            public void onError(@NonNull String errorMessage) {
+                if (!isAdded()) {
+                    return;
+                }
+                txtEstadoListaPartidos.setVisibility(View.VISIBLE);
+                txtEstadoListaPartidos.setText(R.string.msg_partidos_error_carga);
+                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        if (MODO_MIS_PARTIDOS.equals(modoListado)) {
+            partidoRepository.obtenerMisPartidosActivosYFuturos(requireContext(), callback);
+            return;
+        }
+        partidoRepository.obtenerPartidosActivosYFuturos(requireContext(), callback);
     }
 
     private void aplicarFiltros() {
@@ -171,11 +236,15 @@ public class PartidosFragment extends Fragment {
         }
 
         adaptadorPartidos.actualizarPartidos(partidosFiltrados);
-        adaptadorPartidos.mostrarEnContenedor(containerListaPartidos);
+        adaptadorPartidos.mostrarEnContenedor(containerListaPartidos, true);
 
         if (partidosFiltrados.isEmpty()) {
             txtEstadoListaPartidos.setVisibility(View.VISIBLE);
-            txtEstadoListaPartidos.setText(R.string.msg_partidos_sin_resultados);
+            if (MODO_MIS_PARTIDOS.equals(modoListado)) {
+                txtEstadoListaPartidos.setText(R.string.msg_mis_partidos_sin_resultados);
+            } else {
+                txtEstadoListaPartidos.setText(R.string.msg_partidos_sin_resultados);
+            }
         } else {
             txtEstadoListaPartidos.setVisibility(View.GONE);
         }
@@ -234,5 +303,13 @@ public class PartidosFragment extends Fragment {
             return "";
         }
         return editText.getText().toString().trim();
+    }
+
+    @NonNull
+    private static String normalizarModo(@Nullable String modo) {
+        if (MODO_MIS_PARTIDOS.equals(modo)) {
+            return MODO_MIS_PARTIDOS;
+        }
+        return MODO_TODOS;
     }
 }

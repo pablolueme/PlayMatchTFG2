@@ -44,6 +44,7 @@
     <string name="hint_titulo_evento">Titulo del evento</string>
     <string name="hint_descripcion_evento">Descripcion del evento</string>
     <string name="hint_buscar_partidos">Buscar partidos en Salamanca</string>
+    <string name="hint_buscar_mis_partidos">Buscar en mis partidos</string>
     <string name="hint_buscar_eventos">Buscar eventos deportivos</string>
     <string name="hint_marcador">0</string>
 
@@ -95,6 +96,7 @@
     <string name="msg_partidos_cargando">Cargando partidos...</string>
     <string name="msg_partidos_error_carga">No se pudieron cargar los partidos</string>
     <string name="msg_partidos_sin_resultados">No hay partidos activos y futuros con esos filtros</string>
+    <string name="msg_mis_partidos_sin_resultados">No tienes partidos activos y futuros con esos filtros</string>
     <string name="msg_partido_id_invalido">Id de partido no valido</string>
     <string name="msg_partido_no_encontrado">No se encontro el partido solicitado</string>
     <string name="msg_partido_unido_ok">Te has unido al partido correctamente</string>
@@ -135,11 +137,14 @@
 
     <string name="partidos_titulo">Partidos</string>
     <string name="partidos_subtitulo">Encuentra y reserva tu siguiente partido.</string>
+    <string name="mis_partidos_titulo">Mis partidos</string>
+    <string name="mis_partidos_subtitulo">Partidos creados por ti o en los que estas apuntado.</string>
     <string name="partidos_hero_titulo">Partidos cerca de ti</string>
     <string name="partidos_hero_subtitulo">Padel y tenis en clubes de Salamanca</string>
     <string name="partidos_filtro_todos">Todos</string>
     <string name="partidos_filtro_padel">Padel</string>
     <string name="partidos_filtro_tenis">Tenis</string>
+    <string name="partidos_header_fecha">Fecha: %1$s</string>
 
     <string name="detalle_partido_titulo">Detalle del partido</string>
     <string name="detalle_partido_plazas_libres">2 plazas libres</string>

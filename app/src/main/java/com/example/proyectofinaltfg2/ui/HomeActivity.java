@@ -51,6 +51,8 @@ public class HomeActivity extends AppCompatActivity {
     private TextView txtNavPerfil;
 
     private MainTab selectedTab;
+    @Nullable
+    private String pendingPartidosMode;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -114,9 +116,23 @@ public class HomeActivity extends AppCompatActivity {
 
     private void configureListeners() {
         itemNavInicio.setOnClickListener(v -> switchTab(MainTab.INICIO));
-        itemNavPartidos.setOnClickListener(v -> switchTab(MainTab.PARTIDOS));
+        itemNavPartidos.setOnClickListener(v -> abrirPartidos(false));
         itemNavEventos.setOnClickListener(v -> switchTab(MainTab.EVENTOS));
         itemNavPerfil.setOnClickListener(v -> switchTab(MainTab.PERFIL));
+    }
+
+    public void abrirPartidos(boolean soloMisPartidos) {
+        String modoSolicitado = soloMisPartidos
+                ? PartidosFragment.MODO_MIS_PARTIDOS
+                : PartidosFragment.MODO_TODOS;
+        pendingPartidosMode = modoSolicitado;
+        switchTab(MainTab.PARTIDOS);
+        getSupportFragmentManager().executePendingTransactions();
+        Fragment partidosFragment = getSupportFragmentManager().findFragmentByTag(MainTab.PARTIDOS.name());
+        if (partidosFragment instanceof PartidosFragment) {
+            ((PartidosFragment) partidosFragment).actualizarModoListado(modoSolicitado);
+        }
+        pendingPartidosMode = null;
     }
 
     private void switchTab(@NonNull MainTab targetTab) {
@@ -150,7 +166,11 @@ public class HomeActivity extends AppCompatActivity {
     @NonNull
     private Fragment createFragmentForTab(@NonNull MainTab tab) {
         if (tab == MainTab.PARTIDOS) {
-            return new PartidosFragment();
+            String modoInicial = pendingPartidosMode == null
+                    ? PartidosFragment.MODO_TODOS
+                    : pendingPartidosMode;
+            pendingPartidosMode = null;
+            return PartidosFragment.newInstance(modoInicial);
         }
         if (tab == MainTab.EVENTOS) {
             return new EventosFragment();

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import com.example.proyectofinaltfg2.repository.PartidoRepository;
 import com.example.proyectofinaltfg2.repository.UsuarioRepository;
 import com.example.proyectofinaltfg2.ui.CrearPartidoActivity;
 import com.example.proyectofinaltfg2.ui.DetallePartidoActivity;
+import com.example.proyectofinaltfg2.ui.HomeActivity;
 import com.example.proyectofinaltfg2.ui.adapters.AdaptadorPartidos;
 import com.example.proyectofinaltfg2.utils.ValidationUtils;
 
@@ -31,8 +33,11 @@ public class InicioFragment extends Fragment {
 
     private TextView txtAliasHome;
     private TextView txtEstadoHome;
+    private ImageView imgBusquedaHome;
 
     private LinearLayout cardCrearPartidoHome;
+    private LinearLayout cardBuscarPartidosHome;
+    private LinearLayout cardMisPartidosHome;
     private LinearLayout cardProximoPartidoHome;
     private TextView txtFechaProximoPartidoHome;
     private TextView txtLugarProximoPartidoHome;
@@ -80,7 +85,10 @@ public class InicioFragment extends Fragment {
     private void inicializarVistas(@NonNull View view) {
         txtAliasHome = view.findViewById(R.id.txt_alias_home);
         txtEstadoHome = view.findViewById(R.id.txt_estado_home);
+        imgBusquedaHome = view.findViewById(R.id.img_busqueda_home);
         cardCrearPartidoHome = view.findViewById(R.id.card_crear_partido_home);
+        cardBuscarPartidosHome = view.findViewById(R.id.card_buscar_partidos_home);
+        cardMisPartidosHome = view.findViewById(R.id.card_mis_partidos_home);
         cardProximoPartidoHome = view.findViewById(R.id.card_proximo_partido_home);
         txtFechaProximoPartidoHome = view.findViewById(R.id.txt_fecha_proximo_partido_home);
         txtLugarProximoPartidoHome = view.findViewById(R.id.txt_lugar_proximo_partido_home);
@@ -94,9 +102,21 @@ public class InicioFragment extends Fragment {
         cardCrearPartidoHome.setOnClickListener(v ->
                 startActivity(new Intent(requireContext(), CrearPartidoActivity.class))
         );
+        cardBuscarPartidosHome.setOnClickListener(v -> abrirPartidosDesdeHome(false));
+        cardMisPartidosHome.setOnClickListener(v -> abrirPartidosDesdeHome(true));
+        imgBusquedaHome.setOnClickListener(v -> abrirPartidosDesdeHome(false));
 
         cardProximoPartidoHome.setOnClickListener(v -> abrirDetallePartido(partidoDestacado));
         btnVerPartidoHome.setOnClickListener(v -> abrirDetallePartido(partidoDestacado));
+    }
+
+    private void abrirPartidosDesdeHome(boolean soloMisPartidos) {
+        if (!isAdded()) {
+            return;
+        }
+        if (requireActivity() instanceof HomeActivity) {
+            ((HomeActivity) requireActivity()).abrirPartidos(soloMisPartidos);
+        }
     }
 
     private void cargarCabeceraPerfil() {

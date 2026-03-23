@@ -25,11 +25,22 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <ImageButton
+                android:id="@+id/btn_volver_crear_partido"
+                android:layout_width="@dimen/icon_size_40"
+                android:layout_height="@dimen/icon_size_40"
+                android:background="@drawable/bg_icono_circulo_claro"
+                android:contentDescription="@string/action_volver"
+                android:padding="@dimen/spacing_10"
+                android:src="@android:drawable/ic_media_previous"
+                app:tint="@color/primary_brand" />
+
             <TextView
                 android:id="@+id/txt_titulo_crear_partido"
                 style="@style/Text.PlayMatch.ScreenTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_12"
                 android:text="@string/crear_partido_titulo" />
 
             <TextView

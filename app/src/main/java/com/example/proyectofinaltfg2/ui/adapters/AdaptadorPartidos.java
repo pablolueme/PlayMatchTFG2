@@ -44,12 +44,29 @@ public class AdaptadorPartidos {
     }
 
     public void mostrarEnContenedor(@NonNull LinearLayout contenedor) {
+        mostrarEnContenedor(contenedor, false);
+    }
+
+    public void mostrarEnContenedor(@NonNull LinearLayout contenedor, boolean agruparPorFecha) {
         contenedor.removeAllViews();
+        String fechaActual = "";
         for (Partido partido : partidos) {
+            String fechaPartido = PartidoFechaHoraUtils.normalizarFecha(partido.getFecha());
+            if (agruparPorFecha && !fechaPartido.equals(fechaActual)) {
+                agregarCabeceraFecha(contenedor, fechaPartido);
+                fechaActual = fechaPartido;
+            }
             View vistaItem = inflater.inflate(R.layout.item_partido_layout, contenedor, false);
             enlazarPartidoEnVista(vistaItem, partido, false, listener);
             contenedor.addView(vistaItem);
         }
+    }
+
+    private void agregarCabeceraFecha(@NonNull LinearLayout contenedor, @NonNull String fechaPartido) {
+        View cabecera = inflater.inflate(R.layout.item_fecha_partido_header, contenedor, false);
+        TextView txtFecha = cabecera.findViewById(R.id.txt_fecha_header_partidos);
+        txtFecha.setText(cabecera.getContext().getString(R.string.partidos_header_fecha, fechaPartido));
+        contenedor.addView(cabecera);
     }
 
     public static void enlazarPartidoEnVista(

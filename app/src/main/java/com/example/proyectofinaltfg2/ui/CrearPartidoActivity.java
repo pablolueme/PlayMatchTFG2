@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -42,6 +43,7 @@ public class CrearPartidoActivity extends AppCompatActivity {
 
     private Button btnSelectorPadel;
     private Button btnSelectorTenis;
+    private ImageButton btnVolver;
     private EditText edtFecha;
     private EditText edtHora;
     private EditText edtDireccion;
@@ -75,6 +77,7 @@ public class CrearPartidoActivity extends AppCompatActivity {
     private void inicializarVistas() {
         btnSelectorPadel = findViewById(R.id.btn_selector_padel_crear_partido);
         btnSelectorTenis = findViewById(R.id.btn_selector_tenis_crear_partido);
+        btnVolver = findViewById(R.id.btn_volver_crear_partido);
         edtFecha = findViewById(R.id.edt_fecha_crear_partido);
         edtHora = findViewById(R.id.edt_hora_crear_partido);
         edtDireccion = findViewById(R.id.edt_direccion_crear_partido);
@@ -105,6 +108,8 @@ public class CrearPartidoActivity extends AppCompatActivity {
     }
 
     private void configurarEventos() {
+        btnVolver.setOnClickListener(v -> finish());
+
         btnSelectorPadel.setOnClickListener(v -> {
             seleccionarDeporte(Partido.DEPORTE_PADEL);
         });

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/txt_fecha_header_partidos"
+    style="@style/Text.PlayMatch.Body"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/spacing_10"
+    android:layout_marginBottom="@dimen/spacing_8"
+    android:background="@drawable/bg_chip_plazas"
+    android:paddingStart="@dimen/spacing_12"
+    android:paddingTop="@dimen/spacing_6"
+    android:paddingEnd="@dimen/spacing_12"
+    android:paddingBottom="@dimen/spacing_6"
+    android:textColor="@color/primary_brand_dark"
+    android:textStyle="bold" />
