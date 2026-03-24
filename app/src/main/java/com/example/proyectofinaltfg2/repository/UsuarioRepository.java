@@ -59,7 +59,6 @@ public class UsuarioRepository {
 
                         @Override
                         public void onError(@NonNull String saveError) {
-                            // Devuelve igualmente datos base para no romper la UI de perfil.
                             callback.onSuccess(fallbackProfile);
                         }
                     });
@@ -138,12 +137,10 @@ public class UsuarioRepository {
         FirebaseAuthUtil.saveUserProfile(userProfile, context, new FirebaseAuthUtil.AuthResultCallback() {
             @Override
             public void onSuccess() {
-                // No-op.
             }
 
             @Override
             public void onError(@NonNull String errorMessage) {
-                // No-op.
             }
         });
     }

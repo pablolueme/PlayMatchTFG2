@@ -144,6 +144,10 @@
     <string name="partidos_filtro_todos">Todos</string>
     <string name="partidos_filtro_padel">Padel</string>
     <string name="partidos_filtro_tenis">Tenis</string>
+    <string name="partidos_filtro_fecha_todas">Todas las fechas</string>
+    <string name="partidos_filtro_fecha_seleccionada">Fecha: %1$s</string>
+    <string name="partidos_filtro_fecha_limpiar">Limpiar filtro</string>
+    <string name="partidos_filtro_fecha_dialogo_titulo">Selecciona fecha</string>
     <string name="partidos_header_fecha">Fecha: %1$s</string>
 
     <string name="detalle_partido_titulo">Detalle del partido</string>

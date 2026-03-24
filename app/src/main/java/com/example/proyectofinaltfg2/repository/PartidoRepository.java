@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.proyectofinaltfg2.R;
 import com.example.proyectofinaltfg2.logic.PartidoFechaHoraUtils;
@@ -282,6 +283,40 @@ public class PartidoRepository {
                 callback.onError(errorMessage);
             }
         });
+    }
+
+    @NonNull
+    public List<Partido> filtrarPartidosActivosYFuturosPorFecha(
+            @NonNull List<Partido> partidos,
+            @Nullable String fechaFiltro
+    ) {
+        String fechaNormalizada = PartidoFechaHoraUtils.normalizarFecha(fechaFiltro);
+        boolean usarFiltroFecha = !fechaNormalizada.isEmpty();
+        List<Partido> partidosFiltrados = new ArrayList<>();
+
+        for (Partido partido : partidos) {
+            if (!PartidoFechaHoraUtils.esFuturoOPresente(partido.getFecha(), partido.getHora())) {
+                continue;
+            }
+            if (usarFiltroFecha) {
+                String fechaPartido = PartidoFechaHoraUtils.normalizarFecha(partido.getFecha());
+                if (!fechaNormalizada.equals(fechaPartido)) {
+                    continue;
+                }
+            }
+            partidosFiltrados.add(partido);
+        }
+
+        partidosFiltrados.sort(
+                Comparator.comparing(
+                        partido -> PartidoFechaHoraUtils.parsearFechaHora(
+                                partido.getFecha(),
+                                partido.getHora()
+                        ),
+                        Comparator.nullsLast(Comparator.naturalOrder())
+                )
+        );
+        return partidosFiltrados;
     }
 
     public void obtenerPartidoPorId(

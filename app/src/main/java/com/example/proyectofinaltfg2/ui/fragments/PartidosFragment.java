@@ -1,5 +1,6 @@
 package com.example.proyectofinaltfg2.ui.fragments;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,12 +16,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.proyectofinaltfg2.R;
+import com.example.proyectofinaltfg2.logic.PartidoFechaHoraUtils;
 import com.example.proyectofinaltfg2.model.Partido;
 import com.example.proyectofinaltfg2.repository.PartidoRepository;
 import com.example.proyectofinaltfg2.ui.DetallePartidoActivity;
 import com.example.proyectofinaltfg2.ui.adapters.AdaptadorPartidos;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -40,6 +45,8 @@ public class PartidosFragment extends Fragment {
     private TextView chipFiltroTodos;
     private TextView chipFiltroPadel;
     private TextView chipFiltroTenis;
+    private TextView chipFiltroFecha;
+    private TextView txtLimpiarFecha;
     private TextView txtEstadoListaPartidos;
     private LinearLayout containerListaPartidos;
 
@@ -50,6 +57,10 @@ public class PartidosFragment extends Fragment {
     @NonNull
     private String modoListado = MODO_TODOS;
     private String filtroDeporte = FILTRO_TODOS;
+    private String fechaFiltroSeleccionada = "";
+
+    private static final DateTimeFormatter FORMATO_FECHA_FILTRO =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.getDefault());
 
     public PartidosFragment() {
         super(R.layout.partidos_layout);
@@ -83,6 +94,7 @@ public class PartidosFragment extends Fragment {
         configurarEventos();
         actualizarEstiloFiltros();
         actualizarTextosModo();
+        actualizarVistaFiltroFecha();
     }
 
     @Override
@@ -96,11 +108,13 @@ public class PartidosFragment extends Fragment {
         boolean cambioModo = !modoNormalizado.equals(modoListado);
         modoListado = modoNormalizado;
         filtroDeporte = FILTRO_TODOS;
+        fechaFiltroSeleccionada = "";
         if (edtBuscarPartidos != null) {
             edtBuscarPartidos.setText("");
         }
         actualizarEstiloFiltros();
         actualizarTextosModo();
+        actualizarVistaFiltroFecha();
         if (isAdded()) {
             if (cambioModo || partidosCargados.isEmpty()) {
                 cargarPartidos();
@@ -124,6 +138,8 @@ public class PartidosFragment extends Fragment {
         chipFiltroTodos = view.findViewById(R.id.chip_filtro_todos_partidos);
         chipFiltroPadel = view.findViewById(R.id.chip_filtro_padel_partidos);
         chipFiltroTenis = view.findViewById(R.id.chip_filtro_tenis_partidos);
+        chipFiltroFecha = view.findViewById(R.id.chip_filtro_fecha_partidos);
+        txtLimpiarFecha = view.findViewById(R.id.txt_limpiar_fecha_partidos);
         txtEstadoListaPartidos = view.findViewById(R.id.txt_estado_lista_partidos);
         containerListaPartidos = view.findViewById(R.id.container_lista_partidos);
     }
@@ -161,6 +177,9 @@ public class PartidosFragment extends Fragment {
             actualizarEstiloFiltros();
             aplicarFiltros();
         });
+
+        chipFiltroFecha.setOnClickListener(v -> abrirSelectorFecha());
+        txtLimpiarFecha.setOnClickListener(v -> limpiarFiltroFecha());
 
         edtBuscarPartidos.addTextChangedListener(new TextWatcher() {
             @Override
@@ -224,8 +243,12 @@ public class PartidosFragment extends Fragment {
 
         String textoBusqueda = obtenerTexto(edtBuscarPartidos).toLowerCase(Locale.getDefault());
         List<Partido> partidosFiltrados = new ArrayList<>();
+        List<Partido> partidosBase = partidoRepository.filtrarPartidosActivosYFuturosPorFecha(
+                partidosCargados,
+                fechaFiltroSeleccionada
+        );
 
-        for (Partido partido : partidosCargados) {
+        for (Partido partido : partidosBase) {
             if (!cumpleFiltroDeporte(partido)) {
                 continue;
             }
@@ -281,6 +304,76 @@ public class PartidosFragment extends Fragment {
 
     private void aplicarEstadoFiltro(@NonNull TextView chip, boolean seleccionado) {
         chip.setAlpha(seleccionado ? 1f : 0.55f);
+    }
+
+    private void abrirSelectorFecha() {
+        if (!isAdded()) {
+            return;
+        }
+
+        LocalDate fechaInicial = obtenerFechaInicialDatePicker();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                requireContext(),
+                (view, year, monthOfYear, dayOfMonth) -> {
+                    LocalDate fechaSeleccionada = LocalDate.of(year, monthOfYear + 1, dayOfMonth);
+                    fechaFiltroSeleccionada = PartidoFechaHoraUtils.normalizarFecha(
+                            fechaSeleccionada.format(FORMATO_FECHA_FILTRO)
+                    );
+                    actualizarVistaFiltroFecha();
+                    aplicarFiltros();
+                },
+                fechaInicial.getYear(),
+                fechaInicial.getMonthValue() - 1,
+                fechaInicial.getDayOfMonth()
+        );
+        datePickerDialog.setTitle(R.string.partidos_filtro_fecha_dialogo_titulo);
+        datePickerDialog.getDatePicker().setMinDate(obtenerMillisInicioHoy());
+        datePickerDialog.show();
+    }
+
+    private void limpiarFiltroFecha() {
+        if (fechaFiltroSeleccionada.isEmpty()) {
+            return;
+        }
+        fechaFiltroSeleccionada = "";
+        actualizarVistaFiltroFecha();
+        aplicarFiltros();
+    }
+
+    private void actualizarVistaFiltroFecha() {
+        if (chipFiltroFecha == null || txtLimpiarFecha == null) {
+            return;
+        }
+
+        if (fechaFiltroSeleccionada.isEmpty()) {
+            chipFiltroFecha.setText(R.string.partidos_filtro_fecha_todas);
+            txtLimpiarFecha.setVisibility(View.GONE);
+            return;
+        }
+
+        chipFiltroFecha.setText(
+                getString(R.string.partidos_filtro_fecha_seleccionada, fechaFiltroSeleccionada)
+        );
+        txtLimpiarFecha.setVisibility(View.VISIBLE);
+    }
+
+    @NonNull
+    private LocalDate obtenerFechaInicialDatePicker() {
+        LocalDate hoy = LocalDate.now();
+        LocalDate fechaActual = PartidoFechaHoraUtils.parsearFecha(fechaFiltroSeleccionada);
+        if (fechaActual == null || fechaActual.isBefore(hoy)) {
+            return hoy;
+        }
+        return fechaActual;
+    }
+
+    private long obtenerMillisInicioHoy() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTimeInMillis();
     }
 
     private void abrirDetallePartido(@NonNull Partido partido) {
