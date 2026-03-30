@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -63,8 +64,8 @@ public class CrearPartidoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.crear_partido_layout);
 
-        partidoRepository = new PartidoRepository();
-        usuarioRepository = new UsuarioRepository();
+        partidoRepository = crearPartidoRepository();
+        usuarioRepository = crearUsuarioRepository();
 
         inicializarVistas();
         configurarSpinners();
@@ -373,5 +374,17 @@ public class CrearPartidoActivity extends AppCompatActivity {
             return "";
         }
         return editText.getText().toString().trim();
+    }
+
+    @VisibleForTesting
+    @NonNull
+    protected PartidoRepository crearPartidoRepository() {
+        return new PartidoRepository();
+    }
+
+    @VisibleForTesting
+    @NonNull
+    protected UsuarioRepository crearUsuarioRepository() {
+        return new UsuarioRepository();
     }
 }

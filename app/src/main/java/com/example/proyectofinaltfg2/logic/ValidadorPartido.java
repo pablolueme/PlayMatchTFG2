@@ -1,7 +1,5 @@
 package com.example.proyectofinaltfg2.logic;
 
-import android.text.TextUtils;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -178,7 +176,7 @@ public final class ValidadorPartido {
 
     @NonNull
     public static String limpiarTexto(@Nullable String value) {
-        if (TextUtils.isEmpty(value)) {
+        if (value == null) {
             return "";
         }
         return value.trim();

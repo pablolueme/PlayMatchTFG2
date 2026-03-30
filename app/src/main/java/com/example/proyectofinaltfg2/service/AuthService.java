@@ -8,13 +8,43 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class AuthService {
 
+    interface AuthGateway {
+        boolean isUserLoggedIn();
+
+        @Nullable
+        FirebaseUser getCurrentUser();
+    }
+
+    private static final class FirebaseAuthGateway implements AuthGateway {
+        @Override
+        public boolean isUserLoggedIn() {
+            return FirebaseAuthUtil.isUserLoggedIn();
+        }
+
+        @Nullable
+        @Override
+        public FirebaseUser getCurrentUser() {
+            return FirebaseAuthUtil.getCurrentUser();
+        }
+    }
+
+    private final AuthGateway authGateway;
+
+    public AuthService() {
+        this(new FirebaseAuthGateway());
+    }
+
+    AuthService(@NonNull AuthGateway authGateway) {
+        this.authGateway = authGateway;
+    }
+
     public boolean isUsuarioAutenticado() {
-        return FirebaseAuthUtil.isUserLoggedIn();
+        return authGateway.isUserLoggedIn();
     }
 
     @NonNull
     public String getUsuarioIdActual() {
-        FirebaseUser firebaseUser = FirebaseAuthUtil.getCurrentUser();
+        FirebaseUser firebaseUser = authGateway.getCurrentUser();
         if (firebaseUser == null || firebaseUser.getUid() == null) {
             return "";
         }
@@ -23,6 +53,6 @@ public class AuthService {
 
     @Nullable
     public FirebaseUser getUsuarioActual() {
-        return FirebaseAuthUtil.getCurrentUser();
+        return authGateway.getCurrentUser();
     }
 }

@@ -1,9 +1,10 @@
 package com.example.proyectofinaltfg2.repository;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 
 import com.example.proyectofinaltfg2.R;
 import com.example.proyectofinaltfg2.model.UserProfile;
@@ -92,15 +93,15 @@ public class UsuarioRepository {
             @NonNull RepositoryCallback callback
     ) {
         String safeNombre = nombre.trim();
-        if (TextUtils.isEmpty(safeNombre)) {
+        if (!isNombreValido(safeNombre)) {
             callback.onError(context.getString(R.string.error_name_required));
             return;
         }
-        if (nivelPadel < ValidationUtils.MIN_LEVEL || nivelPadel > ValidationUtils.MAX_LEVEL) {
+        if (!isNivelValido(nivelPadel)) {
             callback.onError(context.getString(R.string.error_nivel_padel_required));
             return;
         }
-        if (nivelTenis < ValidationUtils.MIN_LEVEL || nivelTenis > ValidationUtils.MAX_LEVEL) {
+        if (!isNivelValido(nivelTenis)) {
             callback.onError(context.getString(R.string.error_nivel_tenis_required));
             return;
         }
@@ -145,23 +146,24 @@ public class UsuarioRepository {
         });
     }
 
-    private boolean normalizeUserProfile(
+    @VisibleForTesting
+    boolean normalizeUserProfile(
             @NonNull UserProfile userProfile,
             @NonNull FirebaseUser currentUser
     ) {
         boolean changed = false;
 
-        if (TextUtils.isEmpty(userProfile.getUid())) {
+        if (isBlank(userProfile.getUid())) {
             userProfile.setUid(currentUser.getUid());
             changed = true;
         }
 
-        if (TextUtils.isEmpty(userProfile.getCorreo())) {
+        if (isBlank(userProfile.getCorreo())) {
             userProfile.setCorreo(currentUser.getEmail());
             changed = true;
         }
 
-        if (TextUtils.isEmpty(userProfile.getRol())) {
+        if (isBlank(userProfile.getRol())) {
             userProfile.setRol(ValidationUtils.ROLE_USER);
             changed = true;
         }
@@ -175,7 +177,8 @@ public class UsuarioRepository {
     }
 
     @NonNull
-    private UserProfile buildFallbackProfile(@NonNull FirebaseUser currentUser) {
+    @VisibleForTesting
+    UserProfile buildFallbackProfile(@NonNull FirebaseUser currentUser) {
         UserProfile fallbackProfile = new UserProfile();
         fallbackProfile.setUid(currentUser.getUid());
         fallbackProfile.setCorreo(currentUser.getEmail());
@@ -183,5 +186,19 @@ public class UsuarioRepository {
         fallbackProfile.setCiudad(CIUDAD_FIJA);
         fallbackProfile.setActivo(true);
         return fallbackProfile;
+    }
+
+    @VisibleForTesting
+    boolean isNombreValido(@Nullable String nombre) {
+        return !isBlank(nombre);
+    }
+
+    @VisibleForTesting
+    boolean isNivelValido(int nivel) {
+        return nivel >= ValidationUtils.MIN_LEVEL && nivel <= ValidationUtils.MAX_LEVEL;
+    }
+
+    private boolean isBlank(@Nullable String value) {
+        return value == null || value.trim().isEmpty();
     }
 }

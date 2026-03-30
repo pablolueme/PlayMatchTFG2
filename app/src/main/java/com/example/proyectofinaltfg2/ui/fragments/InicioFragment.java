@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.fragment.app.Fragment;
 
 import com.example.proyectofinaltfg2.R;
@@ -59,8 +60,8 @@ public class InicioFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        usuarioRepository = new UsuarioRepository();
-        partidoRepository = new PartidoRepository();
+        usuarioRepository = crearUsuarioRepository();
+        partidoRepository = crearPartidoRepository();
 
         ocultarBottomNavInterna(view);
         inicializarVistas(view);
@@ -232,6 +233,18 @@ public class InicioFragment extends Fragment {
         txtPlazasProximoPartidoHome.setText(R.string.home_sin_partidos_plazas);
         btnVerPartidoHome.setEnabled(false);
         itemPartidoPreviewHome.setVisibility(View.GONE);
+    }
+
+    @VisibleForTesting
+    @NonNull
+    protected UsuarioRepository crearUsuarioRepository() {
+        return new UsuarioRepository();
+    }
+
+    @VisibleForTesting
+    @NonNull
+    protected PartidoRepository crearPartidoRepository() {
+        return new PartidoRepository();
     }
 
     private void abrirDetallePartido(@Nullable Partido partido) {

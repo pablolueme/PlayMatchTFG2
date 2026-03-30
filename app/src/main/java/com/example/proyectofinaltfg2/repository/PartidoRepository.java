@@ -1,10 +1,10 @@
 package com.example.proyectofinaltfg2.repository;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 
 import com.example.proyectofinaltfg2.R;
 import com.example.proyectofinaltfg2.logic.PartidoFechaHoraUtils;
@@ -213,7 +213,7 @@ public class PartidoRepository {
     ) {
         limpiarPartidosInactivosAntiguos();
         String usuarioIdActual = authService.getUsuarioIdActual();
-        if (TextUtils.isEmpty(usuarioIdActual)) {
+        if (isBlank(usuarioIdActual)) {
             callback.onError(context.getString(R.string.msg_auth_invalid_credentials));
             return;
         }
@@ -324,7 +324,7 @@ public class PartidoRepository {
             @NonNull String partidoId,
             @NonNull ObtenerPartidoCallback callback
     ) {
-        if (TextUtils.isEmpty(partidoId.trim())) {
+        if (isBlank(partidoId)) {
             callback.onError(context.getString(R.string.msg_partido_id_invalido));
             return;
         }
@@ -375,27 +375,8 @@ public class PartidoRepository {
                         if (partido == null) {
                             return;
                         }
-
-                        if (Partido.ESTADO_ACTIVO.equals(partido.getEstado())) {
-                            return;
-                        }
-                        if (!esEstadoNoActivoValidoParaLimpieza(partido.getEstado())) {
-                            return;
-                        }
-
-                        LocalDateTime fechaHoraPartido = PartidoFechaHoraUtils.parsearFechaHora(
-                                partido.getFecha(),
-                                partido.getHora()
-                        );
-                        if (fechaHoraPartido == null) {
-                            return;
-                        }
-
-                        if (fechaHoraPartido.isAfter(fechaLimiteBorrado)) {
-                            return;
-                        }
-
-                        if (!partido.getIdPartido().isEmpty()) {
+                        if (debeBorrarsePorLimpieza(partido, fechaLimiteBorrado)
+                                && !partido.getIdPartido().isEmpty()) {
                             idsABorrar.add(partido.getIdPartido());
                         }
                     });
@@ -405,7 +386,8 @@ public class PartidoRepository {
     }
 
     @NonNull
-    private Partido construirPartido(
+    @VisibleForTesting
+    Partido construirPartido(
             @NonNull String deporte,
             @NonNull String fecha,
             @NonNull String hora,
@@ -450,7 +432,8 @@ public class PartidoRepository {
     }
 
     @NonNull
-    private String obtenerNombreCreador(@NonNull Context context, @NonNull Usuario usuario) {
+    @VisibleForTesting
+    String obtenerNombreCreador(@NonNull Context context, @NonNull Usuario usuario) {
         String nombreCreador = usuario.getNombreMostrado();
         if (!nombreCreador.isEmpty()) {
             return nombreCreador;
@@ -478,27 +461,53 @@ public class PartidoRepository {
         }
     }
 
-    private boolean esEstadoNoActivoValidoParaLimpieza(@NonNull String estado) {
+    @VisibleForTesting
+    boolean esEstadoNoActivoValidoParaLimpieza(@NonNull String estado) {
         return Partido.ESTADO_FINALIZADO.equals(estado)
                 || Partido.ESTADO_CANCELADO.equals(estado)
                 || Partido.ESTADO_COMPLETO.equals(estado);
     }
 
-    private boolean debeMostrarseEnListado(@NonNull Partido partido, @NonNull String usuarioIdActual) {
+    @VisibleForTesting
+    boolean debeBorrarsePorLimpieza(
+            @NonNull Partido partido,
+            @NonNull LocalDateTime fechaLimiteBorrado
+    ) {
+        if (Partido.ESTADO_ACTIVO.equals(partido.getEstado())) {
+            return false;
+        }
+        if (!esEstadoNoActivoValidoParaLimpieza(partido.getEstado())) {
+            return false;
+        }
+
+        LocalDateTime fechaHoraPartido = PartidoFechaHoraUtils.parsearFechaHora(
+                partido.getFecha(),
+                partido.getHora()
+        );
+        if (fechaHoraPartido == null) {
+            return false;
+        }
+
+        return !fechaHoraPartido.isAfter(fechaLimiteBorrado);
+    }
+
+    @VisibleForTesting
+    boolean debeMostrarseEnListado(@NonNull Partido partido, @NonNull String usuarioIdActual) {
         if (Partido.ESTADO_ACTIVO.equals(partido.getEstado())) {
             return true;
         }
         if (!Partido.ESTADO_COMPLETO.equals(partido.getEstado())) {
             return false;
         }
-        if (TextUtils.isEmpty(usuarioIdActual)) {
+        if (isBlank(usuarioIdActual)) {
             return false;
         }
         return partido.getParticipantes().contains(usuarioIdActual);
     }
 
-    private boolean esPartidoDelUsuario(@NonNull Partido partido, @NonNull String usuarioIdActual) {
-        if (TextUtils.isEmpty(usuarioIdActual)) {
+    @VisibleForTesting
+    boolean esPartidoDelUsuario(@NonNull Partido partido, @NonNull String usuarioIdActual) {
+        if (isBlank(usuarioIdActual)) {
             return false;
         }
         if (usuarioIdActual.equals(partido.getCreadorId())) {
@@ -528,7 +537,7 @@ public class PartidoRepository {
             boolean unirse,
             @NonNull GestionInscripcionCallback callback
     ) {
-        if (TextUtils.isEmpty(partidoId.trim())) {
+        if (isBlank(partidoId)) {
             callback.onError(context.getString(R.string.msg_partido_id_invalido));
             return;
         }
@@ -539,7 +548,7 @@ public class PartidoRepository {
         }
 
         String usuarioIdActual = authService.getUsuarioIdActual();
-        if (TextUtils.isEmpty(usuarioIdActual)) {
+        if (isBlank(usuarioIdActual)) {
             callback.onError(context.getString(R.string.msg_auth_invalid_credentials));
             return;
         }
@@ -557,62 +566,23 @@ public class PartidoRepository {
                         );
                     }
 
-                    if (!esPartidoAbiertoParaInscripcion(partido.getEstado())) {
-                        throw new OperacionInscripcionException(
-                                context.getString(R.string.msg_partido_operacion_error)
-                        );
-                    }
-
-                    List<String> participantes = normalizarParticipantes(partido.getParticipantes());
-                    int maxJugadores = Math.max(partido.getMaxJugadores(), 0);
-                    int plazasOcupadas = Math.max(partido.getPlazasOcupadas(), 0);
-                    int plazasCalculadas = participantes.size() + Math.max(partido.getAcompanantesIniciales(), 0);
-                    plazasOcupadas = Math.max(plazasOcupadas, plazasCalculadas);
-                    if (maxJugadores > 0) {
-                        plazasOcupadas = Math.min(plazasOcupadas, maxJugadores);
-                    }
-                    boolean yaApuntado = participantes.contains(usuarioIdActual);
-
-                    if (unirse) {
-                        if (yaApuntado) {
-                            throw new OperacionInscripcionException(
-                                    context.getString(R.string.msg_partido_ya_apuntado)
-                            );
-                        }
-                        if (maxJugadores <= 0 || plazasOcupadas >= maxJugadores) {
-                            throw new OperacionInscripcionException(
-                                    context.getString(R.string.msg_partido_sin_plazas)
-                            );
-                        }
-
-                        participantes.add(usuarioIdActual);
-                        plazasOcupadas = Math.min(plazasOcupadas + 1, maxJugadores);
-                    } else {
-                        if (!yaApuntado) {
-                            throw new OperacionInscripcionException(
-                                    context.getString(R.string.msg_partido_operacion_error)
-                            );
-                        }
-
-                        participantes.remove(usuarioIdActual);
-                        plazasOcupadas = Math.max(plazasOcupadas - 1, 0);
-                    }
-
-                    String estadoActualizado = maxJugadores > 0 && plazasOcupadas >= maxJugadores
-                            ? Partido.ESTADO_COMPLETO
-                            : Partido.ESTADO_ACTIVO;
+                    aplicarReglasInscripcion(
+                            partido,
+                            usuarioIdActual,
+                            unirse,
+                            context.getString(R.string.msg_partido_ya_apuntado),
+                            context.getString(R.string.msg_partido_sin_plazas),
+                            context.getString(R.string.msg_partido_operacion_error)
+                    );
                     Date now = new Date();
 
                     Map<String, Object> updates = new HashMap<>();
-                    updates.put("participantes", participantes);
-                    updates.put("plazasOcupadas", plazasOcupadas);
-                    updates.put("estado", estadoActualizado);
+                    updates.put("participantes", partido.getParticipantes());
+                    updates.put("plazasOcupadas", partido.getPlazasOcupadas());
+                    updates.put("estado", partido.getEstado());
                     updates.put("ultimaActualizacion", now);
                     transaction.update(partidoRef, updates);
 
-                    partido.setParticipantes(participantes);
-                    partido.setPlazasOcupadas(plazasOcupadas);
-                    partido.setEstado(estadoActualizado);
                     partido.setUltimaActualizacion(now);
                     return partido;
                 })
@@ -629,13 +599,64 @@ public class PartidoRepository {
                 );
     }
 
-    private boolean esPartidoAbiertoParaInscripcion(@NonNull String estado) {
+    @VisibleForTesting
+    boolean esPartidoAbiertoParaInscripcion(@NonNull String estado) {
         return Partido.ESTADO_ACTIVO.equals(estado)
                 || Partido.ESTADO_COMPLETO.equals(estado);
     }
 
+    @VisibleForTesting
+    void aplicarReglasInscripcion(
+            @NonNull Partido partido,
+            @NonNull String usuarioIdActual,
+            boolean unirse,
+            @NonNull String mensajeYaApuntado,
+            @NonNull String mensajeSinPlazas,
+            @NonNull String mensajeOperacionError
+    ) {
+        if (!esPartidoAbiertoParaInscripcion(partido.getEstado())) {
+            throw new OperacionInscripcionException(mensajeOperacionError);
+        }
+
+        List<String> participantes = normalizarParticipantes(partido.getParticipantes());
+        int maxJugadores = Math.max(partido.getMaxJugadores(), 0);
+        int plazasOcupadas = Math.max(partido.getPlazasOcupadas(), 0);
+        int plazasCalculadas = participantes.size() + Math.max(partido.getAcompanantesIniciales(), 0);
+        plazasOcupadas = Math.max(plazasOcupadas, plazasCalculadas);
+        if (maxJugadores > 0) {
+            plazasOcupadas = Math.min(plazasOcupadas, maxJugadores);
+        }
+
+        boolean yaApuntado = participantes.contains(usuarioIdActual);
+        if (unirse) {
+            if (yaApuntado) {
+                throw new OperacionInscripcionException(mensajeYaApuntado);
+            }
+            if (maxJugadores <= 0 || plazasOcupadas >= maxJugadores) {
+                throw new OperacionInscripcionException(mensajeSinPlazas);
+            }
+            participantes.add(usuarioIdActual);
+            plazasOcupadas = Math.min(plazasOcupadas + 1, maxJugadores);
+        } else {
+            if (!yaApuntado) {
+                throw new OperacionInscripcionException(mensajeOperacionError);
+            }
+            participantes.remove(usuarioIdActual);
+            plazasOcupadas = Math.max(plazasOcupadas - 1, 0);
+        }
+
+        String estadoActualizado = maxJugadores > 0 && plazasOcupadas >= maxJugadores
+                ? Partido.ESTADO_COMPLETO
+                : Partido.ESTADO_ACTIVO;
+
+        partido.setParticipantes(participantes);
+        partido.setPlazasOcupadas(plazasOcupadas);
+        partido.setEstado(estadoActualizado);
+    }
+
     @NonNull
-    private List<String> normalizarParticipantes(@NonNull List<String> participantesOriginales) {
+    @VisibleForTesting
+    List<String> normalizarParticipantes(@NonNull List<String> participantesOriginales) {
         List<String> participantesNormalizados = new ArrayList<>();
         for (String participanteId : participantesOriginales) {
             if (participanteId == null) {
@@ -651,16 +672,21 @@ public class PartidoRepository {
     }
 
     @NonNull
-    private String obtenerMensajeOperacion(@NonNull Exception exception, @NonNull Context context) {
+    @VisibleForTesting
+    String obtenerMensajeOperacion(@NonNull Exception exception, @NonNull Context context) {
         Throwable cause = exception;
         while (cause != null) {
             if (cause instanceof OperacionInscripcionException
-                    && !TextUtils.isEmpty(cause.getMessage())) {
+                    && !isBlank(cause.getMessage())) {
                 return cause.getMessage();
             }
             cause = cause.getCause();
         }
         return context.getString(R.string.msg_partido_operacion_error);
+    }
+
+    private boolean isBlank(@Nullable String value) {
+        return value == null || value.trim().isEmpty();
     }
 
     private static class OperacionInscripcionException extends RuntimeException {

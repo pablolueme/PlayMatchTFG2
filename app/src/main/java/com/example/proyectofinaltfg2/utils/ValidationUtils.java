@@ -1,6 +1,5 @@
 package com.example.proyectofinaltfg2.utils;
 
-import android.text.TextUtils;
 import android.util.Patterns;
 
 import androidx.annotation.NonNull;
@@ -153,7 +152,7 @@ public final class ValidationUtils {
     }
 
     public static boolean isFieldEmpty(@Nullable String value) {
-        return TextUtils.isEmpty(value) || TextUtils.isEmpty(value.trim());
+        return value == null || value.trim().isEmpty();
     }
 
     public static boolean isEmailValid(@Nullable String email) {

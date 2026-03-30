@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.fragment.app.Fragment;
 
 import com.example.proyectofinaltfg2.R;
@@ -87,7 +88,7 @@ public class PartidosFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        partidoRepository = new PartidoRepository();
+        partidoRepository = crearPartidoRepository();
         ocultarBottomNavInterna(view);
         inicializarVistas(view);
         adaptadorPartidos = new AdaptadorPartidos(requireContext(), this::abrirDetallePartido);
@@ -404,5 +405,11 @@ public class PartidosFragment extends Fragment {
             return MODO_MIS_PARTIDOS;
         }
         return MODO_TODOS;
+    }
+
+    @VisibleForTesting
+    @NonNull
+    protected PartidoRepository crearPartidoRepository() {
+        return new PartidoRepository();
     }
 }
