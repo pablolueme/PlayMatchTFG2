@@ -10,6 +10,7 @@ import com.example.proyectofinaltfg2.R;
 import com.example.proyectofinaltfg2.logic.PartidoFechaHoraUtils;
 import com.example.proyectofinaltfg2.logic.ValidadorPartido;
 import com.example.proyectofinaltfg2.model.Partido;
+import com.example.proyectofinaltfg2.model.Resultado;
 import com.example.proyectofinaltfg2.model.UserProfile;
 import com.example.proyectofinaltfg2.model.Usuario;
 import com.example.proyectofinaltfg2.service.AuthService;
@@ -32,6 +33,10 @@ public class PartidoRepository {
 
     private static final String PARTIDOS_COLLECTION = "partidos";
     private static final int DIAS_LIMPIEZA_INACTIVOS = 2;
+    private static final List<String> SETS_VALIDOS = Arrays.asList(
+            "6-0", "6-1", "6-2", "6-3", "6-4", "7-5", "7-6",
+            "0-6", "1-6", "2-6", "3-6", "4-6", "5-7", "6-7"
+    );
 
     private final FirebaseFirestore firestore;
     private final UsuarioRepository usuarioRepository;
@@ -56,6 +61,12 @@ public class PartidoRepository {
     }
 
     public interface GestionInscripcionCallback {
+        void onSuccess(@NonNull Partido partidoActualizado, @NonNull String mensajeExito);
+
+        void onError(@NonNull String errorMessage);
+    }
+
+    public interface ConfirmarResultadoCallback {
         void onSuccess(@NonNull Partido partidoActualizado, @NonNull String mensajeExito);
 
         void onError(@NonNull String errorMessage);
@@ -263,6 +274,61 @@ public class PartidoRepository {
                 );
     }
 
+    public void obtenerHistorialUsuarioAutenticado(
+            @NonNull Context context,
+            @NonNull ObtenerPartidosCallback callback
+    ) {
+        if (!authService.isUsuarioAutenticado()) {
+            callback.onError(context.getString(R.string.msg_auth_invalid_credentials));
+            return;
+        }
+
+        String usuarioIdActual = authService.getUsuarioIdActual();
+        if (isBlank(usuarioIdActual)) {
+            callback.onError(context.getString(R.string.msg_auth_invalid_credentials));
+            return;
+        }
+
+        firestore
+                .collection(PARTIDOS_COLLECTION)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<Partido> historial = new ArrayList<>();
+
+                    queryDocumentSnapshots.getDocuments().forEach(documentSnapshot -> {
+                        Partido partido = Partido.fromDocument(documentSnapshot);
+                        if (partido == null) {
+                            return;
+                        }
+                        if (!partido.participaUsuario(usuarioIdActual)) {
+                            return;
+                        }
+                        if (!debeMostrarseEnHistorial(partido)) {
+                            return;
+                        }
+                        historial.add(partido);
+                    });
+
+                    historial.sort(
+                            Comparator.comparing(
+                                    (Partido partido) -> PartidoFechaHoraUtils.parsearFechaHora(
+                                            partido.getFecha(),
+                                            partido.getHora()
+                                    ),
+                                    Comparator.nullsLast(Comparator.reverseOrder())
+                            ).thenComparing(
+                                    (Partido partido) -> partido.getFechaCreacion(),
+                                    Comparator.nullsLast(Comparator.reverseOrder())
+                            )
+                    );
+
+                    callback.onSuccess(historial);
+                })
+                .addOnFailureListener(exception ->
+                        callback.onError(FirebaseAuthUtil.getAuthErrorMessage(context, exception))
+                );
+    }
+
     public void obtenerProximosPartidosActivos(
             @NonNull Context context,
             int limit,
@@ -360,6 +426,91 @@ public class PartidoRepository {
             @NonNull GestionInscripcionCallback callback
     ) {
         gestionarInscripcion(context, partidoId, false, callback);
+    }
+
+    public void confirmarResultado(
+            @NonNull Context context,
+            @NonNull String partidoId,
+            @NonNull Resultado resultado,
+            @NonNull ConfirmarResultadoCallback callback
+    ) {
+        if (isBlank(partidoId)) {
+            callback.onError(context.getString(R.string.msg_partido_id_invalido));
+            return;
+        }
+
+        if (!authService.isUsuarioAutenticado()) {
+            callback.onError(context.getString(R.string.msg_auth_invalid_credentials));
+            return;
+        }
+
+        String usuarioIdActual = authService.getUsuarioIdActual();
+        if (isBlank(usuarioIdActual)) {
+            callback.onError(context.getString(R.string.msg_auth_invalid_credentials));
+            return;
+        }
+
+        DocumentReference partidoRef = firestore
+                .collection(PARTIDOS_COLLECTION)
+                .document(partidoId.trim());
+
+        firestore.runTransaction(transaction -> {
+                    DocumentSnapshot snapshot = transaction.get(partidoRef);
+                    Partido partido = Partido.fromDocument(snapshot);
+                    if (partido == null) {
+                        throw new OperacionResultadoException(
+                                context.getString(R.string.msg_partido_no_encontrado)
+                        );
+                    }
+
+                    validarReglasConfirmacionResultado(
+                            partido,
+                            usuarioIdActual,
+                            context.getString(R.string.msg_resultado_solo_participantes),
+                            context.getString(R.string.msg_resultado_partido_no_jugado),
+                            context.getString(R.string.msg_resultado_ya_confirmado)
+                    );
+                    validarResultadoPorSets(
+                            resultado,
+                            context.getString(R.string.msg_resultado_set_obligatorio),
+                            context.getString(R.string.msg_resultado_set_invalido),
+                            context.getString(R.string.msg_resultado_set3_obligatorio),
+                            context.getString(R.string.msg_resultado_tiebreak_obligatorio),
+                            context.getString(R.string.msg_resultado_tiebreak_invalido)
+                    );
+
+                    Date now = new Date();
+                    Resultado resultadoConfirmado = new Resultado();
+                    resultadoConfirmado.setIdResultado(partido.getIdPartido() + "_" + now.getTime());
+                    resultadoConfirmado.setSet1(resultado.getSet1());
+                    resultadoConfirmado.setSet2(resultado.getSet2());
+                    resultadoConfirmado.setSet3(resultado.getSet3());
+                    resultadoConfirmado.setTieBreakSet1(resultado.getTieBreakSet1());
+                    resultadoConfirmado.setTieBreakSet2(resultado.getTieBreakSet2());
+                    resultadoConfirmado.setTieBreakSet3(resultado.getTieBreakSet3());
+                    resultadoConfirmado.actualizarMarcadorDesdeSets();
+                    resultadoConfirmado.setConfirmado(true);
+
+                    Map<String, Object> updates = new HashMap<>();
+                    updates.put("resultado", resultadoConfirmado.toMap());
+                    updates.put("resultadoConfirmado", true);
+                    updates.put("estado", Partido.ESTADO_FINALIZADO);
+                    updates.put("ultimaActualizacion", now);
+                    transaction.update(partidoRef, updates);
+
+                    partido.setResultado(resultadoConfirmado);
+                    partido.setResultadoConfirmado(true);
+                    partido.setEstado(Partido.ESTADO_FINALIZADO);
+                    partido.setUltimaActualizacion(now);
+                    return partido;
+                })
+                .addOnSuccessListener(partidoActualizado -> callback.onSuccess(
+                        partidoActualizado,
+                        context.getString(R.string.msg_resultado_confirmado_ok)
+                ))
+                .addOnFailureListener(exception ->
+                        callback.onError(obtenerMensajeOperacionResultado(exception, context))
+                );
     }
 
     public void limpiarPartidosInactivosAntiguos() {
@@ -510,10 +661,205 @@ public class PartidoRepository {
         if (isBlank(usuarioIdActual)) {
             return false;
         }
-        if (usuarioIdActual.equals(partido.getCreadorId())) {
-            return true;
+        return partido.participaUsuario(usuarioIdActual);
+    }
+
+    @VisibleForTesting
+    boolean debeMostrarseEnHistorial(@NonNull Partido partido) {
+        return partido.tieneResultadoConfirmado() || esPendienteResultado(partido);
+    }
+
+    @VisibleForTesting
+    boolean esPendienteResultado(@NonNull Partido partido) {
+        if (partido.tieneResultadoConfirmado()) {
+            return false;
         }
-        return partido.getParticipantes().contains(usuarioIdActual);
+        if (!noEstaCancelado(partido)) {
+            return false;
+        }
+        if (!partido.estaCompleto()) {
+            return false;
+        }
+        return haPasadoFechaHoraPartido(partido);
+    }
+
+    @VisibleForTesting
+    boolean haPasadoFechaHoraPartido(@NonNull Partido partido) {
+        LocalDateTime fechaHoraPartido = PartidoFechaHoraUtils.parsearFechaHora(
+                partido.getFecha(),
+                partido.getHora()
+        );
+        if (fechaHoraPartido == null) {
+            return false;
+        }
+        return fechaHoraPartido.isBefore(LocalDateTime.now());
+    }
+
+    @VisibleForTesting
+    boolean noEstaCancelado(@NonNull Partido partido) {
+        return !Partido.ESTADO_CANCELADO.equals(partido.getEstado());
+    }
+
+    @VisibleForTesting
+    void validarResultadoPorSets(
+            @NonNull Resultado resultado,
+            @NonNull String mensajeSetObligatorio,
+            @NonNull String mensajeSetInvalido,
+            @NonNull String mensajeSet3Obligatorio,
+            @NonNull String mensajeTieBreakObligatorio,
+            @NonNull String mensajeTieBreakInvalido
+    ) {
+        String set1 = normalizarTexto(resultado.getSet1());
+        String set2 = normalizarTexto(resultado.getSet2());
+        String set3 = normalizarTexto(resultado.getSet3());
+
+        if (set1.isEmpty() || set2.isEmpty()) {
+            throw new OperacionResultadoException(mensajeSetObligatorio);
+        }
+        if (!esSetValido(set1) || !esSetValido(set2)) {
+            throw new OperacionResultadoException(mensajeSetInvalido);
+        }
+
+        int ganadorSet1 = obtenerGanadorSet(set1);
+        int ganadorSet2 = obtenerGanadorSet(set2);
+        boolean requiereSet3 = ganadorSet1 != ganadorSet2;
+
+        if (requiereSet3) {
+            if (set3.isEmpty()) {
+                throw new OperacionResultadoException(mensajeSet3Obligatorio);
+            }
+            if (!esSetValido(set3)) {
+                throw new OperacionResultadoException(mensajeSetInvalido);
+            }
+        } else {
+            set3 = "";
+            resultado.setSet3("");
+        }
+
+        validarTieBreakSet(
+                set1,
+                resultado.getTieBreakSet1(),
+                mensajeTieBreakObligatorio,
+                mensajeTieBreakInvalido
+        );
+        if (!requiereTieBreak(set1)) {
+            resultado.setTieBreakSet1("");
+        }
+        validarTieBreakSet(
+                set2,
+                resultado.getTieBreakSet2(),
+                mensajeTieBreakObligatorio,
+                mensajeTieBreakInvalido
+        );
+        if (!requiereTieBreak(set2)) {
+            resultado.setTieBreakSet2("");
+        }
+        if (requiereSet3) {
+            validarTieBreakSet(
+                    set3,
+                    resultado.getTieBreakSet3(),
+                    mensajeTieBreakObligatorio,
+                    mensajeTieBreakInvalido
+            );
+        } else {
+            resultado.setTieBreakSet3("");
+        }
+    }
+
+    private void validarTieBreakSet(
+            @NonNull String set,
+            @Nullable String tieBreak,
+            @NonNull String mensajeTieBreakObligatorio,
+            @NonNull String mensajeTieBreakInvalido
+    ) {
+        if (!requiereTieBreak(set)) {
+            return;
+        }
+
+        String tieBreakNormalizado = normalizarTexto(tieBreak);
+        if (tieBreakNormalizado.isEmpty()) {
+            throw new OperacionResultadoException(mensajeTieBreakObligatorio);
+        }
+        if (!esTieBreakValido(set, tieBreakNormalizado)) {
+            throw new OperacionResultadoException(mensajeTieBreakInvalido);
+        }
+    }
+
+    @VisibleForTesting
+    boolean esSetValido(@Nullable String set) {
+        String setNormalizado = normalizarTexto(set);
+        return SETS_VALIDOS.contains(setNormalizado);
+    }
+
+    @VisibleForTesting
+    boolean requiereTieBreak(@Nullable String set) {
+        String setNormalizado = normalizarTexto(set);
+        return "7-6".equals(setNormalizado) || "6-7".equals(setNormalizado);
+    }
+
+    @VisibleForTesting
+    boolean esTieBreakValido(@Nullable String set, @Nullable String tieBreak) {
+        String setNormalizado = normalizarTexto(set);
+        String tieBreakNormalizado = normalizarTexto(tieBreak);
+        int[] marcadorTieBreak = parsearMarcador(tieBreakNormalizado);
+        if (marcadorTieBreak == null) {
+            return false;
+        }
+
+        int puntosLocal = marcadorTieBreak[0];
+        int puntosVisitante = marcadorTieBreak[1];
+        int ganador = "7-6".equals(setNormalizado) ? puntosLocal : puntosVisitante;
+        int perdedor = "7-6".equals(setNormalizado) ? puntosVisitante : puntosLocal;
+
+        if (ganador < 7) {
+            return false;
+        }
+        if (ganador <= perdedor) {
+            return false;
+        }
+        return (ganador - perdedor) >= 2;
+    }
+
+    @VisibleForTesting
+    int obtenerGanadorSet(@NonNull String set) {
+        int[] marcador = parsearMarcador(set);
+        if (marcador == null) {
+            return 0;
+        }
+        if (marcador[0] > marcador[1]) {
+            return 1;
+        }
+        if (marcador[1] > marcador[0]) {
+            return 2;
+        }
+        return 0;
+    }
+
+    @Nullable
+    private int[] parsearMarcador(@Nullable String marcador) {
+        String valor = normalizarTexto(marcador);
+        if (valor.isEmpty() || !valor.contains("-")) {
+            return null;
+        }
+        String[] partes = valor.split("-");
+        if (partes.length != 2) {
+            return null;
+        }
+        try {
+            int local = Integer.parseInt(partes[0].trim());
+            int visitante = Integer.parseInt(partes[1].trim());
+            if (local < 0 || visitante < 0) {
+                return null;
+            }
+            return new int[]{local, visitante};
+        } catch (NumberFormatException ignored) {
+            return null;
+        }
+    }
+
+    @NonNull
+    private String normalizarTexto(@Nullable String value) {
+        return value == null ? "" : value.trim();
     }
 
     private void borrarPartidos(@NonNull List<String> idsABorrar) {
@@ -654,6 +1000,25 @@ public class PartidoRepository {
         partido.setEstado(estadoActualizado);
     }
 
+    @VisibleForTesting
+    void validarReglasConfirmacionResultado(
+            @NonNull Partido partido,
+            @NonNull String usuarioIdActual,
+            @NonNull String mensajeSoloParticipantes,
+            @NonNull String mensajePartidoNoJugado,
+            @NonNull String mensajeResultadoYaConfirmado
+    ) {
+        if (!partido.participaUsuario(usuarioIdActual)) {
+            throw new OperacionResultadoException(mensajeSoloParticipantes);
+        }
+        if (partido.tieneResultadoConfirmado()) {
+            throw new OperacionResultadoException(mensajeResultadoYaConfirmado);
+        }
+        if (!esPendienteResultado(partido)) {
+            throw new OperacionResultadoException(mensajePartidoNoJugado);
+        }
+    }
+
     @NonNull
     @VisibleForTesting
     List<String> normalizarParticipantes(@NonNull List<String> participantesOriginales) {
@@ -685,6 +1050,22 @@ public class PartidoRepository {
         return context.getString(R.string.msg_partido_operacion_error);
     }
 
+    @NonNull
+    private String obtenerMensajeOperacionResultado(
+            @NonNull Exception exception,
+            @NonNull Context context
+    ) {
+        Throwable cause = exception;
+        while (cause != null) {
+            if (cause instanceof OperacionResultadoException
+                    && !isBlank(cause.getMessage())) {
+                return cause.getMessage();
+            }
+            cause = cause.getCause();
+        }
+        return context.getString(R.string.msg_resultado_operacion_error);
+    }
+
     private boolean isBlank(@Nullable String value) {
         return value == null || value.trim().isEmpty();
     }
@@ -692,6 +1073,13 @@ public class PartidoRepository {
     private static class OperacionInscripcionException extends RuntimeException {
 
         OperacionInscripcionException(@NonNull String message) {
+            super(message);
+        }
+    }
+
+    private static class OperacionResultadoException extends RuntimeException {
+
+        OperacionResultadoException(@NonNull String message) {
             super(message);
         }
     }

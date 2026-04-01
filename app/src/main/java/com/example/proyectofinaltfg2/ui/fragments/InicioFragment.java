@@ -23,6 +23,7 @@ import com.example.proyectofinaltfg2.repository.PartidoRepository;
 import com.example.proyectofinaltfg2.repository.UsuarioRepository;
 import com.example.proyectofinaltfg2.ui.CrearPartidoActivity;
 import com.example.proyectofinaltfg2.ui.DetallePartidoActivity;
+import com.example.proyectofinaltfg2.ui.HistorialPartidosActivity;
 import com.example.proyectofinaltfg2.ui.HomeActivity;
 import com.example.proyectofinaltfg2.ui.adapters.AdaptadorPartidos;
 import com.example.proyectofinaltfg2.utils.ValidationUtils;
@@ -39,6 +40,7 @@ public class InicioFragment extends Fragment {
     private LinearLayout cardCrearPartidoHome;
     private LinearLayout cardBuscarPartidosHome;
     private LinearLayout cardMisPartidosHome;
+    private LinearLayout cardHistorialHome;
     private LinearLayout cardProximoPartidoHome;
     private TextView txtFechaProximoPartidoHome;
     private TextView txtLugarProximoPartidoHome;
@@ -90,6 +92,7 @@ public class InicioFragment extends Fragment {
         cardCrearPartidoHome = view.findViewById(R.id.card_crear_partido_home);
         cardBuscarPartidosHome = view.findViewById(R.id.card_buscar_partidos_home);
         cardMisPartidosHome = view.findViewById(R.id.card_mis_partidos_home);
+        cardHistorialHome = view.findViewById(R.id.card_historial_home);
         cardProximoPartidoHome = view.findViewById(R.id.card_proximo_partido_home);
         txtFechaProximoPartidoHome = view.findViewById(R.id.txt_fecha_proximo_partido_home);
         txtLugarProximoPartidoHome = view.findViewById(R.id.txt_lugar_proximo_partido_home);
@@ -105,6 +108,7 @@ public class InicioFragment extends Fragment {
         );
         cardBuscarPartidosHome.setOnClickListener(v -> abrirPartidosDesdeHome(false));
         cardMisPartidosHome.setOnClickListener(v -> abrirPartidosDesdeHome(true));
+        cardHistorialHome.setOnClickListener(v -> abrirHistorialDesdeHome());
         imgBusquedaHome.setOnClickListener(v -> abrirPartidosDesdeHome(false));
 
         cardProximoPartidoHome.setOnClickListener(v -> abrirDetallePartido(partidoDestacado));
@@ -118,6 +122,13 @@ public class InicioFragment extends Fragment {
         if (requireActivity() instanceof HomeActivity) {
             ((HomeActivity) requireActivity()).abrirPartidos(soloMisPartidos);
         }
+    }
+
+    private void abrirHistorialDesdeHome() {
+        if (!isAdded()) {
+            return;
+        }
+        startActivity(new Intent(requireContext(), HistorialPartidosActivity.class));
     }
 
     private void cargarCabeceraPerfil() {

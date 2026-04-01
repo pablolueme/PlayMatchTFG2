@@ -237,6 +237,25 @@
                     android:text="@string/partido_estado_activo"
                     android:textColor="@color/text_primary"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_label_resultado_detalle_partido"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_10"
+                    android:text="@string/label_resultado"
+                    android:textColor="@color/text_tertiary"
+                    android:textSize="@dimen/text_size_12"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/txt_resultado_detalle_partido"
+                    style="@style/Text.PlayMatch.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <!-- Participantes -->

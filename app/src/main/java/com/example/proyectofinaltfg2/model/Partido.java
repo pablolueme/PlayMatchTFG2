@@ -195,7 +195,7 @@ public class Partido {
     }
 
     public boolean isResultadoConfirmado() {
-        return resultadoConfirmado;
+        return resultadoConfirmado || (resultado != null && resultado.isConfirmado());
     }
 
     public void setResultadoConfirmado(boolean resultadoConfirmado) {
@@ -222,6 +222,33 @@ public class Partido {
 
     public int getPlazasLibres() {
         return Math.max(maxJugadores - plazasOcupadas, 0);
+    }
+
+    public boolean estaCompleto() {
+        int max = Math.max(getMaxJugadores(), 0);
+        if (max == 0) {
+            return false;
+        }
+        return Math.max(getPlazasOcupadas(), 0) >= max;
+    }
+
+    public boolean estaFinalizado() {
+        return ESTADO_FINALIZADO.equals(getEstado());
+    }
+
+    public boolean participaUsuario(@Nullable String usuarioId) {
+        String usuarioSafe = sanitize(usuarioId);
+        if (usuarioSafe.isEmpty()) {
+            return false;
+        }
+        if (usuarioSafe.equals(getCreadorId())) {
+            return true;
+        }
+        return getParticipantes().contains(usuarioSafe);
+    }
+
+    public boolean tieneResultadoConfirmado() {
+        return isResultadoConfirmado();
     }
 
     @NonNull
@@ -270,15 +297,20 @@ public class Partido {
         partido.setMaxJugadores(readInt(documentSnapshot, "maxJugadores"));
         partido.setPlazasOcupadas(readInt(documentSnapshot, "plazasOcupadas"));
         partido.setEstado(readString(documentSnapshot, "estado"));
-        partido.setResultadoConfirmado(Boolean.TRUE.equals(documentSnapshot.getBoolean("resultadoConfirmado")));
         partido.setFechaCreacion(documentSnapshot.getDate("fechaCreacion"));
         partido.setUltimaActualizacion(documentSnapshot.getDate("ultimaActualizacion"));
+        boolean confirmadoDocumento = Boolean.TRUE.equals(
+                documentSnapshot.getBoolean("resultadoConfirmado")
+        );
 
         Object resultadoRaw = documentSnapshot.get("resultado");
         if (resultadoRaw instanceof Map) {
             //noinspection unchecked
             partido.setResultado(Resultado.fromMap((Map<String, Object>) resultadoRaw));
         }
+        boolean confirmadoResultado = partido.getResultado() != null
+                && partido.getResultado().isConfirmado();
+        partido.setResultadoConfirmado(confirmadoDocumento || confirmadoResultado);
 
         if (Partido.DEPORTE_PADEL.equals(partido.getDeporte())
                 && partido.getAcompanantesIniciales() == 0

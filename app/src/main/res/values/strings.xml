@@ -104,6 +104,21 @@
     <string name="msg_partido_sin_plazas">No quedan plazas disponibles</string>
     <string name="msg_partido_desapuntado_ok">Te has desapuntado del partido</string>
     <string name="msg_partido_operacion_error">Error al realizar la operacion. Intentalo de nuevo</string>
+    <string name="msg_historial_cargando">Cargando historial...</string>
+    <string name="msg_historial_error_carga">No se pudo cargar el historial</string>
+    <string name="msg_historial_sin_resultados">No tienes partidos finalizados en el historial</string>
+    <string name="msg_resultado_marcador_requerido">Introduce un marcador para confirmar el resultado</string>
+    <string name="msg_resultado_confirmado_ok">Resultado confirmado correctamente</string>
+    <string name="msg_resultado_solo_participantes">Solo pueden confirmar el resultado los participantes</string>
+    <string name="msg_resultado_partido_no_finalizado">Solo se puede confirmar en partidos finalizados</string>
+    <string name="msg_resultado_partido_no_jugado">Solo puedes confirmar resultados de partidos ya jugados y completos</string>
+    <string name="msg_resultado_ya_confirmado">El resultado ya estaba confirmado</string>
+    <string name="msg_resultado_operacion_error">No se pudo confirmar el resultado</string>
+    <string name="msg_resultado_set_obligatorio">Debes seleccionar Set 1 y Set 2</string>
+    <string name="msg_resultado_set_invalido">El set seleccionado no es valido</string>
+    <string name="msg_resultado_set3_obligatorio">Necesitas seleccionar Set 3 para desempatar</string>
+    <string name="msg_resultado_tiebreak_obligatorio">Faltan puntos del tie-break</string>
+    <string name="msg_resultado_tiebreak_invalido">El tie-break debe tener ganador con minimo 7 y diferencia de 2</string>
 
     <string name="registro_titulo">Unete a PlayMatch</string>
     <string name="registro_subtitulo">Completa tus datos y empieza a jugar hoy mismo.</string>
@@ -172,7 +187,8 @@
     <string name="crear_partido_nivel_titulo">Nivel (1-5)</string>
 
     <string name="historial_titulo">Historial de partidos</string>
-    <string name="historial_subtitulo">Consulta encuentros finalizados o pendientes de validar.</string>
+    <string name="historial_subtitulo">Consulta tus partidos finalizados y confirma resultados pendientes.</string>
+    <string name="historial_filtro_todos">Todos</string>
     <string name="historial_filtro_pendientes">Pendientes</string>
     <string name="historial_filtro_finalizados">Finalizados</string>
     <string name="historial_partido_pendiente">Partido pendiente de resultado</string>
@@ -189,6 +205,11 @@
     <string name="confirmar_resultado_set_1">Set 1</string>
     <string name="confirmar_resultado_set_2">Set 2</string>
     <string name="confirmar_resultado_set_3">Set 3</string>
+    <string name="confirmar_resultado_titulo_dialogo">Confirmar resultado del partido</string>
+    <string name="confirmar_resultado_dialogo_descripcion">Escribe el marcador final (ejemplo: 6-4 6-3).</string>
+    <string name="confirmar_resultado_dialogo_descripcion_sets">Selecciona el resultado por sets. Set 3 solo cuando haya empate 1-1.</string>
+    <string name="confirmar_resultado_hint_marcador">6-4 6-3</string>
+    <string name="confirmar_resultado_tiebreak">Tie-break</string>
 
     <string name="eventos_titulo">Eventos</string>
     <string name="eventos_subtitulo">Descubre torneos, clinics y actividades de club.</string>
@@ -278,6 +299,7 @@
     <string name="label_ubicacion">Ubicacion</string>
     <string name="label_creador">Creador</string>
     <string name="label_estado">Estado</string>
+    <string name="label_resultado">Resultado</string>
     <string name="label_plazas_ocupadas">Plazas</string>
     <string name="label_participantes">Participantes</string>
     <string name="label_organizador">Organizador</string>

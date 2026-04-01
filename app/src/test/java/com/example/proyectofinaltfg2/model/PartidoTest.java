@@ -65,6 +65,17 @@ public class PartidoTest {
     }
 
     @Test
+    public void estaCompleto_dependeDeMaximoYPlazasOcupadas() {
+        Partido partido = new Partido();
+        partido.setMaxJugadores(4);
+        partido.setPlazasOcupadas(3);
+        assertFalse(partido.estaCompleto());
+
+        partido.setPlazasOcupadas(4);
+        assertTrue(partido.estaCompleto());
+    }
+
+    @Test
     public void setAcompanantesIniciales_noPermiteNegativos() {
         Partido partido = new Partido();
         partido.setAcompanantesIniciales(-3);
@@ -148,5 +159,30 @@ public class PartidoTest {
         @SuppressWarnings("unchecked")
         Map<String, Object> resultadoMap = (Map<String, Object>) resultado;
         assertEquals("6-4 6-4", resultadoMap.get("marcador"));
+    }
+
+    @Test
+    public void estaFinalizado_yParticipaUsuario_funcionanSegunEstadoYParticipantes() {
+        Partido partido = new Partido();
+        partido.setEstado(Partido.ESTADO_FINALIZADO);
+        partido.setCreadorId("u1");
+        partido.setParticipantes(Arrays.asList("u2", "u3"));
+
+        assertTrue(partido.estaFinalizado());
+        assertTrue(partido.participaUsuario("u1"));
+        assertTrue(partido.participaUsuario("u2"));
+        assertFalse(partido.participaUsuario("u4"));
+    }
+
+    @Test
+    public void tieneResultadoConfirmado_tambienLeeConfirmadoDentroDeResultado() {
+        Partido partido = new Partido();
+        Resultado resultado = new Resultado();
+        resultado.setMarcador("6-4 6-4");
+        resultado.setConfirmado(true);
+        partido.setResultado(resultado);
+        partido.setResultadoConfirmado(false);
+
+        assertTrue(partido.tieneResultadoConfirmado());
     }
 }

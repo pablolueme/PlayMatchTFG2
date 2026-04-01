@@ -12,6 +12,7 @@ import android.content.Context;
 
 import com.example.proyectofinaltfg2.R;
 import com.example.proyectofinaltfg2.model.Partido;
+import com.example.proyectofinaltfg2.model.Resultado;
 import com.example.proyectofinaltfg2.model.Usuario;
 import com.example.proyectofinaltfg2.service.AuthService;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -394,6 +395,135 @@ public class PartidoRepositoryTest {
         String mensaje = repository.obtenerMensajeOperacion(new RuntimeException("x"), context);
 
         assertEquals("fallback", mensaje);
+    }
+
+    @Test
+    public void validarReglasConfirmacionResultado_partidoValido_noLanzaError() {
+        PartidoRepository repository = crearRepository();
+        Partido partido = partidoConParticipantes(
+                Partido.ESTADO_COMPLETO,
+                4,
+                4,
+                0,
+                Arrays.asList("u1", "u2")
+        );
+        partido.setFecha(LocalDate.now().minusDays(1).format(FORMATO_FECHA));
+        partido.setHora("10:00");
+        partido.setCreadorId("u1");
+        partido.setResultadoConfirmado(false);
+
+        repository.validarReglasConfirmacionResultado(
+                partido,
+                "u2",
+                "solo participantes",
+                "no jugado",
+                "ya confirmado"
+        );
+    }
+
+    @Test
+    public void validarReglasConfirmacionResultado_siYaConfirmado_lanzaError() {
+        PartidoRepository repository = crearRepository();
+        Partido partido = partidoConParticipantes(
+                Partido.ESTADO_COMPLETO,
+                4,
+                4,
+                0,
+                Arrays.asList("u1", "u2")
+        );
+        partido.setFecha(LocalDate.now().minusDays(1).format(FORMATO_FECHA));
+        partido.setHora("10:00");
+        partido.setResultadoConfirmado(true);
+
+        RuntimeException error = assertThrows(
+                RuntimeException.class,
+                () -> repository.validarReglasConfirmacionResultado(
+                        partido,
+                        "u2",
+                        "solo participantes",
+                        "no jugado",
+                        "ya confirmado"
+                )
+        );
+
+        assertEquals("ya confirmado", error.getMessage());
+    }
+
+    @Test
+    public void esPendienteResultado_siPartidoPasadoCompletoYNoCancelado_devuelveTrue() {
+        PartidoRepository repository = crearRepository();
+        Partido partido = partidoConParticipantes(
+                Partido.ESTADO_COMPLETO,
+                4,
+                4,
+                0,
+                Arrays.asList("u1", "u2")
+        );
+        partido.setFecha(LocalDate.now().minusDays(1).format(FORMATO_FECHA));
+        partido.setHora("10:00");
+        partido.setResultadoConfirmado(false);
+
+        assertTrue(repository.esPendienteResultado(partido));
+        assertTrue(repository.debeMostrarseEnHistorial(partido));
+    }
+
+    @Test
+    public void esPendienteResultado_siNoEstaCompleto_devuelveFalse() {
+        PartidoRepository repository = crearRepository();
+        Partido partido = partidoConParticipantes(
+                Partido.ESTADO_ACTIVO,
+                4,
+                3,
+                0,
+                Arrays.asList("u1", "u2", "u3")
+        );
+        partido.setFecha(LocalDate.now().minusDays(1).format(FORMATO_FECHA));
+        partido.setHora("10:00");
+
+        assertFalse(repository.esPendienteResultado(partido));
+        assertFalse(repository.debeMostrarseEnHistorial(partido));
+    }
+
+    @Test
+    public void validarResultadoPorSets_casoValidoConTieBreak_noLanzaError() {
+        PartidoRepository repository = crearRepository();
+        Resultado resultado = new Resultado();
+        resultado.setSet1("7-6");
+        resultado.setSet2("4-6");
+        resultado.setSet3("6-4");
+        resultado.setTieBreakSet1("7-5");
+
+        repository.validarResultadoPorSets(
+                resultado,
+                "set obligatorio",
+                "set invalido",
+                "set3 obligatorio",
+                "tb obligatorio",
+                "tb invalido"
+        );
+    }
+
+    @Test
+    public void validarResultadoPorSets_tieBreakInvalido_lanzaError() {
+        PartidoRepository repository = crearRepository();
+        Resultado resultado = new Resultado();
+        resultado.setSet1("7-6");
+        resultado.setSet2("6-4");
+        resultado.setTieBreakSet1("7-6");
+
+        RuntimeException error = assertThrows(
+                RuntimeException.class,
+                () -> repository.validarResultadoPorSets(
+                        resultado,
+                        "set obligatorio",
+                        "set invalido",
+                        "set3 obligatorio",
+                        "tb obligatorio",
+                        "tb invalido"
+                )
+        );
+
+        assertEquals("tb invalido", error.getMessage());
     }
 
     private PartidoRepository crearRepository() {

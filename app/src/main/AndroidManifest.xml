@@ -24,6 +24,9 @@
             android:name=".ui.CrearPartidoActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.HistorialPartidosActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.HomeActivity"
             android:exported="false" />
         <activity
