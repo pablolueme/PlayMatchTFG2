@@ -15,6 +15,12 @@
         android:theme="@style/Theme.ProyectoFinalApp"
         tools:targetApi="31">
         <activity
+            android:name=".ui.DetalleEventoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.CrearEventoActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.EditarPerfilActivity"
             android:exported="false" />
         <activity

@@ -13,6 +13,7 @@
     <string name="action_desapuntarse">Desapuntarse</string>
     <string name="action_ver_detalle">Ver detalle</string>
     <string name="action_crear_partido">Crear partido</string>
+    <string name="action_crear_evento">Crear evento</string>
     <string name="action_guardar_resultado">Guardar resultado</string>
     <string name="action_publicar_evento">Publicar evento</string>
     <string name="action_editar_perfil">Editar perfil</string>
@@ -119,6 +120,16 @@
     <string name="msg_resultado_set3_obligatorio">Necesitas seleccionar Set 3 para desempatar</string>
     <string name="msg_resultado_tiebreak_obligatorio">Faltan puntos del tie-break</string>
     <string name="msg_resultado_tiebreak_invalido">El tie-break debe tener ganador con minimo 7 y diferencia de 2</string>
+    <string name="msg_eventos_cargando">Cargando eventos...</string>
+    <string name="msg_eventos_error_carga">No se pudieron cargar los eventos</string>
+    <string name="msg_eventos_sin_resultados">No hay eventos publicados</string>
+    <string name="msg_eventos_solo_club_crear">Solo los usuarios CLUB pueden crear eventos</string>
+    <string name="msg_evento_publicado_ok">Evento publicado correctamente</string>
+    <string name="msg_evento_id_invalido">Id de evento no valido</string>
+    <string name="msg_evento_no_encontrado">No se encontro el evento solicitado</string>
+    <string name="msg_evento_campos_obligatorios">Completa todos los campos obligatorios</string>
+    <string name="msg_evento_fecha_invalida">La fecha no tiene un formato valido (dd/MM/yyyy)</string>
+    <string name="msg_evento_hora_invalida">La hora no tiene un formato valido (HH:mm)</string>
 
     <string name="registro_titulo">Unete a PlayMatch</string>
     <string name="registro_subtitulo">Completa tus datos y empieza a jugar hoy mismo.</string>
@@ -145,6 +156,7 @@
     <string name="home_sin_partidos_plazas">0 plazas libres</string>
     <string name="home_partidos_disponibles">Partidos disponibles</string>
     <string name="home_eventos_destacados">Eventos destacados</string>
+    <string name="home_eventos_sin_disponibles">No hay eventos disponibles</string>
     <string name="home_bienvenida_default">Hola, jugador</string>
     <string name="home_bienvenida_with_email">Hola, %1$s</string>
     <string name="home_profile_detail">%1$s | Rol: %2$s</string>
@@ -262,6 +274,7 @@
     <string name="ajustes_opcion_info_cuenta_desc">Consulta correo, rol y estado de usuario.</string>
     <string name="ajustes_opcion_cerrar_sesion">Cerrar sesion</string>
     <string name="ajustes_opcion_cerrar_sesion_desc">Finaliza la sesion en este dispositivo.</string>
+    <string name="msg_ajustes_proximamente">Proximamente</string>
 
     <string name="nav_inicio">Inicio</string>
     <string name="nav_partidos">Partidos</string>
@@ -288,6 +301,9 @@
     <string name="sample_evento_titulo">Liga Express de primavera</string>
     <string name="sample_evento_ubicacion">Ciudad Deportiva, Salamanca</string>
     <string name="sample_evento_fecha">24 marzo 2026</string>
+    <string name="sample_evento_club">Organiza: Club PlayMatch</string>
+    <string name="evento_club_format">Organiza: %1$s</string>
+    <string name="evento_estado_publicado">PUBLICADO</string>
 
     <string name="label_deporte">Deporte</string>
     <string name="label_nivel">Nivel</string>

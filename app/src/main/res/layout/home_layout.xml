@@ -325,7 +325,9 @@
                 android:layout_marginTop="@dimen/spacing_8"
                 android:text="@string/home_eventos_destacados" />
 
-            <include layout="@layout/item_evento_layout" />
+            <include
+                android:id="@+id/item_evento_preview_home"
+                layout="@layout/item_evento_layout" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

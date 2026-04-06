@@ -17,11 +17,14 @@ import androidx.fragment.app.Fragment;
 
 import com.example.proyectofinaltfg2.R;
 import com.example.proyectofinaltfg2.logic.PartidoFechaHoraUtils;
+import com.example.proyectofinaltfg2.model.Evento;
 import com.example.proyectofinaltfg2.model.Partido;
 import com.example.proyectofinaltfg2.model.UserProfile;
+import com.example.proyectofinaltfg2.repository.EventoRepository;
 import com.example.proyectofinaltfg2.repository.PartidoRepository;
 import com.example.proyectofinaltfg2.repository.UsuarioRepository;
 import com.example.proyectofinaltfg2.ui.CrearPartidoActivity;
+import com.example.proyectofinaltfg2.ui.DetalleEventoActivity;
 import com.example.proyectofinaltfg2.ui.DetallePartidoActivity;
 import com.example.proyectofinaltfg2.ui.HistorialPartidosActivity;
 import com.example.proyectofinaltfg2.ui.HomeActivity;
@@ -48,11 +51,16 @@ public class InicioFragment extends Fragment {
     private TextView txtPlazasProximoPartidoHome;
     private Button btnVerPartidoHome;
     private View itemPartidoPreviewHome;
+    private View itemEventoPreviewHome;
+    private Button btnVerDetalleEventoHome;
 
     private UsuarioRepository usuarioRepository;
     private PartidoRepository partidoRepository;
+    private EventoRepository eventoRepository;
     @Nullable
     private Partido partidoDestacado;
+    @Nullable
+    private Evento eventoDestacado;
 
     public InicioFragment() {
         super(R.layout.home_layout);
@@ -64,11 +72,13 @@ public class InicioFragment extends Fragment {
 
         usuarioRepository = crearUsuarioRepository();
         partidoRepository = crearPartidoRepository();
+        eventoRepository = crearEventoRepository();
 
         ocultarBottomNavInterna(view);
         inicializarVistas(view);
         configurarEventos();
         mostrarHomeSinPartidos();
+        mostrarHomeSinEventos();
     }
 
     @Override
@@ -76,6 +86,7 @@ public class InicioFragment extends Fragment {
         super.onResume();
         cargarCabeceraPerfil();
         cargarPartidosHome();
+        cargarEventoDestacadoHome();
     }
 
     private void ocultarBottomNavInterna(@NonNull View view) {
@@ -100,6 +111,8 @@ public class InicioFragment extends Fragment {
         txtPlazasProximoPartidoHome = view.findViewById(R.id.txt_plazas_proximo_partido_home);
         btnVerPartidoHome = view.findViewById(R.id.btn_ver_partido_home);
         itemPartidoPreviewHome = view.findViewById(R.id.item_partido_preview_home);
+        itemEventoPreviewHome = view.findViewById(R.id.item_evento_preview_home);
+        btnVerDetalleEventoHome = itemEventoPreviewHome.findViewById(R.id.btn_ver_detalle_item_evento);
     }
 
     private void configurarEventos() {
@@ -113,6 +126,8 @@ public class InicioFragment extends Fragment {
 
         cardProximoPartidoHome.setOnClickListener(v -> abrirDetallePartido(partidoDestacado));
         btnVerPartidoHome.setOnClickListener(v -> abrirDetallePartido(partidoDestacado));
+        itemEventoPreviewHome.setOnClickListener(v -> abrirDetalleEvento(eventoDestacado));
+        btnVerDetalleEventoHome.setOnClickListener(v -> abrirDetalleEvento(eventoDestacado));
     }
 
     private void abrirPartidosDesdeHome(boolean soloMisPartidos) {
@@ -201,6 +216,38 @@ public class InicioFragment extends Fragment {
         );
     }
 
+    private void cargarEventoDestacadoHome() {
+        if (!isAdded()) {
+            return;
+        }
+
+        eventoRepository.obtenerProximoEventoPublicado(
+                requireContext(),
+                new EventoRepository.ObtenerProximoEventoCallback() {
+                    @Override
+                    public void onSuccess(@Nullable Evento evento) {
+                        if (!isAdded()) {
+                            return;
+                        }
+                        if (evento == null) {
+                            mostrarHomeSinEventos();
+                            return;
+                        }
+                        mostrarEventoDestacado(evento);
+                    }
+
+                    @Override
+                    public void onError(@NonNull String errorMessage) {
+                        if (!isAdded()) {
+                            return;
+                        }
+                        mostrarHomeSinEventos();
+                        Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+    }
+
     private void mostrarPartidosHome(@NonNull List<Partido> partidos) {
         if (partidos.isEmpty()) {
             mostrarHomeSinPartidos();
@@ -246,6 +293,40 @@ public class InicioFragment extends Fragment {
         itemPartidoPreviewHome.setVisibility(View.GONE);
     }
 
+    private void mostrarEventoDestacado(@NonNull Evento evento) {
+        eventoDestacado = evento;
+
+        TextView txtTituloEvento = itemEventoPreviewHome.findViewById(R.id.txt_titulo_item_evento);
+        TextView txtUbicacionEvento = itemEventoPreviewHome.findViewById(R.id.txt_ubicacion_item_evento);
+        TextView txtFechaHoraEvento = itemEventoPreviewHome.findViewById(R.id.txt_fecha_hora_item_evento);
+        TextView txtClubEvento = itemEventoPreviewHome.findViewById(R.id.txt_club_item_evento);
+
+        txtTituloEvento.setText(evento.getTitulo());
+        txtUbicacionEvento.setText(evento.getUbicacion());
+        txtFechaHoraEvento.setText(
+                PartidoFechaHoraUtils.formatearFechaHora(evento.getFecha(), evento.getHora())
+        );
+        txtClubEvento.setText(getString(R.string.evento_club_format, evento.getClubNombre()));
+        btnVerDetalleEventoHome.setEnabled(true);
+        btnVerDetalleEventoHome.setAlpha(1f);
+    }
+
+    private void mostrarHomeSinEventos() {
+        eventoDestacado = null;
+
+        TextView txtTituloEvento = itemEventoPreviewHome.findViewById(R.id.txt_titulo_item_evento);
+        TextView txtUbicacionEvento = itemEventoPreviewHome.findViewById(R.id.txt_ubicacion_item_evento);
+        TextView txtFechaHoraEvento = itemEventoPreviewHome.findViewById(R.id.txt_fecha_hora_item_evento);
+        TextView txtClubEvento = itemEventoPreviewHome.findViewById(R.id.txt_club_item_evento);
+
+        txtTituloEvento.setText(R.string.home_eventos_sin_disponibles);
+        txtUbicacionEvento.setText("");
+        txtFechaHoraEvento.setText("");
+        txtClubEvento.setText("");
+        btnVerDetalleEventoHome.setEnabled(false);
+        btnVerDetalleEventoHome.setAlpha(0.6f);
+    }
+
     @VisibleForTesting
     @NonNull
     protected UsuarioRepository crearUsuarioRepository() {
@@ -256,6 +337,12 @@ public class InicioFragment extends Fragment {
     @NonNull
     protected PartidoRepository crearPartidoRepository() {
         return new PartidoRepository();
+    }
+
+    @VisibleForTesting
+    @NonNull
+    protected EventoRepository crearEventoRepository() {
+        return new EventoRepository();
     }
 
     private void abrirDetallePartido(@Nullable Partido partido) {
@@ -269,6 +356,20 @@ public class InicioFragment extends Fragment {
 
         Intent intent = new Intent(requireContext(), DetallePartidoActivity.class);
         intent.putExtra(DetallePartidoActivity.EXTRA_PARTIDO_ID, partido.getIdPartido());
+        startActivity(intent);
+    }
+
+    private void abrirDetalleEvento(@Nullable Evento evento) {
+        if (!isAdded() || evento == null) {
+            return;
+        }
+        if (evento.getIdEvento().isEmpty()) {
+            Toast.makeText(requireContext(), R.string.msg_evento_id_invalido, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(requireContext(), DetalleEventoActivity.class);
+        intent.putExtra(DetalleEventoActivity.EXTRA_EVENTO_ID, evento.getIdEvento());
         startActivity(intent);
     }
 

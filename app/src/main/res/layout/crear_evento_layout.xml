@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_crear_evento"
@@ -6,18 +6,32 @@
     android:layout_height="match_parent"
     android:background="@color/background_app">
 
+    <ImageButton
+        android:id="@+id/btn_volver_crear_evento"
+        android:layout_width="@dimen/icon_size_40"
+        android:layout_height="@dimen/icon_size_40"
+        android:layout_marginStart="@dimen/spacing_20"
+        android:layout_marginTop="@dimen/spacing_16"
+        android:background="@drawable/bg_icono_circulo_claro"
+        android:contentDescription="@string/action_volver"
+        android:padding="@dimen/spacing_10"
+        android:src="@android:drawable/ic_media_previous"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/primary_brand_dark" />
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_crear_evento"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:paddingStart="@dimen/spacing_24"
-        android:paddingTop="@dimen/spacing_24"
+        android:paddingTop="@dimen/spacing_12"
         android:paddingEnd="@dimen/spacing_24"
         android:paddingBottom="@dimen/spacing_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/btn_volver_crear_evento">
 
         <LinearLayout
             android:id="@+id/container_crear_evento"
@@ -94,6 +108,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_20"
                 android:text="@string/action_publicar_evento" />
+
+            <ProgressBar
+                android:id="@+id/progress_crear_evento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:visibility="gone" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

@@ -17,6 +17,7 @@ import com.example.proyectofinaltfg2.R;
 import com.example.proyectofinaltfg2.model.UserProfile;
 import com.example.proyectofinaltfg2.repository.UsuarioRepository;
 import com.example.proyectofinaltfg2.ui.EditarPerfilActivity;
+import com.example.proyectofinaltfg2.ui.HistorialPartidosActivity;
 import com.example.proyectofinaltfg2.ui.LoginActivity;
 import com.example.proyectofinaltfg2.utils.FirebaseAuthUtil;
 import com.example.proyectofinaltfg2.utils.ValidationUtils;
@@ -52,7 +53,6 @@ public class PerfilFragment extends Fragment {
 
         bindViews(view);
         configureListeners();
-        disablePendingSections();
     }
 
     @Override
@@ -79,13 +79,12 @@ public class PerfilFragment extends Fragment {
                 startActivity(new Intent(requireContext(), EditarPerfilActivity.class))
         );
         btnCerrarSesionPerfil.setOnClickListener(v -> logoutAndNavigateToLogin());
-    }
-
-    private void disablePendingSections() {
-        cardHistorialPerfil.setEnabled(false);
-        cardHistorialPerfil.setClickable(false);
-        cardAjustesPerfil.setEnabled(false);
-        cardAjustesPerfil.setClickable(false);
+        cardHistorialPerfil.setOnClickListener(v ->
+                startActivity(new Intent(requireContext(), HistorialPartidosActivity.class))
+        );
+        cardAjustesPerfil.setOnClickListener(v ->
+                Toast.makeText(requireContext(), R.string.msg_ajustes_proximamente, Toast.LENGTH_SHORT).show()
+        );
     }
 
     private void loadUserProfile() {
