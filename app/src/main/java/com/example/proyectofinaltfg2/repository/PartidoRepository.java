@@ -624,6 +624,9 @@ public class PartidoRepository {
             @NonNull Partido partido,
             @NonNull LocalDateTime fechaLimiteBorrado
     ) {
+        if (partido.tieneResultadoConfirmado()) {
+            return false;
+        }
         if (Partido.ESTADO_ACTIVO.equals(partido.getEstado())) {
             return false;
         }

@@ -327,6 +327,43 @@ public class PartidoRepositoryTest {
     }
 
     @Test
+    public void debeBorrarsePorLimpieza_conResultadoConfirmadoNoSeBorra() {
+        PartidoRepository repository = crearRepository();
+        Partido partido = new Partido();
+        partido.setEstado(Partido.ESTADO_FINALIZADO);
+        partido.setFecha(LocalDate.now().minusDays(5).format(FORMATO_FECHA));
+        partido.setHora("10:00");
+        partido.setResultadoConfirmado(true);
+
+        boolean borrar = repository.debeBorrarsePorLimpieza(
+                partido,
+                LocalDateTime.now().minusDays(2)
+        );
+
+        assertFalse(borrar);
+    }
+
+    @Test
+    public void debeBorrarsePorLimpieza_conResultadoInternoConfirmadoNoSeBorra() {
+        PartidoRepository repository = crearRepository();
+        Partido partido = new Partido();
+        partido.setEstado(Partido.ESTADO_FINALIZADO);
+        partido.setFecha(LocalDate.now().minusDays(5).format(FORMATO_FECHA));
+        partido.setHora("10:00");
+
+        Resultado resultado = new Resultado();
+        resultado.setConfirmado(true);
+        partido.setResultado(resultado);
+
+        boolean borrar = repository.debeBorrarsePorLimpieza(
+                partido,
+                LocalDateTime.now().minusDays(2)
+        );
+
+        assertFalse(borrar);
+    }
+
+    @Test
     public void debeMostrarseEnListado_yEsPartidoDelUsuario_aplicanReglas() {
         PartidoRepository repository = crearRepository();
         Partido partidoActivo = partidoConParticipantes(Partido.ESTADO_ACTIVO, 4, 1, 0, Arrays.asList("u1"));
